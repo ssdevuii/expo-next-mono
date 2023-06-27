@@ -1,0 +1,38 @@
+{
+  "app_title": "Informatics Expo",
+
+  "auth_title": "Masuk",
+  "auth_subTitleFb": "Masuk sebagai pengunjung",
+  "auth_buttonFB": "Masuk dengan Facebook",
+  "auth_or": "atau",
+  "auth_subtitleGoogle": "Masuk sebagai peserta",
+  "auth_buttonGoogle": "Masuk Dengan Google",
+  "auth_google_message": "Untuk peserta masuk menggunakan email UII",
+
+  "nav_beranda": "Beranda",
+  "nav_klasemen": "Klasemen",
+  "nav_signIn": "Masuk",
+
+  "karyaCard_detailButton": "Lihat Karya",
+
+  "search_label": "Apa yang anda cari?",
+  "search_matkul": "Mata Kuliah",
+  "search_tahun": "Tahun",
+  "search_nama": "Nama karya",
+  "search_button": "Cari",
+
+  "standing_shorter_label": "Apa yang anda cari?",
+  "standing_shorter_semester": "Semester",
+  "standing_shorter_semester_odd": "Ganjil",
+  "standing_shorter_semester_even": "Genap",
+  "standing_shorter_year": "Tahun",
+  "standing_shorter_submit": "Cari",
+
+  "loading_text": "Sedang memuat data, Tunggu bentar ya . . .",
+
+  "user_dashboard": "Dashboard",
+  "user_logout": "Keluar",
+
+  "footer_follow": "Follow us on Socal Media",
+  "footer_copyright": "Copyright © 2021 All rights reserved Student Staff for Informatics Expo"
+}

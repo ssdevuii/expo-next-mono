@@ -1,0 +1,14 @@
+{
+  "head_title": "{{project_name}}",
+  "by": "By",
+  "decription": "Description",
+  "information": "Information",
+  "support": "Support",
+  "support_button": "Like",
+  "support_button_clicked": "Liked",
+  "support_count": "you still have {{count}} likes.",
+  "share": "Share!",
+  "team": "Team Members",
+  "leader": "Leader",
+  "member": "Member"
+}

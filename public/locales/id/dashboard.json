@@ -1,0 +1,13 @@
+{
+  "head_title": "Dashboard pengguna",
+
+  "header_title": "DASHBOARD USER",
+  "header_desc": "Selamat Datang, {{user}}",
+  "button_createNewTeam": "Buat Tim Baru",
+  "button_invitation": "Undangan",
+  "card_team": "Anggota Tim",
+  "card_noKarya": "Belum Mengajukan Karya",
+  "card_buttonEditKarya": "Ubah Karya",
+  "card_buttonEditTeam": "Ubah Tim",
+  "card_buttonCompleteTheKarya": "Lengkapi Karya"
+}

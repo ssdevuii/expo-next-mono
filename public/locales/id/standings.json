@@ -1,0 +1,13 @@
+{
+  "head_title": "Klasemen",
+  "header_title": "KLASEMEN",
+  "header_desc": "Karya-karya terbaik Jurusan Informatika",
+  "header_semester": "Semester",
+  "semester": "Semester {{semester}} Tahun {{tahun}}",
+  "table_name": "Karya",
+  "table_team": "Tim",
+  "table_matkul": "Mata Kuliah",
+  "table_like": "Suka",
+  "info": "Pemberian Like berakhir pada {{time}}.",
+  "term": "Pemenang yang sudah memenangkan ketegori lain tidak akan mendapat hadiah dari kategori klasemen terbaik."
+}

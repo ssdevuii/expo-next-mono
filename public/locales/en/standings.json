@@ -1,0 +1,13 @@
+{
+  "head_title": "Standings",
+  "header_title": "STANDINGS",
+  "header_desc": "The best works of the Informatics Department",
+  "header_semester": "Semester",
+  "semester": "Semester {{semester}}, {{tahun}}",
+  "table_name": "Works",
+  "table_team": "Team",
+  "table_matkul": "Subject",
+  "table_like": "Likes",
+  "info": "This Standings will end in {{time}}.",
+  "term": "Winners who have won other categories will not receive prizes from the best standings category."
+}

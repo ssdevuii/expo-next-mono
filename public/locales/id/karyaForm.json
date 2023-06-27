@@ -1,0 +1,28 @@
+{
+  "create_head_title": "Tambah Karya",
+  "edit_head_title": "Ubah Karya",
+
+  "create_header_title": "TAMBAH KARYA",
+  "edit_header_title": "UBAH KARYA",
+
+  "create_header_desc": "Selamat Datang, {{user}}",
+
+  "form_teamName": "Tim",
+  "form_karyaName": "Nama Karya",
+  "form_category": "Kategori",
+  "form_period": "Priode",
+  "form_year": "Tahun",
+  "form_desc": "Deskripsi",
+  "form_demoURL": "Url Demo/Git Repository",
+  "form_videoUrl": "Url Video",
+  "form_poster": "Poster (Max 800KB)",
+  "form_selectButton": "Pilih Poster",
+  "form_changeButton": "Ubah Poster",
+  "form_deleteButton": "Hapus Poster",
+
+  "form_karyaName_error": "Nama karya minimal 5 karakter",
+  "form_poster_error": "Harus ada poster",
+
+  "form_edit": "Ubah Karya",
+  "form_submit": "Ajukan Karya"
+}

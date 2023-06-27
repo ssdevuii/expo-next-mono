@@ -1,0 +1,13 @@
+{
+  "head_title": "User Dashboard",
+
+  "header_title": "USER DASHBOARD",
+  "header_desc": "Welcome, {{user}}",
+  "button_createNewTeam": "Create New Team",
+  "button_invitation": "Invitation",
+  "card_team": "Members",
+  "card_noKarya": "No Project",
+  "card_buttonEditKarya": "Edit Project",
+  "card_buttonEditTeam": "Edit Team",
+  "card_buttonCompleteTheKarya": "Submit Project"
+}

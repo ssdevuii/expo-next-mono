@@ -1,0 +1,18 @@
+{
+  "head_title": "Beranda",
+
+  "jumbotron_title": "temukan",
+  "jumbotron_subTitle": "karya-karya terbaik mahasiswa uii",
+
+  "category_title": "KATEGORI SDG",
+  "category_desc": "Daftar kategori SDG",
+
+  "karya_title": "karya terbaru",
+  "karya_desc": "daftar karya mahasiswa terbaru",
+
+  "karya_detileButton": "lihat karya",
+  "moreButton": "lihat lebih banyak",
+
+  "popular_title": "karya populer",
+  "popular_desc": "daftar karya populer mahasiswa"
+}

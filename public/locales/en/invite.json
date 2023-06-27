@@ -1,0 +1,23 @@
+{
+  "head_title": "Invite Members",
+
+  "header_title": "INVITE MEMBER",
+
+  "header_desc": "Welcome, {{user}}",
+
+  "form_eamil": "Email",
+  "form_eamilPlaceholder": "Registred Email",
+  "form_submit": "Send Invitaition",
+
+  "tableHead_to": "To",
+  "tableHead_status": "Status",
+  "tableHead_status_acepted": "Accepted",
+  "tableHead_status_waiting": "Pending",
+  "tableHead_status_decline": "Rejected",
+  "tableHead_action": "Action",
+  "action_cancel": "Cancel",
+  
+  "action_alert_text": "Confirm, cancel the invitation to {{user}}",
+  "action_alert_accept": "Yes",
+  "action_alert_reject": "No"
+}

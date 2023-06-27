@@ -1,0 +1,28 @@
+{
+  "create_head_title": "Create Project",
+  "edit_head_title": "Edit Project",
+
+  "create_header_title": "CREATE PROJECT",
+  "edit_header_title": "EDIT PROJECT",
+
+  "create_header_desc": "Welcome, {{user}}",
+
+  "form_teamName": "Team",
+  "form_karyaName": "Project Name",
+  "form_category": "Category",
+  "form_period": "Period",
+  "form_year": "Year",
+  "form_desc": "Description",
+  "form_demoURL": "Url Demo/Git Repository",
+  "form_videoUrl": "Url Video",
+  "form_poster": "Poster (Max 800KB)",
+  "form_selectButton": "Select poster",
+  "form_changeButton": "Change Poster",
+  "form_deleteButton": "Remove Poster",
+
+  "form_karyaName_error": "Project name must be 5 character or more.",
+  "form_poster_error": "Poster is Required",
+
+  "form_edit": "Edit Project",
+  "form_submit": "Submit Project"
+}

@@ -1,0 +1,38 @@
+{
+  "app_title": "Informatics Expo",
+
+  "auth_title": "Sign In",
+  "auth_subTitleFb": "Sign In as visitor",
+  "auth_buttonFB": "Sign In with Facebook",
+  "auth_or": "Or",
+  "auth_subtitleGoogle": "Sign In as contestant",
+  "auth_buttonGoogle": "Sign In with Google",
+  "auth_google_message": "Please Sign In using UII email for contestant.",
+
+  "nav_beranda": "Home",
+  "nav_klasemen": "Standings",
+  "nav_signIn": "Sign In",
+
+  "karyaCard_detailButton": "Project Detail",
+
+  "search_label": "Looking for something?",
+  "search_matkul": "Subjects",
+  "search_tahun": "Year",
+  "search_nama": "Karya Name",
+  "search_button": "Search",
+
+  "standing_shorter_label": "Looking for older result?",
+  "standing_shorter_semester": "Semester",
+  "standing_shorter_semester_odd": "Odd",
+  "standing_shorter_semester_even": "Even",
+  "standing_shorter_year": "Year",
+  "standing_shorter_submit": "Search",
+
+  "loading_text": "Getting some data, Please wait . . .",
+
+  "user_dashboard": "Dashboard",
+  "user_logout": "Sign Out",
+
+  "footer_follow": "Follow us on Socal Media",
+  "footer_copyright": "Copyright © 2021 All rights reserved Student Staff for Informatics Expo"
+}

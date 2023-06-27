@@ -1,0 +1,14 @@
+{
+  "head_title": "{{project_name}}",
+  "by": "Oleh",
+  "decription": "Deskripsi",
+  "information": "Informasi",
+  "support": "Dukungan",
+  "support_button": "Suka",
+  "support_button_clicked": "Desukai",
+  "support_count": "Like anda tersisa {{count}}.",
+  "share": "Bagikan!",
+  "team": "Anggota Tim",
+  "leader": "Ketua",
+  "member": "Anggota"
+}

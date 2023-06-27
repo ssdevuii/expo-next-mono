@@ -1,0 +1,18 @@
+{
+  "head_title": "Home",
+
+  "jumbotron_title": "Discover",
+  "jumbotron_subTitle": "BEST WORKS OF UII STUDENTS",
+
+  "category_title": "SDG Category",
+  "category_desc": "List of SDG categories",
+
+  "karya_title": "Latest Project",
+  "karya_desc": "The latest list of student Projects",
+
+  "karya_detileButton": "More Detail",
+  "moreButton": "See More",
+
+  "popular_title": "Popular Project",
+  "popular_desc": "list of student popular Projects"
+}

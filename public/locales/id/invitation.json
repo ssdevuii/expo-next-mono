@@ -1,0 +1,14 @@
+{
+  "head_title": "Undangan",
+
+  "header_title": "UNDANGAN",
+
+  "header_desc": "Selamat Datang, {{user}}",
+
+  "tableHead_invitation": "Undangan",
+  "tableHead_action": "Aksi",
+  "action_accept": "Terima",
+  "action_accept_title": "Terima undangan dari {{name}}.",
+  "action_reject": "Tolak",
+  "action_reject_title": "Tolak undangan dari {{name}}"
+}

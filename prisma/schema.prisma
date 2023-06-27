@@ -2,12 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
     previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "mysql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -24,17 +24,17 @@ model Example {
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
-    userId            String
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String? @db.Text
     session_state     String?
+    userId            Int
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
@@ -43,19 +43,28 @@ model Account {
 model Session {
     id           String   @id @default(cuid())
     sessionToken String   @unique
-    userId       String
     expires      DateTime
+    userId       Int
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            Int       @id @default(autoincrement())
     name          String?
     email         String?   @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    identityNumber String @default("") @db.VarChar(255)
+    Role           roles  @relation(fields: [roleId], references: [id])
+    authProvider   String @default("") @db.VarChar(255)
+
+    Lecturers lecturers[]
+    Likes     likes[]
+    Members   members[]
+    roleId    Int         @default(1)
 }
 
 model VerificationToken {
@@ -64,4 +73,155 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model categories {
+    id         Int        @id @default(autoincrement())
+    name       String     @db.VarChar(255)
+    icon       String     @db.VarChar(255)
+    created_at DateTime   @default(now())
+    updated_at DateTime   @updatedAt
+    projects   projects[]
+}
+
+model champions {
+    id         Int      @id @default(autoincrement())
+    Project    projects @relation(fields: [projectId], references: [id])
+    projectId  Int
+    ExpoDate   expoDate @relation(fields: [expoDateId], references: [id])
+    expoDateId Int
+    rank       Int
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model expoDate {
+    id         Int         @id @default(autoincrement())
+    name       String      @db.VarChar(255)
+    semester   Int
+    year       Int
+    startDate  DateTime    @db.DateTime(0)
+    endDate    DateTime    @db.DateTime(0)
+    isActive   Int
+    created_at DateTime    @default(now())
+    updated_at DateTime    @updatedAt
+    Champions  champions[]
+    Likes      likes[]
+    projects   projects[]
+}
+
+model lecturers {
+    id           Int            @id @default(autoincrement())
+    User         User           @relation(fields: [userId], references: [id])
+    userId       Int
+    Subject      subjects       @relation(fields: [subjectId], references: [id])
+    subjectId    Int
+    isActive     Int
+    created_at   DateTime       @default(now())
+    updated_at   DateTime       @updatedAt
+    teamSubjects teamSubjects[]
+}
+
+model likes {
+    id         Int      @id @default(autoincrement())
+    User       User     @relation(fields: [userId], references: [id])
+    userId     Int
+    Project    projects @relation(fields: [projectId], references: [id])
+    projectId  Int
+    ExpoDate   expoDate @relation(fields: [expoDateId], references: [id])
+    expoDateId Int
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model likesLimit {
+    id         Int      @id @default(autoincrement())
+    amount     Int
+    roleId     Int
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+enum MEMBER_STATUS {
+    Leader
+    Member
+    Invited
+}
+
+model members {
+    id         Int           @id @default(autoincrement())
+    User       User          @relation(fields: [userId], references: [id])
+    userId     Int
+    Team       teams         @relation(fields: [teamId], references: [id])
+    teamId     Int
+    status     MEMBER_STATUS @default(Invited)
+    created_at DateTime      @default(now())
+    updated_at DateTime      @updatedAt
+}
+
+model migrations {
+    id        Int    @id @default(autoincrement()) @db.UnsignedInt
+    migration String @db.VarChar(255)
+    batch     Int
+}
+
+model projects {
+    id          Int         @id @default(autoincrement())
+    name        String      @db.VarChar(255)
+    description String      @db.Text
+    poster      String      @db.VarChar(255)
+    videoLink   String      @db.Text
+    demoLink    String      @db.Text
+    gdriveLink  String      @db.Text
+    Team        teams       @relation(fields: [teamId], references: [id])
+    teamId      Int
+    Category    categories  @relation(fields: [categoryId], references: [id])
+    categoryId  Int
+    ExpoDate    expoDate    @relation(fields: [expoDateId], references: [id])
+    expoDateId  Int
+    created_at  DateTime?   @db.Timestamp(0)
+    updated_at  DateTime?   @db.Timestamp(0)
+    Champions   champions[]
+    Likes       likes[]
+}
+
+model roles {
+    id         Int      @id @default(autoincrement())
+    name       String   @db.VarChar(255)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+    User       User[]
+}
+
+model subjects {
+    id           Int            @id @default(autoincrement())
+    name         String         @db.VarChar(255)
+    icon         String         @db.VarChar(255)
+    isActive     Int            @default(1)
+    created_at   DateTime       @default(now())
+    updated_at   DateTime       @updatedAt
+    Lecturers    lecturers[]
+    teamSubjects teamSubjects[]
+}
+
+model teamSubjects {
+    id         Int       @id @default(autoincrement())
+    Team       teams     @relation(fields: [teamId], references: [id])
+    teamId     Int
+    Subject    subjects  @relation(fields: [subjectId], references: [id])
+    subjectId  Int
+    Lecturer   lecturers @relation(fields: [lecturerId], references: [id])
+    created_at DateTime  @default(now())
+    updated_at DateTime  @updatedAt
+    lecturerId Int
+}
+
+model teams {
+    id           Int            @id @default(autoincrement())
+    name         String         @db.VarChar(255)
+    created_at   DateTime       @default(now())
+    updated_at   DateTime       @updatedAt
+    Members      members[]
+    Projects     projects[]
+    TeamSubjects teamSubjects[]
 }
