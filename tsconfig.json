@@ -24,6 +24,7 @@
   "include": [
     ".eslintrc.cjs",
     "next-env.d.ts",
+    "next-i18next.config.mjs",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",

@@ -64,7 +64,7 @@ model User {
     Lecturers lecturers[]
     Likes     likes[]
     Members   members[]
-    roleId    Int         @default(1)
+    roleId    Int         @default(3)
 }
 
 model VerificationToken {
