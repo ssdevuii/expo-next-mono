@@ -1,0 +1,6 @@
+@mixin max-line-overflow($line: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}

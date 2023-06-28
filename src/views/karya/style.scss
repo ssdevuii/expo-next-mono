@@ -1,0 +1,479 @@
+@use '../../styles/index' as *;
+
+.karyaHeader {
+  background-color: $blue-dark;
+  border-radius: 1.25em;
+  padding: 1.5em;
+  display: grid;
+  row-gap: 0.5em;
+  width: 100%;
+  color: $white;
+  margin: 0 0 1.5em;
+  grid-template-areas:
+    'title'
+    'team'
+    'like';
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: 1fr;
+
+  @include media('>mobile_l') {
+    margin-bottom: 3em;
+    padding: 2em 2em;
+  }
+
+  @include media('>tablet') {
+    padding: 2em 3em;
+    grid-template-areas:
+      'title title'
+      'team like';
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr auto;
+  }
+
+  &__title {
+    grid-area: title;
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.2;
+    @include max-line-overflow(2);
+
+    @include media('>mobile_l') {
+      font-size: 1.6em;
+    }
+
+    @include media('>tablet') {
+      font-size: 1.8em;
+    }
+  }
+
+  &__team {
+    grid-area: team;
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.3;
+    @include max-line-overflow(1);
+
+    @include media('>mobile_l') {
+      font-size: 1.3em;
+    }
+
+    @include media('>tablet') {
+      line-height: 1.5;
+      font-size: 1.5em;
+    }
+  }
+
+  &__like {
+    display: flex;
+    align-items: center;
+
+    &__icon {
+      $size: 1.3em;
+      margin-right: 0.4em;
+      width: $size;
+      height: $size;
+
+      @include media('>tablet') {
+        $size: 1.6em;
+        width: $size;
+        height: $size;
+        margin-right: 0.6em;
+      }
+    }
+
+    &__number {
+      grid-area: like;
+      font-size: 1.2em;
+      font-style: normal;
+      font-weight: 600;
+
+      @include media('>tablet') {
+        font-size: 1.6em;
+      }
+    }
+  }
+}
+
+.karyaContent {
+  display: grid;
+  width: 100%;
+  margin: 0 0 5em;
+  grid-template-areas:
+    'img img'
+    'desc desc'
+    'info info'
+    'team team'
+    'support support'
+    'share share';
+  grid-template-rows: repeat(6, auto);
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 3.5em;
+
+  @include media('>mobile_l') {
+    grid-template-rows: repeat(5, auto);
+    grid-template-areas:
+      'img img'
+      'desc desc'
+      'info info'
+      'team team'
+      'support share';
+  }
+
+  @include media('>tablet') {
+    grid-template-areas: 'left right';
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 1.5em;
+    align-content: start;
+    align-items: start;
+  }
+
+  @include media('>desktop') {
+    grid-template-areas: 'left right';
+    column-gap: 2em;
+    grid-auto-rows: auto;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  // ! Element that will apear only above tablet brakpoint
+  .karyaContent_left {
+    grid-area: left;
+    display: grid;
+    row-gap: 2em;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      'img'
+      'support'
+      'share';
+  }
+
+  // ! Element that will apear only in above tablet brakpoint
+  .karyaContent_right {
+    grid-area: right;
+    width: 100%;
+    display: grid;
+    row-gap: 2em;
+    grid-template-rows: repeat(3, min-content);
+    grid-template-areas:
+      'desc'
+      'info'
+      'team';
+  }
+
+  .karyaContent__poster {
+    width: 100%;
+    grid-area: img;
+    min-height: 500px;
+
+    @include media('>mobile_l') {
+      min-height: 560px;
+    }
+
+    @include media('>tablet') {
+      min-height: 290px;
+    }
+
+    @include media('>desktop') {
+      min-height: 570px;
+      min-width: 360px;
+    }
+
+    &__imgWrapper {
+      display: flex !important;
+      // margin-bottom: 1em;
+      background-size: 70% !important;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100%;
+    }
+
+    &__img {
+      width: 100%;
+      border-radius: 0.6em;
+      height: fit-content;
+      object-fit: contain;
+      object-position: top;
+    }
+  }
+
+  h2.karyaContent__title {
+    display: inline-block;
+    position: relative;
+    padding-left: 0.8em;
+    font-size: 1.8em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.2em;
+    color: $blue-dark;
+    margin-bottom: 1em;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background-color: $yellow;
+      width: 0.4em;
+    }
+  }
+
+  .karyaContent__desc {
+    grid-area: desc;
+    width: 100%;
+
+    &__wrapper {
+      width: 100%;
+
+      @include media('>tablet') {
+        max-width: 480px;
+      }
+      
+      @include media('>870px') {
+        max-width: 580px;
+      }
+      
+      @include media('>desktop') {
+        max-width: unset;
+      }
+
+      &__wrapper__editor {
+        line-height: 1.2;
+        width: 100%;
+      }
+    }
+  }
+
+  .karyaContent__info {
+    grid-area: info;
+
+    .karyaContent__info__list {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, auto);
+      row-gap: 0.5em;
+      padding-left: 0.5em;
+
+      @include media('>mobile_l') {
+        padding-left: 0;
+      }
+
+      @include media('>tablet') {
+        row-gap: 0;
+        grid-template-rows: 1fr;
+        grid-template-columns: auto 1fr;
+        column-gap: 2em;
+      }
+
+      @include media('>desktop') {
+        column-gap: 3em;
+      }
+
+      .karyaContent__info__list__li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: min-content;
+
+        .list__squere {
+          display: inline-block;
+          width: 0.8em;
+          height: 0.8em;
+          background-color: $blue-dark;
+          border-radius: 50%;
+          margin-right: 0.7em;
+          margin-top: 0.3em;
+        }
+
+        .list__subList {
+          display: inline-block;
+          margin-bottom: 0.5em;
+
+          .list__subList__span {
+            display: block;
+            padding-bottom: 0;
+          }
+        }
+
+        .list__text,
+        .list__subList {
+          display: inline-block;
+          padding-bottom: 0.5em;
+          font-size: 1em;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 1.2;
+
+          @include media('>desktop') {
+            font-size: 1.25em;
+          }
+        }
+
+        .list__text--link {
+          min-height: 44px;
+          text-decoration: underline;
+
+          &:visited {
+            color: inherit;
+          }
+
+          .list__img {
+            margin-left: 0.2em;
+          }
+        }
+      }
+    }
+  }
+
+  .karyaContent__team {
+    grid-area: team;
+
+    .karyaContent__team__members {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      grid-template-columns: 1fr;
+      row-gap: 1em;
+
+      @include media('>tablet') {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .team__member {
+        display: flex;
+        align-self: center;
+
+        &__avatar {
+          border-radius: 50%;
+          margin-right: 1em;
+          $size: 64px;
+          width: $size;
+          height: $size;
+          object-position: center;
+          object-fit: cover;
+
+          @include media('>tablet') {
+            $size: 92px;
+          }
+        }
+
+        &__info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          &__name {
+            font-size: 1.1em;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.3em;
+            color: $blue-dark;
+            margin-bottom: 0.5em;
+          }
+
+          &__desc {
+            font-size: 1em;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.1em;
+          }
+        }
+      }
+    }
+  }
+
+  .karyaContent__support {
+    grid-area: support;
+
+    .support__button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      cursor: pointer;
+      margin-bottom: 1em;
+
+      &__img {
+        $size: 44px;
+        width: $size;
+        height: $size;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+
+        &--like {
+          background-image: url(../../assets/icons/heart-outline.svg);
+          animation: unbounce 0.2s cubic-bezier(0.21, 0.53, 0.69, 0.93) 1 forwards alternate;
+        }
+
+        &--liked {
+          background-image: url(../../assets/icons/heart-solid-blue.svg);
+          animation: bounce 0.2s cubic-bezier(0.21, 0.53, 0.69, 0.93) 1 forwards normal;
+        }
+
+        @keyframes bounce {
+          from {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.1);
+          }
+
+          to {
+            transform: scale(1);
+          }
+        }
+
+        @keyframes unbounce {
+          from {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.1);
+          }
+
+          to {
+            transform: scale(1);
+          }
+        }
+      }
+
+      &__span {
+        margin-left: 0.5em;
+        font-size: 1.5em;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: 0em;
+        text-align: left;
+        color: $blue-dark;
+      }
+    }
+
+    .karya__support__count {
+      font-size: 1em;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0em;
+    }
+  }
+
+  .karyaContent__share {
+    grid-area: share;
+
+    .karyaContent__share__button__container {
+      display: flex;
+      // justify-content: center;
+      align-items: center;
+      .karyaContent__share__button {
+        margin-left: 1em;
+        outline: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@use '../../styles/index' as *;
+.container {
+  max-width: 100%;
+  overflow: hidden;
+
+  .slider {
+    width: 100%;
+    display: grid;
+    column-gap: 1em;
+    overflow-x: scroll;
+    grid-auto-flow: column;
+    scroll-padding: 0 0 0 1em;
+    scroll-snap-type: x mandatory;
+    grid-auto-columns: minmax(170px, 1fr);
+    
+    @include media('>tablet') {
+      overflow-x: hidden;
+      width: fit-content;
+      column-gap: 2.5em;
+      grid-auto-columns: minmax(253px, 1fr);
+
+      &.user__touch {
+        width: 100%;
+        overflow-x: scroll;
+      }
+    }
+  }
+
+  .card {
+    background-color: $blue-dark;
+    text-decoration: none;
+    border-radius: 1.25em;
+    text-align: center;
+    color: $white;
+    padding: 1em;
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+
+    .image {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      margin-bottom: 0.5em;
+      border-radius: 1.25em;
+    }
+
+    .title {
+      font-size: 1.3em;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 0em;
+      display: block;
+    }
+  }
+}

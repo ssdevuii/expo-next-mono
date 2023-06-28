@@ -1,0 +1,54 @@
+@use '../../styles/index' as *;
+
+.container {
+  // background-color: salmon;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  .button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    min-height: 44px;
+    font-size: 1em;
+    font-weight: 600;
+    line-height: 30px;
+    font-style: normal;
+    letter-spacing: 0em;
+    color: darken($white, 20%);
+    transition: 0.2s transform;
+    background-color: transparent;
+
+    &:focus {
+    opacity: .2;
+    }
+
+    @include media('>mobile_l') {
+      font-size: 1.5em;
+      line-height: 30px;
+    }
+
+    &:active {
+      transform: scale(1.2);
+    }
+  }
+
+  .active {
+    color: $white;
+  }
+
+  .div {
+    display: block;
+    height: 1.8em;
+    // line-height: ;
+    width: 0.2em;
+    background-color: $white;
+    margin: 0 0.3em;
+
+    @include media('>mobile_l') {
+      max-height: 50%;
+      margin: 0 0.5em;
+    }
+  }
+}

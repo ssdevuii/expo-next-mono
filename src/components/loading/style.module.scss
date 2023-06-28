@@ -1,0 +1,52 @@
+@use '../../styles/index' as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5em 2em;
+  border-radius: 0.5em;
+  position: relative;
+  margin: auto;
+  width: 100%;
+
+  @include media('>desktop') {
+    padding: 5em 5em;
+  }
+}
+
+.img__wrapper {
+  $size: 4em;
+  display: block;
+  height: $size;
+  width: $size;
+  margin-bottom: 1em;
+
+  .img {
+    height: inherit;
+    width: inherit;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(270deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.text {
+  position: relative;
+  font-size: 1.3em;
+  font-weight: normal;
+  text-align: center;
+  text-align: center;
+  line-height: 1.2;
+}

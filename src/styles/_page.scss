@@ -1,0 +1,64 @@
+@use './index' as *;
+// header
+section.page_header {
+  margin-top: 0;
+  width: 100%;
+  margin-bottom: 4.2em;
+
+  @include media('>mobile_l') {
+    width: 80%;
+  }
+
+  @include media('>tablet') {
+    width: 90%;
+  }
+
+  @include media('>desktop') {
+    width: fit-content;
+  }
+
+  .page_header_title {
+    text-align: center;
+    color: $blue-dark;
+    font-size: 2.22em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 0em;
+    margin-bottom: 0.6em;
+  }
+
+  .page_header_desc {
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto 1.5em;
+    color: $blue-dark;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    @include max-line-overflow(1);
+  }
+}
+
+article.page_article {
+  margin-bottom: 7em;
+  width: 100%;
+
+  @include media('>tablet') {
+    width: 90%;
+  }
+
+  .page_article_title {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 37px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: $blue-dark;
+    margin-bottom: 2em;
+  }
+}
