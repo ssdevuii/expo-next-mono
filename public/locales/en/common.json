@@ -1,0 +1,247 @@
+{
+  "translation": {
+    "app_title": "Informatics Expo",
+
+    "auth_title": "Sign In",
+    "auth_subTitleFb": "Sign In as visitor",
+    "auth_buttonFB": "Sign In with Facebook",
+    "auth_or": "Or",
+    "auth_subtitleGoogle": "Sign In as contestant",
+    "auth_buttonGoogle": "Sign In with Google",
+    "auth_google_message": "Please Sign In using UII email for contestant.",
+
+    "nav_beranda": "Home",
+    "nav_klasemen": "Standings",
+    "nav_signIn": "Sign In",
+
+    "karyaCard_detailButton": "Project Detail",
+
+    "search_label": "Looking for something?",
+    "search_matkul": "Subjects",
+    "search_tahun": "Year",
+    "search_nama": "Karya Name",
+    "search_button": "Search",
+
+    "standing_shorter_label": "Looking for older result?",
+    "standing_shorter_semester": "Semester",
+    "standing_shorter_semester_odd": "Odd",
+    "standing_shorter_semester_even": "Even",
+    "standing_shorter_year": "Year",
+    "standing_shorter_submit": "Search",
+
+    "loading_text": "Getting some data, Please wait . . .",
+
+    "user_dashboard": "Dashboard",
+    "user_logout": "Sign Out",
+
+    "footer_follow": "Follow us on Socal Media",
+    "footer_copyright": "Copyright © 2021 All rights reserved Student Staff for Informatics Expo"
+  },
+
+  "landing": {
+    "head_title": "Home",
+
+    "jumbotron_title": "Discover",
+    "jumbotron_subTitle": "BEST WORKS OF UII STUDENTS",
+
+    "category_title": "SDG Category",
+    "category_desc": "List of SDG categories",
+
+    "karya_title": "Latest Project",
+    "karya_desc": "The latest list of student Projects",
+
+    "karya_detileButton": "More Detail",
+    "moreButton": "See More",
+
+    "popular_title": "Popular Project",
+    "popular_desc": "list of student popular Projects"
+  },
+
+  "404": {
+    "head_title": "Oops!",
+    "oops": "Oops!",
+    "not_found": "404 - Not Found",
+    "apologize": "Sorry, there is nothing here.",
+    "back_to": "Back to ",
+    "link_landing": "Home page",
+    "or": "? or ",
+    "link_surprise": "surprise."
+  },
+  "SDG": {
+    "SDG_noPoverty": "No Poverty",
+    "SDG_zeroHunger": "Zero Hunger",
+    "SDG_GoodHealthAndWellBeing": "Good Health And Well Being",
+    "SDG_qualityEducation": "Quality Education",
+    "SDG_genderEquality": "Gender Equality",
+    "SDG_cleanWaterAndSanitation": "Clean Water And Sanitation",
+    "SDG_affordableAndCleanEnergy": "Affordable And Clean Energy",
+    "SDG_decentWorkAndEchonomicGrowth": "Decent Work And Echonomic Growth",
+    "SDG_industryInovationAndInfrastructure": "Industry Inovation And Infrastructure",
+    "SDG_reduceInequality": "Reduce Inequality",
+    "SDG_sustainableCitiesAndCommunities": "Sustainable Cities And Communities",
+    "SDG_responsibleConsumptionAndReproduction": "Responsible Consumption And Reproduction",
+    "SDG_climateAction": "Climate Action",
+    "SDG_lifeBelowWater": "Life Below Water",
+    "SDG_lifeOnLand": "Life On Land",
+    "SDG_peaceJusticeAndStrongIntuition": "Peace Justice And Strong Intuition",
+    "SDG_partnershipForTheGoals": "Partnership For The Goals"
+  },
+  "category": {
+    "head_title": "CATEGORY",
+    "title": "CATEGORY"
+  },
+  "dashboard": {
+    "head_title": "User Dashboard",
+
+    "header_title": "USER DASHBOARD",
+    "header_desc": "Welcome, {{user}}",
+    "button_createNewTeam": "Create New Team",
+    "button_invitation": "Invitation",
+    "card_team": "Members",
+    "card_noKarya": "No Project",
+    "card_buttonEditKarya": "Edit Project",
+    "card_buttonEditTeam": "Edit Team",
+    "card_buttonCompleteTheKarya": "Submit Project"
+  },
+  "invite": {
+    "head_title": "Invite Members",
+
+    "header_title": "INVITE MEMBER",
+
+    "header_desc": "Welcome, {{user}}",
+
+    "form_eamil": "Email",
+    "form_eamilPlaceholder": "Registred Email",
+    "form_submit": "Send Invitaition",
+
+    "tableHead_to": "To",
+    "tableHead_status": "Status",
+    "tableHead_status_acepted": "Accepted",
+    "tableHead_status_waiting": "Pending",
+    "tableHead_status_decline": "Rejected",
+    "tableHead_action": "Action",
+    "action_cancel": "Cancel",
+
+    "action_alert_text": "Confirm, cancel the invitation to {{user}}",
+    "action_alert_accept": "Yes",
+    "action_alert_reject": "No"
+  },
+  "karya": {
+    "head_title": "{{project_name}}",
+    "by": "By",
+    "decription": "Description",
+    "information": "Information",
+    "support": "Support",
+    "support_button": "Like",
+    "support_button_clicked": "Liked",
+    "support_count": "you still have {{count}} likes.",
+    "share": "Share!",
+    "team": "Team Members",
+    "leader": "Leader",
+    "member": "Member"
+  },
+  "invitation": {
+    "head_title": "Invitation",
+
+    "header_title": "INVITATION",
+
+    "header_desc": "Welcome, {{user}}",
+
+    "tableHead_invitation": "Invitation",
+    "tableHead_action": "Action",
+    "action_accept": "Accept",
+    "action_accept_title": "Accept invitation from {{name}}",
+    "action_reject": "Reject",
+    "action_reject_title": "Reject invitation from {{name}}"
+  },
+  "karyaForm": {
+    "create_head_title": "Create Project",
+    "edit_head_title": "Edit Project",
+
+    "create_header_title": "CREATE PROJECT",
+    "edit_header_title": "EDIT PROJECT",
+
+    "create_header_desc": "Welcome, {{user}}",
+
+    "form_teamName": "Team",
+    "form_karyaName": "Project Name",
+    "form_category": "Category",
+    "form_period": "Period",
+    "form_year": "Year",
+    "form_desc": "Description",
+    "form_demoURL": "Url Demo/Git Repository",
+    "form_videoUrl": "Url Video",
+    "form_poster": "Poster (Max 800KB)",
+    "form_selectButton": "Select poster",
+    "form_changeButton": "Change Poster",
+    "form_deleteButton": "Remove Poster",
+
+    "form_karyaName_error": "Project name must be 5 character or more.",
+    "form_poster_error": "Poster is Required",
+
+    "form_edit": "Edit Project",
+    "form_submit": "Submit Project"
+  },
+  "listKarya": {
+    "head_title": "Latest Projects",
+    "title": "LATEST PROJECTS",
+    "desc": "The latest list of student projects"
+  },
+  "login": {
+    "head_title": "Sign In"
+  },
+  "popularKarya": {
+    "head_title": "Popular Projects",
+    "title": "POPOLAR PROJECTS",
+    "desc": "List of student popular projects"
+  },
+  "search": {
+    "head_title": "Search",
+    "header_title": "SEARCH RESULTS",
+    "article_title": "DISPLAYING TOTAL OF {{count}} REASULT"
+  },
+  "standings": {
+    "head_title": "Standings",
+    "header_title": "STANDINGS",
+    "header_desc": "The best works of the Informatics Department",
+    "header_semester": "Semester",
+    "semester": "Semester {{semester}}, {{tahun}}",
+    "table_name": "Works",
+    "table_team": "Team",
+    "table_matkul": "Subject",
+    "table_like": "Likes",
+    "info": "This Standings will end in {{time}}.",
+    "term": "Winners who have won other categories will not receive prizes from the best standings category."
+  },
+  "teamForm": {
+    "create_head_title": "Create Team",
+    "edit_head_title": "Edit Team",
+
+    "create_header_title": "CREATE TEAM",
+    "edit_header_title": "EDIT TEAM",
+
+    "create_header_desc": "Welcome, {{user}}",
+
+    "form_faculty": "Faculty",
+    "form_study": "study program",
+    "form_leader": "Leader",
+    "form_teamName": "Team Name",
+    "form_subjects_1": "{{count}}st subject",
+    "form_subjects_2": "{{count}}nd subject",
+    "form_subjects_3": "{{count}}rd subject",
+    "form_subjects": "{{count}}th subject",
+    "form_lecture_1": "Lecturer of the {{count}}st Subject",
+    "form_lecture_2": "Lecturer of the {{count}}nd Subject",
+    "form_lecture_3": "Lecturer of the {{count}}rd Subject",
+    "form_lectures": "Lecturer of the {{count}}th Subject",
+
+    "form_teamName_error_length": "Team name must be 5 or more characters.",
+    "form_lecturer_error_empty": "Lecturer can't be empty.",
+
+    "form_lectureSelect_add_title": "add subject and lecturer row",
+    "form_lectureSelect_remove_title": "remove latest subject and lecturer row",
+
+    "form_edit": "Create Tim",
+    "form_submit": "Edit Tim"
+  }
+}

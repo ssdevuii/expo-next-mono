@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { EditorState, convertFromRaw } from 'draft-js'

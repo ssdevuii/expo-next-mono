@@ -3,11 +3,12 @@
  * for Docker builds.
  */
 await import("./src/env.mjs");
-import { i18n } from "./next-i18next.config.mjs";
+import i18n from "./next-i18next.config.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  swcMinify: true,
 
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config

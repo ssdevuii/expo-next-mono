@@ -1,18 +1,16 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import s from "./style.module.scss";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
-  const [currentLang, setcurCurrentLang] = useState(i18n.language);
+  const { t, i18n } = useTranslation("common");
+  const router = useRouter();
 
-  const switchLang = useCallback(
-    (lang: string) => {
-      void i18n.changeLanguage(lang);
-      setcurCurrentLang(lang);
-    },
-    [i18n]
-  );
+  const switchLanguage = () => {
+    const newLanguage = i18n.language === "en" ? "id" : "en";
+    void router.push(router.pathname, router.pathname, { locale: newLanguage });
+  };
 
   return (
     <div className={s.container}>
@@ -21,9 +19,9 @@ const LanguageSwitcher = () => {
         title="switch language to english."
         type="button"
         className={`${s.button as string}, ${
-          currentLang === "en" ? (s.active as string) : ""
+          i18n.language === "en" ? (s.active as string) : ""
         }`}
-        onClick={() => switchLang("en")}
+        onClick={() => switchLanguage()}
       >
         EN
       </button>
@@ -33,9 +31,9 @@ const LanguageSwitcher = () => {
         title="berpindah bahasa ke bahasa Indonesia."
         type="button"
         className={`${s.button as string}, ${
-          currentLang === "id" ? (s.active as string) : ""
+          i18n.language === "id" ? (s.active as string) : ""
         }`}
-        onClick={() => switchLang("id")}
+        onClick={() => switchLanguage()}
       >
         ID
       </button>

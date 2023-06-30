@@ -1,4 +1,4 @@
-@use '../../styles/index' as *;
+@use '../index' as *;
 
 .landing__jumbotron {
   display: flex;
@@ -6,7 +6,7 @@
   align-items: flex-start;
   justify-content: space-between;
   background-image: linear-gradient(rgba(34, 64, 142, 0.4), rgba(34, 64, 142, 0.4)),
-    url(../../assets/images/bg-landing-minified-.png);
+    url(/assets/images/bg-landing-minified-.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

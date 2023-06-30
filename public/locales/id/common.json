@@ -1,0 +1,256 @@
+{
+  "translation": {
+    "app_title": "Informatics Expo",
+
+    "auth_title": "Masuk",
+    "auth_subTitleFb": "Masuk sebagai pengunjung",
+    "auth_buttonFB": "Masuk dengan Facebook",
+    "auth_or": "atau",
+    "auth_subtitleGoogle": "Masuk sebagai peserta",
+    "auth_buttonGoogle": "Masuk Dengan Google",
+    "auth_google_message": "Untuk peserta masuk menggunakan email UII",
+
+    "nav_beranda": "Beranda",
+    "nav_klasemen": "Klasemen",
+    "nav_signIn": "Masuk",
+
+    "karyaCard_detailButton": "Lihat Karya",
+
+    "search_label": "Apa yang anda cari?",
+    "search_matkul": "Mata Kuliah",
+    "search_tahun": "Tahun",
+    "search_nama": "Nama karya",
+    "search_button": "Cari",
+
+    "standing_shorter_label": "Apa yang anda cari?",
+    "standing_shorter_semester": "Semester",
+    "standing_shorter_semester_odd": "Ganjil",
+    "standing_shorter_semester_even": "Genap",
+    "standing_shorter_year": "Tahun",
+    "standing_shorter_submit": "Cari",
+
+    "loading_text": "Sedang memuat data, Tunggu bentar ya . . .",
+
+    "user_dashboard": "Dashboard",
+    "user_logout": "Keluar",
+
+    "footer_follow": "Follow us on Socal Media",
+    "footer_copyright": "Copyright © 2021 All rights reserved Student Staff for Informatics Expo"
+  },
+  "404": {
+    "head_title": "Oops!",
+    "oops": "Oops!",
+    "not_found": "404 - Not Found",
+    "apologize": "Maaf, tidak ada apa-apa disini.",
+    "back_to": "Kembali ke ",
+    "link_landing": "halaman utama",
+    "or": "? atau ",
+    "link_surprise": "kejutan."
+  },
+  "accessibility": {
+    "userAvatar_buttonExpand": "Tampilkan Popup Profile",
+    "userAvatar_buttonClose": "Tutup Popup Profile",
+
+    "skipToContent": "Menuju ke konten"
+  },
+  "category": {
+    "head_title": "KATEGORI",
+    "title": "KATEGORI"
+  },
+  "SDG": {
+    "SDG_noPoverty": "Menghapus Kemiskinan",
+    "SDG_zeroHunger": "Mengakhiri Kelaparan",
+    "SDG_GoodHealthAndWellBeing": "Kesehatan yang baik dan kesejahtraan",
+    "SDG_qualityEducation": "Pendidikan bermutu",
+    "SDG_genderEquality": "Kesetaraan gender",
+    "SDG_cleanWaterAndSanitation": "Akses air bersih dan sanitasi",
+    "SDG_affordableAndCleanEnergy": "Energi bersih dan terjangkau",
+    "SDG_decentWorkAndEchonomicGrowth": "Pekerjaan layak dan pertumbuhan ekonomi",
+    "SDG_industryInovationAndInfrastructure": "Infrastruktur, Industri dan Inovasi",
+    "SDG_reduceInequality": "Mengurangi Ketimpangan",
+    "SDG_sustainableCitiesAndCommunities": "Kota dan komunitas yang berkelanjutan",
+    "SDG_responsibleConsumptionAndReproduction": "Konsumsi dan produksi yang bertanggung jawab",
+    "SDG_climateAction": "Penanganan perubahan iklim",
+    "SDG_lifeBelowWater": "Menjaga ekosistem laut",
+    "SDG_lifeOnLand": "Menjaga ekosistem darat",
+    "SDG_peaceJusticeAndStrongIntuition": "Perdamaian, keadilan, dan kelembagaan yang kuat",
+    "SDG_partnershipForTheGoals": "Kemitraan untuk mencapai tujua"
+  },
+  "common": {},
+  "dashboard": {
+    "head_title": "Dashboard pengguna",
+
+    "header_title": "DASHBOARD USER",
+    "header_desc": "Selamat Datang, {{user}}",
+    "button_createNewTeam": "Buat Tim Baru",
+    "button_invitation": "Undangan",
+    "card_team": "Anggota Tim",
+    "card_noKarya": "Belum Mengajukan Karya",
+    "card_buttonEditKarya": "Ubah Karya",
+    "card_buttonEditTeam": "Ubah Tim",
+    "card_buttonCompleteTheKarya": "Lengkapi Karya"
+  },
+  "formOptions": {
+    "form_option_semester_ganjil": "ganjil",
+    "form_option_semester_genap": "genap"
+  },
+  "invite": {
+    "head_title": "Undang Peserta",
+
+    "header_title": "UNDANG ANGGOTA",
+
+    "header_desc": "Selamat Datang, {{user}}",
+
+    "form_eamil": "Email",
+    "form_eamilPlaceholder": "Email yang Terdaftar",
+    "form_submit": "Kirim Undangan",
+
+    "tableHead_to": "kepada",
+    "tableHead_status": "Status",
+    "tableHead_status_acepted": "Diterima",
+    "tableHead_status_waiting": "Menunggu",
+    "tableHead_status_decline": "Ditolak",
+    "tableHead_action": "Aksi",
+    "action_cancel": "Batal",
+
+    "action_alert_text": "Yakin, ingin membatalkan undangan kepada",
+    "action_alert_accept": "Ya",
+    "action_alert_reject": "Tidak"
+  },
+  "invitation": {
+    "head_title": "Undangan",
+
+    "header_title": "UNDANGAN",
+
+    "header_desc": "Selamat Datang, {{user}}",
+
+    "tableHead_invitation": "Undangan",
+    "tableHead_action": "Aksi",
+    "action_accept": "Terima",
+    "action_accept_title": "Terima undangan dari {{name}}.",
+    "action_reject": "Tolak",
+    "action_reject_title": "Tolak undangan dari {{name}}"
+  },
+  "karya": {
+    "head_title": "{{project_name}}",
+    "by": "Oleh",
+    "decription": "Deskripsi",
+    "information": "Informasi",
+    "support": "Dukungan",
+    "support_button": "Suka",
+    "support_button_clicked": "Desukai",
+    "support_count": "Like anda tersisa {{count}}.",
+    "share": "Bagikan!",
+    "team": "Anggota Tim",
+    "leader": "Ketua",
+    "member": "Anggota"
+  },
+  "karyaForm": {
+    "create_head_title": "Tambah Karya",
+    "edit_head_title": "Ubah Karya",
+
+    "create_header_title": "TAMBAH KARYA",
+    "edit_header_title": "UBAH KARYA",
+
+    "create_header_desc": "Selamat Datang, {{user}}",
+
+    "form_teamName": "Tim",
+    "form_karyaName": "Nama Karya",
+    "form_category": "Kategori",
+    "form_period": "Priode",
+    "form_year": "Tahun",
+    "form_desc": "Deskripsi",
+    "form_demoURL": "Url Demo/Git Repository",
+    "form_videoUrl": "Url Video",
+    "form_poster": "Poster (Max 800KB)",
+    "form_selectButton": "Pilih Poster",
+    "form_changeButton": "Ubah Poster",
+    "form_deleteButton": "Hapus Poster",
+
+    "form_karyaName_error": "Nama karya minimal 5 karakter",
+    "form_poster_error": "Harus ada poster",
+
+    "form_edit": "Ubah Karya",
+    "form_submit": "Ajukan Karya"
+  },
+  "landing": {
+    "head_title": "Beranda",
+
+    "jumbotron_title": "temukan",
+    "jumbotron_subTitle": "karya-karya terbaik mahasiswa uii",
+
+    "category_title": "KATEGORI SDG",
+    "category_desc": "Daftar kategori SDG",
+
+    "karya_title": "karya terbaru",
+    "karya_desc": "daftar karya mahasiswa terbaru",
+
+    "karya_detileButton": "lihat karya",
+    "moreButton": "lihat lebih banyak",
+
+    "popular_title": "karya populer",
+    "popular_desc": "daftar karya populer mahasiswa"
+  },
+  "login": {
+    "head_title": "Masuk"
+  },
+  "listKarya": {
+    "head_title": "Karya Terbaru",
+    "title": "KARYA TERBARU",
+    "desc": "Daftar karya mahasiswa terbaru"
+  },
+  "popularKarya": {
+    "head_title": "Karya Populer",
+    "title": "KARYA POPULER",
+    "desc": "Daftar karya populer mahasiswa"
+  },
+  "search": {
+    "head_title": "Hasil Pencarian",
+    "header_title": "HASIL PENCARIAN",
+    "article_title": "TERDAPAT {{count}} KARYA"
+  },
+  "standings": {
+    "head_title": "Klasemen",
+    "header_title": "KLASEMEN",
+    "header_desc": "Karya-karya terbaik Jurusan Informatika",
+    "header_semester": "Semester",
+    "semester": "Semester {{semester}} Tahun {{tahun}}",
+    "table_name": "Karya",
+    "table_team": "Tim",
+    "table_matkul": "Mata Kuliah",
+    "table_like": "Suka",
+    "info": "Pemberian Like berakhir pada {{time}}.",
+    "term": "Pemenang yang sudah memenangkan ketegori lain tidak akan mendapat hadiah dari kategori klasemen terbaik."
+  },
+  "teamForm": {
+    "create_head_title": "Tambah Tim",
+    "edit_head_title": "Ubah Tim",
+
+    "create_header_title": "TAMBAH TIM",
+    "edit_header_title": "UBAH TIM",
+
+    "create_header_desc": "Selamat Datang, {{user}}",
+
+    "form_faculty": "Fakultas",
+    "form_study": "Program Study",
+    "form_leader": "Ketua",
+    "form_teamName": "Nama Tim",
+    "form_subjects_1": "Mata Kuliah {{count}}",
+    "form_subjects_2": "Mata Kuliah {{count}}",
+    "form_subjects_3": "Mata Kuliah {{count}}",
+    "form_subjects": "Mata Kuliah {{count}}",
+    "form_lecture_1": "Dosen Mata dari Kuliah ke {{count}}",
+    "form_lecture_2": "Dosen Mata dari Kuliah ke {{count}}",
+    "form_lecture_3": "Dosen Mata dari Kuliah ke {{count}}",
+    "form_lectures": "Dosen Mata dari Kuliah ke {{count}}",
+
+    "form_teamName_error_length": "Nama tim minimal 5 karakter",
+    "form_lecturer_error_empty": "Dosen tidak boleh kosong",
+
+    "form_lectureSelect_add_title": "tambah baris matakuliah dan dosen",
+    "form_lectureSelect_remove_title": "tambah baris matakuliah dan dosen",
+
+    "form_edit": "Ubah Tim",
+    "form_submit": "Buat Tim"
+  }
+}

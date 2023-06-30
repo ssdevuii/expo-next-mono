@@ -5,6 +5,8 @@ import { api } from "~/utils/api";
 import { appWithTranslation } from "next-i18next";
 
 import "~/styles/globals.scss";
+import "~/styles/index.scss";
+import "~/styles/main.scss";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
