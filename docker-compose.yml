@@ -7,12 +7,20 @@ services:
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_CLIENTVAR: "clientvar"
+        DB_DATABASE: ${DB_DATABASE}
+        DB_USERNAME: ${DB_USERNAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        DATABASE_URL: ${DATABASE_URL}
+        NEXTAUTH_URL: ${NEXTAUTH_URL}
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     working_dir: /app
     ports:
       - "3000:3000"
     image: t3-app
     environment:
-      - DATABASE_URL= ${DATABASE_URL}
+      - DATABASE_URL=${DATABASE_URL}
   db:
     image: mysql:5.7
     container_name: expo-db
