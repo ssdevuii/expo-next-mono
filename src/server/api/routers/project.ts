@@ -20,8 +20,14 @@ export const projectRouter = createTRPCRouter({
   getPopular: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.projects.findMany({
       take: 5,
-      include: { Team: true },
       orderBy: { Likes: { _count: "desc" } },
+      select: {
+        _count: { select: { Likes: true } },
+        Team: true,
+        name: true,
+        gdriveLink: true,
+        id: true,
+      },
     });
   }),
 
