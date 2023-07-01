@@ -14,8 +14,8 @@
     grid-auto-columns: minmax(170px, 1fr);
     
     @include media('>tablet') {
-      overflow-x: hidden;
-      width: fit-content;
+      overflow-x: scroll;
+      width: 100%;
       column-gap: 2.5em;
       grid-auto-columns: minmax(253px, 1fr);
 

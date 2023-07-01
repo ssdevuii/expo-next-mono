@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
-
 import { useCallback, useEffect, useState } from "react";
 
 // * Components
@@ -24,29 +23,26 @@ export default function Home() {
 
   const [popularKarya, setPopularKarya] = useState([]);
   const [latestKarya, setLatestKarya] = useState([]);
-  const [valueMatkul, setValueMatkul] = useState();
-  const [valueTahun, setValueTahun] = useState();
-  const [valueNama, setValueNama] = useState();
+  const [valueMatkul, setValueMatkul] = useState("");
+  const [valueTahun, setValueTahun] = useState("");
+  const [valueNama, setValueNama] = useState("");
   const [subects, setSubects] = useState(["Mata kuliah"]);
 
-  const onMatkulChange = useCallback((e) => {
+  const onMatkulChange = useCallback((e: string) => {
     setValueMatkul(e);
   }, []);
-  const onTahunChange = useCallback((e) => {
+  const onTahunChange = useCallback((e: string) => {
     setValueTahun(e);
   }, []);
-  const onNamaChange = useCallback((e) => {
+  const onNamaChange = useCallback((e: any) => {
     setValueNama(e.target.value);
   }, []);
 
-  const onSubmit = useCallback(
-    (e: SubmitEvent) => {
-      e.preventDefault();
+  const onSubmit = useCallback((e: SubmitEvent) => {
+    e.preventDefault();
 
-      // history.push(`/pencarian/${valueMatkul || 'matkul'}/${valueTahun || 'tahun'}/${valueNama || ''}`)
-    },
-    []
-  );
+    // history.push(`/pencarian/${valueMatkul || 'matkul'}/${valueTahun || 'tahun'}/${valueNama || ''}`)
+  }, []);
 
   useEffect(() => {
     const fetchSearch = async () => {
@@ -57,6 +53,7 @@ export default function Home() {
       // TODO: impement this
     };
   }, []);
+
   return (
     <>
       <Head>
