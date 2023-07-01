@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
-import { useCallback, useEffect, useState } from "react";
+import { FormEventHandler, useCallback, useEffect, useState } from "react";
 
 // * Components
 import LanguageSwitcher from "~/components/languageSwitcher/languageSwitcher";
@@ -17,6 +17,13 @@ import KaryaCard from "~/components/karyaCard/karyaCard";
 import PopularCard from "~/components/popularCard/PopularCard";
 import Loading from "~/components/loading/loading";
 import classNames from "classnames";
+import {
+  MatkulSelect,
+  NameInput,
+  SearchButton,
+  SearchForm,
+  YearSelect,
+} from "~/components/searchForm/searchForm";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -40,7 +47,7 @@ export default function Home() {
     // setValueNama(e.target.value as string);
   }, []);
 
-  const onSubmit = useCallback((e: SubmitEvent) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
 
     // history.push(`/pencarian/${valueMatkul || 'matkul'}/${valueTahun || 'tahun'}/${valueNama || ''}`)
@@ -78,18 +85,21 @@ export default function Home() {
             </h1>
           </div>
 
-          {/* <SearchForm className="landing__jumbotron__search" onSubmit={onSubmit}>
-          <MatkulSelect onChange={onMatkulChange} value={valueMatkul}>
-            {subects}
-          </MatkulSelect>
+          <SearchForm
+            className="relative bottom-0 -mb-9 translate-y-1/3"
+            onSubmit={onSubmit}
+          >
+            <MatkulSelect onChange={onMatkulChange} value={valueMatkul}>
+              {subects}
+            </MatkulSelect>
 
-          <YearSelect onChange={onTahunChange} value={valueTahun}>
-            {["2022", "2021", "2020", "2019"]}
-          </YearSelect>
+            <YearSelect onChange={onTahunChange} value={valueTahun}>
+              {["2022", "2021", "2020", "2019"]}
+            </YearSelect>
 
-          <NameInput onChange={onNamaChange} value={valueNama} />
-          <SearchButton />
-        </SearchForm> */}
+            <NameInput onChange={onNamaChange} value={valueNama} />
+            <SearchButton />
+          </SearchForm>
         </section>
 
         <section className="landing_category">
@@ -105,7 +115,10 @@ export default function Home() {
           <SDGcategorySlider />
         </section>
 
-        <article className={classNames("landing__karya", "mb-8")} id="maincontent">
+        <article
+          className={classNames("landing__karya", "mb-8")}
+          id="maincontent"
+        >
           <div className="landing__section__header">
             <h2 className="landing__section__header__title">
               {t("landing.karya_title")}
@@ -156,7 +169,10 @@ export default function Home() {
               ))}
           </div>
 
-          <Link href="/populer" className={classNames('landing__section__more', 'w-fit mx-auto')}>
+          <Link
+            href="/populer"
+            className={classNames("landing__section__more", "mx-auto w-fit")}
+          >
             {t("landing.moreButton")}
           </Link>
         </section>
