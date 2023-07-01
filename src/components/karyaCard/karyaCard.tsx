@@ -32,6 +32,7 @@ const KaryaCard: React.FC<{
     <div className={s.card}>
       <div className="relative min-w-[190px] max-w-[200px]">
         <Image
+          unoptimized
           className={classNames(s.img, s.before_loaded)}
           src={gdriveLink}
           placeholder={"empty"}

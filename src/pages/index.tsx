@@ -63,24 +63,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div id="#maincontent">
-        <main className="App">
-          <section
-            className="landing__jumbotron"
-            data-testid="landing-jumbotron"
-          >
-            <LanguageSwitcher />
+      <main className="App">
+        <section className="landing__jumbotron" data-testid="landing-jumbotron">
+          <LanguageSwitcher />
 
-            <div className="landing__jumbotron__text">
-              <h1 className="landing__jumbotron__title">
-                {t("landing.jumbotron_title")}
-                <span className="landing__jumbotron__desc">
-                  {t("landing.jumbotron_subTitle")}
-                </span>
-              </h1>
-            </div>
+          <div className="landing__jumbotron__text">
+            <h1 className="landing__jumbotron__title">
+              {t("landing.jumbotron_title")}
+              <span className="landing__jumbotron__desc">
+                {t("landing.jumbotron_subTitle")}
+              </span>
+            </h1>
+          </div>
 
-            {/* <SearchForm className="landing__jumbotron__search" onSubmit={onSubmit}>
+          {/* <SearchForm className="landing__jumbotron__search" onSubmit={onSubmit}>
           <MatkulSelect onChange={onMatkulChange} value={valueMatkul}>
             {subects}
           </MatkulSelect>
@@ -92,79 +88,76 @@ export default function Home() {
           <NameInput onChange={onNamaChange} value={valueNama} />
           <SearchButton />
         </SearchForm> */}
-          </section>
+        </section>
 
-          <section className="landing_category">
-            <div className="landing__section__header">
-              <h2 className="landing__section__header__title">
-                {t("landing.category_title")}
-              </h2>
-              <p className="landing__section__header__desc">
-                {t("landing.category_desc")}
-              </p>
-            </div>
+        <section className="landing_category">
+          <div className="landing__section__header">
+            <h2 className="landing__section__header__title">
+              {t("landing.category_title")}
+            </h2>
+            <p className="landing__section__header__desc">
+              {t("landing.category_desc")}
+            </p>
+          </div>
 
-            <SDGcategorySlider />
-          </section>
+          <SDGcategorySlider />
+        </section>
 
-          <article className="landing__karya" id="maincontent">
-            <div className="landing__section__header">
-              <h2 className="landing__section__header__title">
-                {t("landing.karya_title")}
-              </h2>
-              <p className="landing__section__header__desc">
-                {t("landing.karya_desc")}
-              </p>
-            </div>
+        <article className="landing__karya" id="maincontent">
+          <div className="landing__section__header">
+            <h2 className="landing__section__header__title">
+              {t("landing.karya_title")}
+            </h2>
+            <p className="landing__section__header__desc">
+              {t("landing.karya_desc")}
+            </p>
+          </div>
 
-            <div
-              className={`landing__karya__content ${
-                latestProjects.isLoading
-                  ? "landing__karya__content--loading"
-                  : ""
-              }`}
-            >
-              {latestProjects.isLoading && <Loading />}
-              {latestProjects.isSuccess &&
-                latestProjects.data
-                  .slice(0, 6)
-                  .map((v, i) => <KaryaCard key={i} data={v} />)}
-            </div>
+          <div
+            className={`landing__karya__content ${
+              latestProjects.isLoading ? "landing__karya__content--loading" : ""
+            }`}
+          >
+            {latestProjects.isLoading && <Loading />}
+            {latestProjects.isSuccess &&
+              latestProjects.data
+                .slice(0, 6)
+                .map((v, i) => <KaryaCard key={i} data={v} />)}
+          </div>
 
-            <Link href="/karya" className="landing__section__more">
-              {t("landing.moreButton")}
-            </Link>
-          </article>
+          <Link href="/karya" className="landing__section__more">
+            {t("landing.moreButton")}
+          </Link>
+        </article>
 
-          <section className="landing__popular">
-            <div className="landing__section__header">
-              <h2 className="landing__section__header__title">
-                {t("landing.popular_title")}
-              </h2>
-              <p className="landing__section__header__desc">
-                {t("landing.popular_desc")}
-              </p>
-            </div>
+        <section className="landing__popular">
+          <div className="landing__section__header">
+            <h2 className="landing__section__header__title">
+              {t("landing.popular_title")}
+            </h2>
+            <p className="landing__section__header__desc">
+              {t("landing.popular_desc")}
+            </p>
+          </div>
 
-            <div
-              className={`landing__popular__content ${
-                popularKarya.length === 0
-                  ? "landing__popular__content--loading"
-                  : ""
-              }`}
-            >
-              {popularKarya.length === 0 && <Loading />}
-              {popularKarya.map((v, i) => (
-                <PopularCard key={i} data={v} />
-              ))}
-            </div>
+          <div
+            className={`landing__popular__content ${
+              popularKarya.length === 0
+                ? "landing__popular__content--loading"
+                : ""
+            }`}
+          >
+            {popularKarya.length === 0 && <Loading />}
+            {popularKarya.map((v, i) => (
+              <PopularCard key={i} data={v} />
+            ))}
+          </div>
 
-            <Link href="/populer" className="landing__section__more">
-              {t("landing.moreButton")}
-            </Link>
-          </section>
-        </main>
-      </div>
+          <Link href="/populer" className="landing__section__more">
+            {t("landing.moreButton")}
+          </Link>
+        </section>
+      </main>
     </>
   );
 }
