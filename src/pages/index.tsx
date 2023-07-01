@@ -18,8 +18,9 @@ import PopularCard from "~/components/popularCard/PopularCard";
 import Loading from "~/components/loading/loading";
 
 export default function Home() {
-  const latestProjects = api.project.getLatest.useQuery();
   const { t } = useTranslation();
+  const latestProjects = api.project.getLatest.useQuery();
+  const popularProject = api.project.getPopular.useQuery();
 
   const [popularKarya, setPopularKarya] = useState([]);
   const [latestKarya, setLatestKarya] = useState([]);
@@ -142,15 +143,16 @@ export default function Home() {
 
           <div
             className={`landing__popular__content ${
-              popularKarya.length === 0
+              popularProject.isLoading
                 ? "landing__popular__content--loading"
                 : ""
             }`}
           >
-            {popularKarya.length === 0 && <Loading />}
-            {popularKarya.map((v, i) => (
-              <PopularCard key={i} data={v} />
-            ))}
+            {popularProject.isLoading && <Loading />}
+            {popularProject.isSuccess &&
+              popularProject.data.map((data, i) => (
+                <PopularCard key={i} data={data} />
+              ))}
           </div>
 
           <Link href="/populer" className="landing__section__more">

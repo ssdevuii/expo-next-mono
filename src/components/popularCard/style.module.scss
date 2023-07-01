@@ -1,4 +1,4 @@
-@use '../../styles/index' as *;
+@use "../../styles/index" as *;
 
 .card {
   background-color: $blue-dark;
@@ -8,11 +8,11 @@
   border-radius: 1.25em;
   position: relative;
 
-  @include media('>mobile_l') {
+  @include media(">mobile_l") {
     padding: 2em;
   }
 
-  @include media('>tablet') {
+  @include media(">tablet") {
     padding: 1em;
   }
 
@@ -30,7 +30,7 @@
     margin-bottom: 1em;
     border-radius: 0.6em;
 
-    @include media('>tablet') {
+    @include media(">tablet") {
       display: flex !important;
     }
   }
@@ -38,28 +38,29 @@
   .img {
     width: 100%;
     min-height: 250px;
-    // TODO: maxwidth
     border-radius: 0.6em;
     object-fit: contain;
-    object-position: top;
+    object-position: center;
     overflow: hidden;
     object-fit: cover;
     object-position: center;
   }
 
   .description {
+    position: relative;
+    height: fit-content;
     display: grid;
     grid-template-areas:
-      'name name'
-      'team like';
+      "name name"
+      "team like";
     height: 100%;
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr auto;
 
-    @include media('>mobile_l') {
+    @include media(">mobile_l") {
       grid-template-areas:
-        'name like'
-        'team team';
+        "name like"
+        "team team";
     }
 
     span {
@@ -84,11 +85,11 @@
       //   font-size: 1.2em;
       // }
 
-      @include media('>tablet') {
+      @include media(">tablet") {
         font-size: 1em;
       }
 
-      @include media('>desktop') {
+      @include media(">desktop") {
         font-size: 1.5em;
       }
     }
@@ -103,15 +104,15 @@
       letter-spacing: 0em;
       @include max-line-overflow(1);
 
-      @include media('>mobile_l') {
+      @include media(">mobile_l") {
         font-size: 1.2em;
       }
 
-      @include media('>tablet') {
+      @include media(">tablet") {
         font-size: 1em;
       }
 
-      @include media('>desktop') {
+      @include media(">desktop") {
         font-size: 1.2em;
       }
     }

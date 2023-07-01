@@ -17,7 +17,15 @@ export const projectRouter = createTRPCRouter({
     });
   }),
 
+  getPopular: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.projects.findMany({
+      take: 5,
+      include: { Team: true },
+      orderBy: { Likes: { _count: "desc" } },
+    });
+  }),
+
   getById: publicProcedure.input(z.number()).query(({ ctx, input }) => {
-    return ctx.prisma.example.findFirst({ where: { id: input.toString() } });
+    return ctx.prisma.projects.findFirst({ where: { id: input } });
   }),
 });
