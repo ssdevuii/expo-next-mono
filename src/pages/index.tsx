@@ -18,7 +18,7 @@ import PopularCard from "~/components/popularCard/PopularCard";
 import Loading from "~/components/loading/loading";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const latestProjects = api.project.getLatest.useQuery();
   const { t } = useTranslation();
 
   const [popularKarya, setPopularKarya] = useState([]);
@@ -35,7 +35,7 @@ export default function Home() {
     setValueTahun(e);
   }, []);
   const onNamaChange = useCallback((e: any) => {
-    setValueNama(e.target.value);
+    // setValueNama(e.target.value as string);
   }, []);
 
   const onSubmit = useCallback((e: SubmitEvent) => {
@@ -119,15 +119,16 @@ export default function Home() {
 
             <div
               className={`landing__karya__content ${
-                latestKarya.length === 0
+                latestProjects.isLoading
                   ? "landing__karya__content--loading"
                   : ""
               }`}
             >
-              {latestKarya.length === 0 && <Loading />}
-              {latestKarya.map((v, i) => (
-                <KaryaCard key={i} data={v} />
-              ))}
+              {latestProjects.isLoading && <Loading />}
+              {latestProjects.isSuccess &&
+                latestProjects.data
+                  .slice(0, 6)
+                  .map((v, i) => <KaryaCard key={i} data={v} />)}
             </div>
 
             <Link href="/karya" className="landing__section__more">

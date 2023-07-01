@@ -5,10 +5,10 @@ import s from "./style.module.scss";
 import Image from "next/image";
 
 const Loading = ({ text = null, className = "" }) => {
-  const { t, ready } = useTranslation("translation", { useSuspense: false });
+  const { t } = useTranslation();
   return (
     <div className={`${s.container as string} ${className}`}>
-      <div className={s.img__wrapper}>
+      <div className={`${s.img__wrapper as string} relative`}>
         <Image
           src="/assets/icons/loading.svg"
           alt="Loading"
@@ -19,7 +19,7 @@ const Loading = ({ text = null, className = "" }) => {
       {text ? (
         <span className={s.text}>{text}</span>
       ) : (
-        <span className={s.text}>{ready && t("loading_text")}</span>
+        <span className={s.text}>{t("translation.loading_text")}</span>
       )}
     </div>
   );

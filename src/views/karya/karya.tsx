@@ -6,7 +6,7 @@ import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import cx from 'classnames'
+import classnames from 'classnames'
 import { Helmet } from 'react-helmet-async'
 import './style.scss'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -161,7 +161,7 @@ const Support = ({ isLiked = false, onClick = () => {}, likeCount = 5 }) => {
             role="img"
             aria-label="Like button"
             title="clik!"
-            className={cx(
+            className={classnames(
               'support__button__img',
               isLiked ? 'support__button__img--liked' : 'support__button__img--like'
             )}
