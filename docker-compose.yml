@@ -28,6 +28,7 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      UPLOAD_LIMIT: 300M
     networks:
       - expo
 
