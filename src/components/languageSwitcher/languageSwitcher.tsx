@@ -18,8 +18,9 @@ const LanguageSwitcher = () => {
         aria-label="switch language to english."
         title="switch language to english."
         type="button"
+        disabled={i18n.language === "en"}
         className={`${s.button as string}, ${
-          i18n.language === "en" ? (s.active as string) : ""
+          i18n.language === "id" ? (s.active as string) : ""
         }`}
         onClick={() => switchLanguage()}
       >
@@ -30,8 +31,9 @@ const LanguageSwitcher = () => {
         aria-label="berpindah bahasa ke bahasa Indonesia."
         title="berpindah bahasa ke bahasa Indonesia."
         type="button"
+        disabled={i18n.language === "id"}
         className={`${s.button as string}, ${
-          i18n.language === "id" ? (s.active as string) : ""
+          i18n.language === "en" ? (s.active as string) : ""
         }`}
         onClick={() => switchLanguage()}
       >

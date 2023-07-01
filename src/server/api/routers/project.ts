@@ -32,6 +32,23 @@ export const projectRouter = createTRPCRouter({
   }),
 
   getById: publicProcedure.input(z.number()).query(({ ctx, input }) => {
+    return ctx.prisma.projects.findFirst({
+      where: { id: input },
+      include: {
+        Category: true,
+        _count: { select: { Likes: true } },
+        Team: {
+          include: {
+            Members: { include: { User: true } },
+            TeamSubjects: { include: { Subject: true } },
+          },
+        },
+      },
+    });
+  }),
+
+  // TODO
+  create: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
     return ctx.prisma.projects.findFirst({ where: { id: input } });
   }),
 });

@@ -3,7 +3,7 @@ import s from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames";
-import { type projects, type teams } from "@prisma/client";
+import { type teams } from "@prisma/client";
 
 /**
  * @param data data karya yang akan ditampilkan.
