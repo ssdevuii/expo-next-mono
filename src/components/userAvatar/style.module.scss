@@ -1,0 +1,152 @@
+@use '../../styles/index' as *;
+
+.container {
+  padding: 0 1em;
+  position: relative;
+  display: block;
+
+  .button {
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 600;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 0.3em;
+    color: white;
+    padding: 1em;
+    transition: 0.2s;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    outline: none;
+
+    &:focus {
+      opacity: .2;
+    }
+
+    &__polos {
+      $color: rgba(0, 0, 0, 0.445);
+      font-weight: bold;
+      width: fit-content;
+      height: fit-content;
+      line-height: normal;
+      background-color: white;
+      border-radius: 0.3em;
+      color: $color;
+      padding: 0.5em;
+      display: none;
+
+      img {
+        $size: 1.3em;
+        width: $size;
+        height: auto;
+      }
+
+      &__rotate180 {
+        img {
+          transform: rotate(180deg);
+        }
+      }
+
+      &__active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .user__avatar {
+    display: flex;
+    align-items: center;
+
+    .user__avatar__img {
+      $size: 3.5em;
+      background-color: $grey;
+      border: 0.2em solid $blue-dark;
+      width: $size;
+      height: $size;
+      border-radius: $size;
+      margin-right: 0.5em;
+    }
+  }
+
+  .user__detail {
+    background-color: white;
+    border: 0.2em solid $blue-dark;
+    transform: translateY(1.5em);
+    box-shadow: 0.2em 0.2em 0.5em rgba(0, 0, 0, 0.308);
+    border-radius: 0.6em;
+    position: absolute;
+    min-width: 258px;
+    padding: 1em;
+    display: none;
+    right: 0;
+
+    &.active {
+      display: block;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5em;
+
+      .avatar {
+        background-color: $grey;
+        $size: 3em;
+        width: $size;
+        height: $size;
+        border-radius: $size;
+        border: 0.2em solid $blue-dark;
+      }
+      .desc {
+        margin-left: 0.6em;
+        span {
+          display: block;
+
+          &.name {
+            font-size: 1em;
+            font-style: normal;
+            font-weight: 600;
+            @include max-line-overflow(2);
+          }
+
+          &.nim {
+            margin-top: 0.2em;
+            font-size: 1em;
+            font-style: normal;
+            font-weight: 500;
+            @include max-line-overflow(1);
+          }
+        }
+      }
+    }
+    .link {
+      text-align: center;
+      width: 100%;
+      border-radius: 0.4em;
+      color: white;
+      padding: 0.5em 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.dashboard {
+        background-color: #093697;
+        margin-bottom: 0.5em;
+      }
+      &.logout {
+        background-color: #ea4335;
+      }
+    }
+  }
+}
+
+.mobile__link {
+  @include media('>tablet') {
+    display: none !important;
+  }
+}

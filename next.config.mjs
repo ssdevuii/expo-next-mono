@@ -9,7 +9,7 @@ import i18n from "./next-i18next.config.js";
 const config = {
   reactStrictMode: true,
   swcMinify: true,
-  images: { domains: ["expo-bucket.s3.amazonaws.com", "api.informatics-expo.id"] },
+  images: { domains: ["expo-bucket.s3.amazonaws.com", "api.informatics-expo.id", "lh3.googleusercontent.com"] },
 
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
