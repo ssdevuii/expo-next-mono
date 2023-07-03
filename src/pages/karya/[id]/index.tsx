@@ -3,8 +3,8 @@ import { useTranslation } from "next-i18next";
 // import { FacebookShareButton, TwitterShareButton } from "react-share";
 // import { EditorState, convertFromRaw } from "draft-js";
 // import { Editor } from "react-draft-wysiwyg";
-import classnames from "classnames";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import classnames from "classnames";
 
 // * assets
 // import imgLoad from "../../assets/images/img-placeholder.svg";
