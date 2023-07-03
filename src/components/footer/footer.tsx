@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 
 const Footer = () => {
@@ -11,10 +11,10 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__follow">
-        {/* <div className="footer__follow__text">
+        <div className="footer__follow__text">
           {t("translation.footer_follow")}
-        </div> */}
-        {/* <div className="footer__line" /> */}
+        </div>
+        <div className="footer__line" />
         <a
           className="footer__follow__link"
           href="https://www.instagram.com/informatics.uii/"
