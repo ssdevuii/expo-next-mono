@@ -215,8 +215,6 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-
-      {/* <Auth onClose={closeAuthPopup} isVisible={isAuthPopoupVisible} /> */}
     </header>
   );
 };

@@ -2,5 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./pages/landing.scss";
 @import "./components/header.scss";
+@import "./components/footer.scss";
+@import "./pages/landing.scss";
