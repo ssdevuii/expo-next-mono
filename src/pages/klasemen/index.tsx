@@ -11,31 +11,11 @@ import { Table, TdSpan, Thead, Th, Tr, Tbody } from "~/components/table/table";
 import Loading from "~/components/loading/loading";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { GetStaticProps } from "next";
+import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { api } from "~/utils/api";
 import Link from "next/link";
-
-const dummy = Array(8).fill({
-  name: "JOGJA-GO",
-  team: "BOTAN",
-  subjects: "Pengembangan Aplikasi Berbasis Web",
-  likes: "195",
-});
-
-dummy.unshift({
-  name: "JOGJA-GO",
-  team: "BOTAN",
-  subjects: "Fundamental Matematika",
-  likes: "195",
-});
-
-dummy.push({
-  name: "JOGJA-GO",
-  team: "BOTAN",
-  subjects: "Pemikiran Desain",
-  likes: "195",
-});
+import MainLayout from "~/layouts/main";
 
 const getYearsFrom = (yearStart = 2010) => {
   const timeNow = new Date().getFullYear();
@@ -79,18 +59,19 @@ const Standings = () => {
   }, [router, semesterValue, yearValue]);
 
   return (
-    <main className="App">
-      <Head>
-        <title>
-          {t("standings.head_title")} - {t("translation.app_title")}
-        </title>
-      </Head>
+    <MainLayout>
+      <main className="App">
+        <Head>
+          <title>
+            {t("standings.head_title")} - {t("translation.app_title")}
+          </title>
+        </Head>
 
-      <section className="page_header" id="maincontent">
-        <h1 className="page_header_title">{t("standings.header_title")}</h1>
-        <span className="page_header_desc">{t("standings.header_desc")}</span>
+        <section className="page_header" id="maincontent">
+          <h1 className="page_header_title">{t("standings.header_title")}</h1>
+          <span className="page_header_desc">{t("standings.header_desc")}</span>
 
-        {/* <StandingShorter onSubmit={onSubmit}>
+          {/* <StandingShorter onSubmit={onSubmit}>
           <SemesterSelect value={semesterValue} onChange={onSemesterChange}>
             {semesterOptions}
           </SemesterSelect>
@@ -98,45 +79,47 @@ const Standings = () => {
             {yearOptions}
           </YearSelect>
         </StandingShorter> */}
-      </section>
+        </section>
 
-      <article className="page_article">
-        <h2 className="page_article_title standing__article__title">
-          {t("standings.semester", { semester, tahun })}
-        </h2>
+        <article className="page_article">
+          <h2 className="page_article_title standing__article__title">
+            {t("standings.semester", { semester, tahun })}
+          </h2>
 
-        {klasemen.isLoading ? (
-          <Loading />
-        ) : (
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>#</Th>
-                <Th>{t("standings.table_name")}</Th>
-                <Th>{t("standings.table_team")}</Th>
-                {/* <Th>{t('standings.table_matkul')}</Th> */}
-                <Th>Category</Th>
-                <Th>{t("standings.table_like")}</Th>
-              </Tr>
-            </Thead>
-
-            <Tbody className="standing__table__body">
-              {klasemen.data?.map(({ id, name, Team, _count, Category }, i) => (
-                <Tr key={i}>
-                  <TdSpan>{i + 1}</TdSpan>
-                  <TdSpan>
-                    <Link href={`/karya/${id}`}>{name}</Link>
-                  </TdSpan>
-                  <TdSpan>{Team.name}</TdSpan>
-                  <TdSpan>{Category.name}</TdSpan>
-                  <TdSpan>{_count.Likes}</TdSpan>
+          {klasemen.isLoading ? (
+            <Loading />
+          ) : (
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>#</Th>
+                  <Th>{t("standings.table_name")}</Th>
+                  <Th>{t("standings.table_team")}</Th>
+                  {/* <Th>{t('standings.table_matkul')}</Th> */}
+                  <Th>Category</Th>
+                  <Th>{t("standings.table_like")}</Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        )}
+              </Thead>
 
-        {/* <div className="standing__article__info">
+              <Tbody className="standing__table__body">
+                {klasemen.data?.map(
+                  ({ id, name, Team, _count, Category }, i) => (
+                    <Tr key={i}>
+                      <TdSpan>{i + 1}</TdSpan>
+                      <TdSpan>
+                        <Link href={`/karya/${id}`}>{name}</Link>
+                      </TdSpan>
+                      <TdSpan>{Team.name}</TdSpan>
+                      <TdSpan>{Category.name}</TdSpan>
+                      <TdSpan>{_count.Likes}</TdSpan>
+                    </Tr>
+                  )
+                )}
+              </Tbody>
+            </Table>
+          )}
+
+          {/* <div className="standing__article__info">
           <span className="standing__article__info__span">
             {t("standings.info", {
               time: "Selasa 15 Januari 2021 jam 15.00 WIB",
@@ -146,8 +129,9 @@ const Standings = () => {
             {t("standings.term")}
           </span>
         </div> */}
-      </article>
-    </main>
+        </article>
+      </main>
+    </MainLayout>
   );
 };
 

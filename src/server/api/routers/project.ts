@@ -40,7 +40,12 @@ export const projectRouter = createTRPCRouter({
         Team: {
           include: {
             Members: { include: { User: true } },
-            TeamSubjects: { include: { Subject: true } },
+            TeamSubjects: {
+              include: {
+                Subject: true,
+                Lecturer: { include: { User: true } },
+              },
+            },
           },
         },
       },

@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 // import { FacebookShareButton, TwitterShareButton } from "react-share";
 // import { EditorState, convertFromRaw } from "draft-js";
 // import { Editor } from "react-draft-wysiwyg";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import classnames from "classnames";
 
 // * assets
 // import imgLoad from "../../assets/images/img-placeholder.svg";
-// import newTabIcon from "../../assets/icons/open_in_new-black-18dp.svg";
 // import fbIcon from "../../assets/icons/fb-blue-squere.svg";
 // import twitterIcon from "../../assets/icons/twitter-blue-squere.svg";
 import { useRouter } from "next/router";
@@ -17,156 +15,205 @@ import Head from "next/head";
 import Image from "next/image";
 import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import dynamic from "next/dynamic";
+import classNames from "classnames";
+import MainLayout from "~/layouts/main";
+import {
+  User,
+  lecturers,
+  members,
+  subjects,
+  teamSubjects,
+} from "@prisma/client";
 
-const Img = ({ src, alt }: { alt: string; src: string }) => (
-  <div className="karyaContent__poster">
-    <div className="karyaContent__poster__imgWrapper">
+const CustomEditor = dynamic(
+  () => import("~/components/editor/custom-editor"),
+  {
+    ssr: false,
+  }
+);
+
+const Img: React.FC<{ alt: string; src: string }> = ({ src, alt }) => (
+  <div
+    className={classNames("karyaContent__poster", "relative  overflow-hidden")}
+  >
+    <div
+      className={classNames(
+        "karyaContent__poster__imgWrapper",
+        "relative overflow-hidden rounded-lg"
+      )}
+    >
       <Image
         src={src}
         className="karyaContent__poster__img"
         alt={`poster ${alt}`}
+        unoptimized
         fill
       />
     </div>
   </div>
 );
 
-// const Desc = ({ desc }) => {
-//   const { t } = useTranslation(["karya"]);
-//   return (
-//     <div className="karyaContent__desc">
-//       <h2 className="karyaContent__title">{t("karya:decription")}</h2>
-//       <Editor
-//         wrapperClassName="karyaContent__desc__wrapper"
-//         editorClassName="karyaContent__desc__wrapper__editor"
-//         editorState={desc}
-//         toolbarHidden={true}
-//         readOnly={true}
-//       />
-//     </div>
-//   );
-// };
+const Desc: React.FC<{ desc: string }> = ({ desc }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="karyaContent__desc">
+      <h2 className="karyaContent__title">{t("karya.decription")}</h2>
+      <div className="karyaContent__desc__wrapper">
+        <CustomEditor
+          className={classNames(
+            "karyaContent__desc__wrapper__editor",
+            "leading-5"
+          )}
+          state={desc}
+        />
+      </div>
+    </div>
+  );
+};
 
-// const Info = ({
-//   subjects,
-//   category,
-//   videoLink,
-//   demoLink,
-//   createdDate,
-//   lecturers,
-// }) => {
-//   const { t } = useTranslation(["karya"]);
-//   return (
-//     <div className="karyaContent__info">
-//       <h2 className="karyaContent__title">{t("karya:information")}</h2>
-//       <div className="karyaContent__info__list">
-//         <ul>
-//           <li className="karyaContent__info__list__li">
-//             <span className="list__squere" />
-//             <div className="list__subList">
-//               {subjects.map((obj) => (
-//                 <span className="list__subList__span" key={obj.id}>
-//                   {obj.subject.name}
-//                 </span>
-//               ))}
-//             </div>
-//           </li>
+const Info: React.FC<{
+  subjects: (teamSubjects & {
+    Subject: subjects;
+    Lecturer: lecturers & {
+      User: User;
+    };
+  })[];
+  category: string;
+  videoLink: string;
+  demoLink: string;
+  createdDate: Date;
+}> = ({ subjects, category, videoLink, demoLink, createdDate }) => {
+  const { t } = useTranslation(["karya"]);
+  return (
+    <div className="karyaContent__info">
+      <h2 className="karyaContent__title">{t("karya:information")}</h2>
+      <div className="karyaContent__info__list">
+        <ul>
+          <li className="karyaContent__info__list__li">
+            <span className="list__squere" />
+            <div className="list__subList">
+              {subjects.map((obj) => (
+                <span className="list__subList__span" key={obj.id}>
+                  {obj.Subject.name}
+                </span>
+              ))}
+            </div>
+          </li>
 
-//           <li className="karyaContent__info__list__li">
-//             <span className="list__squere" />
-//             <div className="list__subList">
-//               {lecturers.map(({ lecturer }, i) => (
-//                 <span className="list__subList__span" key={i}>
-//                   {lecturer.user.name}
-//                 </span>
-//               ))}
-//             </div>
-//           </li>
+          <li className="karyaContent__info__list__li">
+            <span className="list__squere" />
+            <div className="list__subList">
+              {subjects.map(({ Lecturer }, i) => (
+                <span className="list__subList__span" key={i}>
+                  {Lecturer.User.name}
+                </span>
+              ))}
+            </div>
+          </li>
 
-//           <li className="karyaContent__info__list__li">
-//             <span className="list__squere" />
-//             {/* TODO: buat translation */}
-//             <span className="list__text">{category}</span>
-//           </li>
-//         </ul>
+          <li className="karyaContent__info__list__li">
+            <span className="list__squere" />
+            {/* TODO: buat translation */}
+            <span className="list__text">{category}</span>
+          </li>
+        </ul>
 
-//         <ul>
-//           <li className="karyaContent__info__list__li">
-//             <span className="list__squere" />
-//             {videoLink ? (
-//               <a
-//                 className="list__text list__text--link"
-//                 target="_blank"
-//                 rel="noreferrer"
-//                 href={videoLink}
-//               >
-//                 Video
-//                 <img className="list__img" src={newTabIcon} alt="new tab" />
-//               </a>
-//             ) : (
-//               <span className="list__text list__text--link">Video</span>
-//             )}
-//           </li>
+        <ul>
+          <li className="karyaContent__info__list__li">
+            <span className="list__squere" />
+            {videoLink ? (
+              <a
+                className="list__text list__text--link"
+                target="_blank"
+                rel="noreferrer"
+                href={videoLink}
+              >
+                Video
+                <img
+                  className="list__img"
+                  src="/assets/icons/open_in_new-black-18dp.svg"
+                  alt="new tab"
+                />
+              </a>
+            ) : (
+              <span className="list__text list__text--link">Video</span>
+            )}
+          </li>
 
-//           <li className="karyaContent__info__list__li">
-//             <span className="list__squere" />
-//             {demoLink ? (
-//               <a
-//                 className="list__text list__text--link"
-//                 target="_blank"
-//                 rel="noreferrer"
-//                 href={demoLink}
-//               >
-//                 Demo
-//                 <img className="list__img" src={newTabIcon} alt="new tab" />
-//               </a>
-//             ) : (
-//               <span className="list__text list__text--link">Demo</span>
-//             )}
-//           </li>
+          <li className="karyaContent__info__list__li">
+            <span className="list__squere" />
+            {demoLink ? (
+              <a
+                className="list__text list__text--link"
+                target="_blank"
+                rel="noreferrer"
+                href={demoLink}
+              >
+                Demo
+                <img
+                  className="list__img"
+                  src="/assets/icons/open_in_new-black-18dp.svg"
+                  alt="new tab"
+                />
+              </a>
+            ) : (
+              <span className="list__text list__text--link">Demo</span>
+            )}
+          </li>
 
-//           <li className="karyaContent__info__list__li">
-//             <span className="list__squere" />
-//             <span className="list__text">
-//               {createdDate.slice(0, 10).replaceAll("-", "/")}
-//             </span>
-//           </li>
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// };
+          <li className="karyaContent__info__list__li">
+            <span className="list__squere" />
+            <span className="list__text">
+              {/* TODO: date */}
+              {/* {createdDate.slice(0, 10).replaceAll("-", "/")} */}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-// const Team = ({ members }) => {
-//   const { t } = useTranslation(["karya"]);
-//   return (
-//     <div className="karyaContent__team">
-//       <h2 className="karyaContent__title">{t("karya:team")}</h2>
-//       <div className="karyaContent__team__members">
-//         {members.map(({ status, user }, i) => {
-//           return (
-//             status === 1 && (
-//               <div key={i} className="team__member">
-//                 <img
-//                   alt={user.name}
-//                   src={user.profilePicture}
-//                   className="team__member__avatar"
-//                 />
-//                 <div className="team__member__info">
-//                   <span className="team__member__info__name">{user.name}</span>
-//                   <span className="team__member__info__desc">
-//                     {user.identityNumber} -{" "}
-//                     {user.roleId ? t("karya:leader") : t("karya:member")}
-//                   </span>
-//                 </div>
-//               </div>
-//             )
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// };
+const Team: React.FC<{
+  members: (members & {
+    User: User;
+  })[];
+}> = ({ members }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="karyaContent__team">
+      <h2 className="karyaContent__title">{t("karya.team")}</h2>
+      <div className="karyaContent__team__members">
+        {members.map(({ status, User }, i) => {
+          return (
+            status !== "Invited" && (
+              <div key={i} className="team__member">
+                <div className="relative mr-3 h-12 w-12">
+                  <Image
+                    alt={User.name ?? ""}
+                    src={User.image ?? ""}
+                    className="team__member__avatar"
+                    loading="lazy"
+                    unoptimized
+                    fill
+                  />
+                </div>
+                <div className="team__member__info">
+                  <span className="team__member__info__name">{User.name}</span>
+                  <span className="team__member__info__desc">
+                    {User.identityNumber} -{" "}
+                    {User.roleId ? t("karya.leader") : t("karya.member")}
+                  </span>
+                </div>
+              </div>
+            )
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 // const Support = ({ isLiked = false, onClick = () => {}, likeCount = 5 }) => {
 //   const { t } = useTranslation(["karya"]);
@@ -240,7 +287,9 @@ const Karya = () => {
   const { id } = router.query;
   const { t } = useTranslation();
 
-  const project = api.project.getById.useQuery(Number(id));
+  const project = api.project.getById.useQuery(Number(id), {
+    enabled: id != null,
+  });
 
   const [isLiked, setIsLiked] = useState(false);
   // const [BASE_URL] = useState(window.location.href);
@@ -249,10 +298,12 @@ const Karya = () => {
   const [editorState, setEditorState] = useState(null);
   const [likeRemain, setLikeRemain] = useState(5);
 
-  const [windowWidth, setWindowWidth] = useState<number>();
+  const [windowWidth, setWindowWidth] = useState<number>(0);
 
   const handleResize = () => {
-    setWindowWidth(window.innerWidth);
+    if (window != undefined) {
+      setWindowWidth(window.innerWidth);
+    }
   };
 
   // const checkLikeReamin = useCallback(async () => {}, []);
@@ -273,10 +324,9 @@ const Karya = () => {
   }, []);
 
   return (
-    <>
+    <MainLayout>
       <Head>
-        <title>Infomatics Expo</title>
-        <meta name="description" content="Deskripsi" />
+        <title>{t("translation.app_title")}</title>
         <meta name="robots" content="index, follow" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -290,7 +340,7 @@ const Karya = () => {
             </span>
 
             <div
-              className={classnames("karyaHeader__like", "relative flex gap-2")}
+              className={classNames("karyaHeader__like", "relative flex gap-2")}
             >
               <div className="relative h-6 w-6">
                 <Image
@@ -301,7 +351,7 @@ const Karya = () => {
                 />
               </div>
               <span
-                className={classnames("karyaHeader__like__number", "relative")}
+                className={classNames("karyaHeader__like__number", "relative")}
               >
                 {project.data?._count.Likes}
               </span>
@@ -312,54 +362,62 @@ const Karya = () => {
         <article className="karyaContent">
           {/* FIXME: temp hack, to keep desktop version look better */}
 
-          {/* {windowWidth > breakpoint.tablet ? (
+          {project.isSuccess && windowWidth > breakpoint.tablet ? (
             <>
               <div className="karyaContent_left">
-                <Img src={project.gdriveLink} alt={project.name} />
-                <Support
+                <Img
+                  src={project.data?.gdriveLink ?? ""}
+                  alt={project.data?.name ?? ""}
+                />
+                {/* <Support
                   isLiked={isLiked}
                   onClick={handleLike}
                   likeCount={likeRemain}
                 />
-                <Share url={BASE_URL} name={project.name} />
+                <Share url={BASE_URL} name={project.name} /> */}
               </div>
               <div className="karyaContent_right">
-                {editorState && <Desc desc={editorState} />}
+                <Desc desc={project.data?.description ?? ""} />
                 <Info
+                  category={project.data?.Category.name ?? ""}
+                  createdDate={project.data?.created_at ?? new Date()}
+                  demoLink={project.data?.demoLink ?? ""}
+                  videoLink={project.data?.videoLink ?? ""}
+                  subjects={project.data?.Team.TeamSubjects}
+                  // lecturers={project.data?}
+                />
+                <Team members={project.data?.Team.Members ?? []} />
+              </div>
+            </>
+          ) : (
+            project.isSuccess && (
+              <>
+                <Img
+                  src={project.data?.gdriveLink ?? ""}
+                  alt={project.data?.name ?? ""}
+                />
+                {/* <Support
+                isLiked={isLiked}
+                onClick={handleLike}
+                likeCount={likeRemain}
+              />
+              <Share url={BASE_URL} name={project.name} /> */}
+                <Desc desc={project.data?.description ?? ""} />
+                {/* <Info
                   category={project.category.name}
                   createdDate={project.created_at}
                   demoLink={project.demoLink}
                   videoLink={project.videoLink}
                   subjects={project.team.team_subjects}
                   lecturers={project.team.team_subjects}
-                />
-                <Team members={project.team.members} />
-              </div>
-            </>
-          ) : (
-            <>
-              <Img src={project.gdriveLink} alt={project.name} />
-              <Support
-                isLiked={isLiked}
-                onClick={handleLike}
-                likeCount={likeRemain}
-              />
-              <Share url={BASE_URL} name={project.name} />
-              {editorState && <Desc desc={editorState} />}
-              <Info
-                category={project.category.name}
-                createdDate={project.created_at}
-                demoLink={project.demoLink}
-                videoLink={project.videoLink}
-                subjects={project.team.team_subjects}
-                lecturers={project.team.team_subjects}
-              />
-              <Team members={project.team.members} />
-            </>
-          )} */}
+                /> */}
+                <Team members={project.data?.Team.Members ?? []} />
+              </>
+            )
+          )}
         </article>
       </main>
-    </>
+    </MainLayout>
   );
 };
 

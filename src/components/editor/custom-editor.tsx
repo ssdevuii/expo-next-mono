@@ -1,21 +1,30 @@
 import { EditorState, convertFromRaw } from "draft-js";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const CustomEditor = ({ state }: { state: string }) => {
+const CustomEditor: React.FC<{
+  state: string;
+  className?: string;
+}> = ({ state, className }) => {
   const [editorState, setEditorState] = useState<EditorState | undefined>(
     undefined
   );
 
   useEffect(() => {
-    const docState = convertFromRaw(JSON.parse(state) as unknown);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const docState = convertFromRaw(JSON.parse(state));
     setEditorState(EditorState.createWithContent(docState));
   }, [state]);
 
   return (
     <div className="">
-      <Editor editorState={editorState} toolbarHidden={true} readOnly={true} />
+      <Editor
+        editorClassName={className}
+        editorState={editorState}
+        toolbarHidden={true}
+        readOnly={true}
+      />
     </div>
   );
 };
