@@ -150,8 +150,6 @@ const Header = () => {
   const [styleOnTop, setStyleOnTop] = useState("");
   const { data: user, status } = useSession();
 
-  const [isAuthPopoupVisible, setisAuthPopoupVisible] = useState(false);
-
   const onScroll = useCallback(() => {
     const y = window.scrollY;
     setStyleOnTop(y > 0 ? "shadow" : "");

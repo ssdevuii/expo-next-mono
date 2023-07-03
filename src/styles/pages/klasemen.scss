@@ -1,0 +1,62 @@
+@use '../../styles/index' as *;
+@import '../../styles/page';
+
+.page_article {
+  h2.standing__article__title {
+    text-shadow: 3px 4px 10px #00000040;
+    color: black;
+  }
+
+  .standing__table__body {
+    tr:nth-child(1) {
+      span {
+        background-color: $yellow;
+        color: white;
+        font-weight: bold;
+      }
+    }
+    tr:nth-child(2) {
+      span {
+        background-color: $grey;
+        color: white;
+        font-weight: bold;
+      }
+    }
+    tr:nth-child(3) {
+      span {
+        background-color: $brown-light;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .standing__article__info {
+    position: relative;
+    padding: 0.5em 0 0.5em 1em;
+    margin-top: 2em;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: $yellow;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0.5em;
+      display: block;
+    }
+    .standing__article__info__span {
+      display: block;
+      font-size: 1em;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.1em;
+      color: $blue-dark;
+
+      &:nth-child(1) {
+        margin-bottom: 1em;
+      }
+    }
+  }
+}

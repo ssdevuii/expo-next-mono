@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { type GetStaticProps } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
-import { FormEventHandler, useCallback, useEffect, useState } from "react";
+import { type FormEventHandler, useCallback, useEffect, useState } from "react";
 
 // * Components
 import LanguageSwitcher from "~/components/languageSwitcher/languageSwitcher";

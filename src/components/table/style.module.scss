@@ -1,0 +1,77 @@
+@use '../../styles/index' as *;
+
+@mixin table_desktop_mode {
+  @include media('>40em') {
+    @content;
+  }
+}
+
+.table__container {
+  overflow-x: auto;
+
+  table {
+    min-width: fit-content;
+    width: 100%;
+
+    thead {
+      color: white;
+
+      tr {
+        th {
+          .table__head {
+            padding: 1.25em;
+            font-weight: bold;
+            background-color: $blue-dark;
+            display: inline-block;
+            width: 100%;
+          }
+
+          &:nth-child(1) {
+            span.table__head {
+              border-radius: 1.25em 0 0 0;
+            }
+          }
+
+          &:last-child {
+            span.table__head {
+              border-radius: 0 1.25em 0 0;
+            }
+          }
+        }
+      }
+    }
+
+    tbody {
+      .table__body__span,
+      .table__head {
+        background-color: rgba(9, 54, 151, 0.05);
+        width: 100%;
+        height: 100%;
+        padding: 1.25em 0;
+        display: inline-block;
+        text-align: center;
+        margin-top: 0.2em;
+
+        @include table_desktop_mode {
+          margin-top: 0.5em;
+        }
+      }
+
+      // only show border radius if on desktop mode
+      @include table_desktop_mode {
+        tr:nth-child(10) {
+          td:nth-child(1) {
+            span {
+              border-radius: 0 0 0 1.25em;
+            }
+          }
+          td:nth-child(5) {
+            span {
+              border-radius: 0 0 1.25em 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
