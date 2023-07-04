@@ -1,0 +1,69 @@
+@use "../index" as *;
+@use "../page" as *;
+
+.page__header__desc {
+  @include max-line-overflow(1);
+}
+
+.teamForm {
+  margin-top: 0;
+
+  .form {
+    margin: auto;
+    // width: 80%;
+
+    @include media(">desktop") {
+      width: 80%;
+    }
+
+    .double_select_container {
+      @include media("<=mobile_l") {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 1fr;
+        grid-auto-flow: row;
+      }
+    }
+
+    .select__action__button__container {
+      display: grid;
+      width: fit-content;
+      grid-template-rows: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1em;
+      margin-top: -1em;
+
+      .select__action__button {
+        // width: fit-content;
+        min-height: 44px;
+        min-width: 44px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        // padding: 0.5em;
+        border-radius: 0.2em;
+        margin-bottom: 2em;
+
+        img {
+          height: 50%;
+          width: auto;
+        }
+
+        &.add {
+          background-color: $yellow;
+
+          &:focus {
+            background-color: darken($yellow, 10%);
+          }
+        }
+
+        &.remove {
+          background-color: $red-salmon;
+
+          &:focus {
+            background-color: darken($red-salmon, 10%);
+          }
+        }
+      }
+    }
+  }
+}

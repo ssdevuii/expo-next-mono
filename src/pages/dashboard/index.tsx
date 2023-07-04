@@ -6,7 +6,7 @@ import { Breadcrumb, Item } from "~/components/breadcrumb/breadcrumb";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import MainLayout from "~/layouts/main";
-import { GetStaticProps } from "next";
+import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Dashboard = () => {
@@ -44,11 +44,11 @@ const Dashboard = () => {
 
         <article className="page_article dashboard">
           <div className="dashboard__header">
-            <Link href="/dashboard/tim" className="dashboard__header__button">
+            <Link href="/dashboard/team" className="dashboard__header__button">
               {t("dashboard.button_createNewTeam")}
             </Link>
             <Link
-              href="/dashboard/undangan"
+              href="/dashboard/invitation"
               className="dashboard__header__button blue"
             >
               {t("dashboard.button_invitation")}
@@ -125,7 +125,8 @@ const Dashboard = () => {
                 <div className="dashboard__card__action">
                   {!team.Projects ? (
                     <Link
-                      href={`/dashboard/tim/${team.id}/karya`}
+                      // href={`/dashboard/tim/${team.id}/karya`}
+                      href="#"
                       className="action__button"
                       title={t("dashboard.card_buttonCompleteTheKarya")}
                     >
@@ -144,7 +145,8 @@ const Dashboard = () => {
 
                   {/* <button className="action__button--disabeled">{t('dashboard.card_buttonEditTeam')}</button> */}
                   <Link
-                    href={`/dashboard/tim/${team.id}`}
+                    href="#"
+                    // href={`/dashboard/tim/${team.id}`}
                     className="action__button"
                     title={t("dashboard.card_buttonEditTeam")}
                   >
