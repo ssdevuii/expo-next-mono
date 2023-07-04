@@ -396,6 +396,10 @@
       cursor: pointer;
       margin-bottom: 1em;
 
+      &:disabled {
+        cursor: default;
+      }
+
       &__img {
         $size: 44px;
         width: $size;

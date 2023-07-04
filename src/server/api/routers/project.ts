@@ -52,6 +52,30 @@ export const projectRouter = createTRPCRouter({
     });
   }),
 
+  likeProjectById: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      const expoDate = await ctx.prisma.expoDate.findFirstOrThrow({
+        where: { isActive: 1 },
+      });
+
+      return ctx.prisma.likes.create({
+        data: {
+          projectId: input,
+          userId: Number(ctx.session.user.id),
+          expoDateId: expoDate.id,
+        },
+      });
+    }),
+
+  isProjectLiked: protectedProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      return ctx.prisma.likes.findFirst({
+        where: { projectId: input, userId: Number(ctx.session.user.id) },
+      });
+    }),
+
   // TODO
   create: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
     return ctx.prisma.projects.findFirst({ where: { id: input } });

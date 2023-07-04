@@ -21,6 +21,7 @@ import {
   type subjects,
   type teamSubjects,
 } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 const CustomEditor = dynamic(
   () => import("~/components/editor/custom-editor"),
@@ -221,40 +222,63 @@ const Team: React.FC<{
   );
 };
 
-// const Support = ({ isLiked = false, onClick = () => {}, likeCount = 5 }) => {
-//   const { t } = useTranslation(["karya"]);
+const Support = () => {
+  const { t } = useTranslation();
+  const { status } = useSession();
 
-//   return (
-//     <div className="karyaContent__support">
-//       <h2 className="karyaContent__title">{t("karya:support")}</h2>
-//       <div>
-//         <button
-//           onClick={onClick}
-//           disabled={likeCount <= 0 || isLiked}
-//           className="support__button"
-//         >
-//           <div
-//             role="img"
-//             aria-label="Like button"
-//             title="clik!"
-//             className={classnames(
-//               "support__button__img",
-//               isLiked
-//                 ? "support__button__img--liked"
-//                 : "support__button__img--like"
-//             )}
-//           />
-//           <span className="support__button__span">
-//             {t("karya:support_button")}
-//           </span>
-//         </button>
-//         <span className="karya__support__count">
-//           {t("karya:support_count", { count: likeCount })}
-//         </span>
-//       </div>
-//     </div>
-//   );
-// };
+  const likeRemain = api.user.likeRemain.useQuery(undefined, {
+    enabled: status === "authenticated",
+  });
+  const isLiked = api.project.isProjectLiked.useQuery(527, {
+    enabled: status === "authenticated",
+  });
+
+  const likeProjectMutation = api.project.likeProjectById.useMutation();
+
+  const handleLike = () => {
+    likeProjectMutation.mutateAsync(527).finally(() => {
+      void likeRemain.refetch();
+      void isLiked.refetch();
+    });
+  };
+
+  return (
+    <div className="karyaContent__support">
+      <h2 className="karyaContent__title">{t("karya:support")}</h2>
+      {status == "authenticated" ? (
+        <div>
+          <button
+            onClick={handleLike}
+            disabled={(likeRemain?.data ?? 1) <= 0 || isLiked?.data != null}
+            className={classNames("support__button", "disabled:cursor-default")}
+          >
+            <div
+              role="img"
+              aria-label="Like button"
+              title="clik!"
+              className={classNames(
+                "support__button__img",
+                isLiked?.data != null
+                  ? "support__button__img--liked"
+                  : "support__button__img--like"
+              )}
+            />
+            <span className="support__button__span">
+              {t("karya.support_button")}
+            </span>
+          </button>
+          <span className="karya__support__count">
+            {t("karya.support_count", { count: likeRemain?.data })}
+          </span>
+        </div>
+      ) : (
+        <div>
+          <span>Please login first!</span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Share: React.FC<{
   name: string;
@@ -317,13 +341,6 @@ const Karya = () => {
     enabled: id != null,
   });
 
-  const [isLiked, setIsLiked] = useState(false);
-  // const [BASE_URL] = useState(window.location.href);
-
-  const [likeCount, setLikeCount] = useState(0);
-  const [editorState, setEditorState] = useState(null);
-  const [likeRemain, setLikeRemain] = useState(5);
-
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
   const handleResize = () => {
@@ -331,12 +348,6 @@ const Karya = () => {
       setWindowWidth(window.innerWidth);
     }
   };
-
-  // const checkLikeReamin = useCallback(async () => {}, []);
-
-  // const checkIsLiked = useCallback(async () => {}, []);
-
-  // const handleLike = useCallback(() => {}, []);
 
   useEffect(() => {
     if (window != undefined) {
@@ -395,11 +406,7 @@ const Karya = () => {
                   src={project.data?.gdriveLink ?? ""}
                   alt={project.data?.name ?? ""}
                 />
-                {/* <Support
-                  isLiked={isLiked}
-                  onClick={handleLike}
-                  likeCount={likeRemain}
-                /> */}
+                <Support />
                 <Share name={project.data?.name ?? ""} />
               </div>
               <div className="karyaContent_right">

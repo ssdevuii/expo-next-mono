@@ -14,4 +14,20 @@ export const userRouter = createTRPCRouter({
       },
     });
   }),
+
+  likeRemain: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.prisma.user.findFirstOrThrow({
+      where: { id: Number(ctx.session.user.id) },
+    });
+
+    const likeLimitByRole = await ctx.prisma.likesLimit.findFirstOrThrow({
+      where: { id: user?.roleId },
+    });
+
+    const likeCount = await ctx.prisma.likes.findMany({
+      where: { userId: user?.id, ExpoDate: { isActive: 1 } },
+    });
+
+    return likeLimitByRole.amount - likeCount.length;
+  }),
 });
