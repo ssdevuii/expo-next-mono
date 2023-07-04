@@ -1,0 +1,306 @@
+@use "..//index" as *;
+@use "../page" as *;
+
+.page__header__desc {
+  @include max-line-overflow(1);
+}
+.dashboard {
+  margin-top: 0;
+
+  .dashboard__header {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    row-gap: 1em;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+    margin-bottom: 4.2em;
+
+    @include media(">mobile_l") {
+      grid-template-rows: 1fr;
+      grid-template-columns: repeat(2, auto);
+      column-gap: 2em;
+    }
+
+    .dashboard__header__button {
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      background-color: $yellow;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      border-radius: 1em;
+      color: white;
+      padding: 1em 2em;
+      font-size: 1.2em;
+      font-style: normal;
+      font-weight: 600;
+
+      @include media(">mobile_l") {
+        padding: 0.8em 2em;
+      }
+
+      &.blue {
+        background-color: $blue-dark;
+
+        &:focus {
+          background-color: lighten($color: $blue-dark, $amount: 20%);
+        }
+      }
+
+      .invitaiton__count {
+        color: $blue-dark;
+        background-color: white;
+        display: inline-block;
+        padding: 0.2em;
+        border-radius: 0.3em;
+        margin-left: 0.3em;
+      }
+
+      &:focus {
+        background-color: lighten($color: $yellow, $amount: 20%);
+      }
+    }
+  }
+}
+
+.dashboard__card__container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-flow: row;
+  row-gap: 5em;
+
+  @include media(">mobile_l") {
+    margin: auto;
+    width: 80%;
+  }
+
+  @include media(">tablet") {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    column-gap: 2em;
+  }
+
+  .dashboard__card {
+    background-color: $blue-dark;
+    padding: 2.5em 1.5em 3em;
+    border-radius: 1.25em;
+    position: relative;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 1.3em;
+      width: 60%;
+      border-radius: 0.25em;
+      background-color: $yellow;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &.noKarya {
+      background: #ea4335;
+    }
+
+    @include media(">mobile_l") {
+      padding: 2.5em 2.7em 3em;
+    }
+
+    .dashboard__card__header {
+      margin-bottom: 2em;
+      .dashboard__card__header__team {
+        text-align: center;
+        font-size: 2em;
+        font-style: normal;
+        font-weight: 700;
+        margin-bottom: 1em;
+        @include max-line-overflow(2);
+      }
+
+      .dashboard__card__desc {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        row-gap: 1em;
+
+        @include media(">mobile_l") {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr;
+          column-gap: 1em;
+        }
+
+        &.noKarya {
+          grid-template-columns: 1fr;
+        }
+
+        li {
+          display: grid;
+          grid-template-columns: auto 1fr;
+
+          .circle {
+            $size: 1em;
+            width: $size;
+            height: $size;
+            border-radius: $size;
+            display: inline-block;
+            background-color: white;
+            margin-right: 0.2em;
+            margin-top: 0.2em;
+          }
+
+          .dashboard__card__desc__category,
+          .dashboard__card__desc__name {
+            font-size: 1.25em;
+            font-style: normal;
+            font-weight: 600;
+          }
+
+          .dashboard__card__desc__category {
+            // padding-right: 1em;
+            @include max-line-overflow(3);
+          }
+          .dashboard__card__desc__name {
+            // padding-right: 1em;
+            @include max-line-overflow(3);
+          }
+        }
+      }
+    }
+
+    .dashboard__card__members {
+      .dashboard__card__members__title {
+        font-size: 1.2em;
+        font-style: normal;
+        font-weight: 700;
+        margin-bottom: 1em;
+        display: inline-block;
+      }
+
+      .dashboard__card__members__invite {
+        text-decoration: none;
+        display: block;
+        width: max-content;
+        // padding: .3em;
+        margin: auto;
+        color: white;
+        text-align: center;
+      }
+
+      .dashboard__card__member__list {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        grid-auto-flow: row;
+        gap: 1em;
+        margin-bottom: 1em;
+
+        @include media(">mobile_l") {
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: repeat(2, 1fr);
+          grid-auto-flow: row;
+        }
+
+        .member {
+          display: flex;
+          flex-direction: column;
+
+          .name {
+            font-size: 1em;
+            font-style: normal;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.2em;
+            @include max-line-overflow(1);
+          }
+
+          .role {
+            font-size: 1em;
+            font-style: normal;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .dashboard__card__action {
+      position: absolute;
+      width: fit-content;
+      bottom: 0;
+      left: 50%;
+      display: grid;
+      transform: translate(-50%, 50%);
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 1fr;
+      column-gap: 0;
+
+      @include media(">desktop") {
+        column-gap: 0.5em;
+      }
+
+      .action__button {
+        display: inline-block;
+        text-align: center;
+        min-height: 44px;
+        outline: none;
+        border: none;
+        background-color: white;
+        color: $blue-dark;
+        box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        font-size: 1em;
+        font-style: normal;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.8em 2em;
+        transition: transform 0.2s;
+
+        &:nth-child(1) {
+          border-radius: 0.2em 0 0 0.2em;
+
+          @include media(">desktop") {
+            border-radius: 0.4em;
+          }
+        }
+
+        &:nth-child(2) {
+          border-radius: 0 0.2em 0.2em 0;
+
+          @include media(">desktop") {
+            border-radius: 0.4em;
+          }
+        }
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        &:active,
+        &:visited {
+          color: $blue-dark;
+        }
+      }
+      .action__button--disabeled {
+        @extend .action__button;
+
+        &:hover {
+          transform: scale(1);
+        }
+
+        &:active,
+        &:visited {
+          color: $blue-dark;
+        }
+      }
+    }
+  }
+}

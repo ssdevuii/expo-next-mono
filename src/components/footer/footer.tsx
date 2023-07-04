@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
+import classNames from "classnames";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -9,7 +10,7 @@ const Footer = () => {
   useEffect(() => setYear(new Date().getFullYear()), []);
 
   return (
-    <footer className="footer">
+    <footer className={classNames("footer", "mt-auto")}>
       <div className="footer__follow">
         <div className="footer__follow__text">
           {t("translation.footer_follow")}
