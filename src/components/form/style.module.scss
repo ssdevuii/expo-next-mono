@@ -1,0 +1,173 @@
+@use '../../styles/index' as *;
+
+.form {
+  $borderRadius: 0.2em;
+  // background-color: salmon;
+
+  .label {
+    margin-bottom: 2em;
+    display: block;
+
+    .label__span {
+      display: block;
+      font-size: 1.5em;
+      line-height: 1.5;
+      font-style: normal;
+      font-weight: 500;
+      margin-bottom: 0.2em;
+      @include max-line-overflow(1);
+
+      &.required {
+        &::after {
+          content: '*';
+        }
+      }
+
+      &.optional {
+        &::after {
+          content: '(optional)';
+        }
+      }
+    }
+  }
+
+  .label__error {
+    color: red;
+    display: inline-block;
+    @include max-line-overflow(1);
+    margin-top: 0.5em;
+
+    &::before {
+      content: '*';
+    }
+  }
+
+  .input__text,
+  .select {
+    width: 100%;
+    background: lighten($grey-light, 5%);
+    border-radius: $borderRadius;
+    border: 1px solid $grey;
+    outline: none;
+    font-size: 1em;
+    font-weight: 520;
+    padding: 1em 0.5em;
+
+    &.error {
+      border: 1px solid red;
+    }
+
+    &:focus {
+      border: 1px solid darken($grey, 50%);
+    }
+  }
+
+  .double__input__wrapper {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-flow: column;
+    column-gap: 1em;
+  }
+
+  .button {
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 1.4em;
+    font-style: normal;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    background-color: $blue-dark;
+    color: $white;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 0.2em;
+    @include max-line-overflow(1);
+    transition: 0.2s ease-in-out background-color;
+
+    &:focus {
+      background-color: lighten($blue-dark, 20%);
+    }
+  }
+
+  .editorWraper {
+    border: 1px solid $grey;
+    margin-bottom: 2em;
+
+    .editorToolbar {
+      background: lighten($grey-light, 5%);
+    }
+    .editor {
+      min-height: 200px;
+      padding: 0 1em;
+      cursor: text;
+    }
+  }
+
+  .fileImg__container {
+    background: lighten($grey-light, 5%);
+    border: 1px solid $grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 0.5em;
+    margin: -1.5em 0 2em;
+
+    &.error {
+      border-color: red;
+    }
+
+    .fileImg {
+      visibility: hidden;
+      display: none;
+    }
+
+    .fileImg__preview {
+      min-width: 200px;
+      max-width: 500px;
+      height: auto;
+      width: 100%;
+      margin-bottom: 1em;
+      border-radius: 0.4em;
+    }
+
+    .fileImg__action {
+      display: grid;
+      width: fit-content;
+      height: fit-content;
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr auto;
+      column-gap: 1em;
+
+      .fileImg__action__button {
+        min-height: 44px;
+        min-width: 44px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5em;
+        border-radius: 0.2em;
+
+        img {
+          height: 70%;
+          width: auto;
+        }
+
+        &.add {
+          background-color: $blue-dark;
+          color: white;
+          font-size: 1.3em;
+          font-style: normal;
+          font-weight: 600;
+          padding: 0.5em 1.4em;
+        }
+
+        &.remove {
+          background-color: $red-salmon;
+        }
+      }
+    }
+  }
+}

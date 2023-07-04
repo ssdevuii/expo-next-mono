@@ -4,6 +4,8 @@ import { projectRouter } from "./routers/project";
 import { userRouter } from "./routers/user";
 import { klasemenRouter } from "./routers/klasemen";
 import { teamRouter } from "./routers/team";
+import { lecturerRouter } from "./routers/lecturer";
+import { subjectRouter } from "./routers/subject";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +18,8 @@ export const appRouter = createTRPCRouter({
   project: projectRouter,
   klasemen: klasemenRouter,
   team: teamRouter,
+  lecturer: lecturerRouter,
+  subject: subjectRouter,
 });
 
 // export type definition of API
