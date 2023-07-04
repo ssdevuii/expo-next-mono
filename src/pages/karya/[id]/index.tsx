@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
-// import { FacebookShareButton, TwitterShareButton } from "react-share";
-// import { EditorState, convertFromRaw } from "draft-js";
-// import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 
 // * assets
-// import imgLoad from "../../assets/images/img-placeholder.svg";
 // import fbIcon from "../../assets/icons/fb-blue-squere.svg";
 // import twitterIcon from "../../assets/icons/twitter-blue-squere.svg";
 import { useRouter } from "next/router";
@@ -19,11 +15,11 @@ import dynamic from "next/dynamic";
 import classNames from "classnames";
 import MainLayout from "~/layouts/main";
 import {
-  User,
-  lecturers,
-  members,
-  subjects,
-  teamSubjects,
+  type User,
+  type lecturers,
+  type members,
+  type subjects,
+  type teamSubjects,
 } from "@prisma/client";
 
 const CustomEditor = dynamic(
@@ -114,7 +110,6 @@ const Info: React.FC<{
 
           <li className="karyaContent__info__list__li">
             <span className="list__squere" />
-            {/* TODO: buat translation */}
             <span className="list__text">{category}</span>
           </li>
         </ul>
@@ -129,12 +124,16 @@ const Info: React.FC<{
                 rel="noreferrer"
                 href={videoLink}
               >
-                Video
-                <img
-                  className="list__img"
-                  src="/assets/icons/open_in_new-black-18dp.svg"
-                  alt="new tab"
-                />
+                <div className="flex flex-nowrap">
+                  Video
+                  <Image
+                    className={classNames("list__img", "mr-0 w-fit")}
+                    src="/assets/icons/open_in_new-black-18dp.svg"
+                    alt="new tab"
+                    width={18}
+                    height={18}
+                  />
+                </div>
               </a>
             ) : (
               <span className="list__text list__text--link">Video</span>
@@ -145,17 +144,24 @@ const Info: React.FC<{
             <span className="list__squere" />
             {demoLink ? (
               <a
-                className="list__text list__text--link"
+                className={classNames(
+                  "list__text list__text--link",
+                  "flex cursor-pointer flex-nowrap"
+                )}
                 target="_blank"
                 rel="noreferrer"
                 href={demoLink}
               >
-                Demo
-                <img
-                  className="list__img"
-                  src="/assets/icons/open_in_new-black-18dp.svg"
-                  alt="new tab"
-                />
+                <div className="flex flex-nowrap">
+                  Demo
+                  <Image
+                    className={classNames("list__img", "mr-0 w-fit")}
+                    src="/assets/icons/open_in_new-black-18dp.svg"
+                    alt="new tab"
+                    width={18}
+                    height={18}
+                  />
+                </div>
               </a>
             ) : (
               <span className="list__text list__text--link">Demo</span>
@@ -165,8 +171,8 @@ const Info: React.FC<{
           <li className="karyaContent__info__list__li">
             <span className="list__squere" />
             <span className="list__text">
-              {/* TODO: date */}
-              {/* {createdDate.slice(0, 10).replaceAll("-", "/")} */}
+              {createdDate.getDate()}/{createdDate.getMonth() + 1}/
+              {createdDate.getFullYear()}
             </span>
           </li>
         </ul>
@@ -250,33 +256,53 @@ const Team: React.FC<{
 //   );
 // };
 
-// const Share = ({ url, name }) => {
-//   const { t } = useTranslation(["karya"]);
-//   return (
-//     <div className="karyaContent__share">
-//       <h2 className="karyaContent__title">{t("karya:share")}</h2>
-//       <div className="karyaContent__share__button__container">
-//         <FacebookShareButton
-//           className="karyaContent__share__button"
-//           quote={name}
-//           hashtag="#iniHashtag"
-//           url={url}
-//         >
-//           <img src={fbIcon} alt="Facebook icon" />
-//         </FacebookShareButton>
+const Share: React.FC<{
+  name: string;
+}> = ({ name }) => {
+  const { t } = useTranslation();
+  const [url, setUrl] = useState("");
 
-//         <TwitterShareButton
-//           className="karyaContent__share__button"
-//           url={url}
-//           title={name}
-//           hashtag="#ini #hashtag"
-//         >
-//           <img src={twitterIcon} alt="Twitter Icon" />
-//         </TwitterShareButton>
-//       </div>
-//     </div>
-//   );
-// };
+  useEffect(() => {
+    if (window !== undefined) {
+      setUrl(window.location.href);
+    }
+  }, []);
+
+  return (
+    <div className="karyaContent__share">
+      <h2 className="karyaContent__title">{t("karya:share")}</h2>
+      <div className="karyaContent__share__button__container">
+        <FacebookShareButton
+          className="karyaContent__share__button"
+          quote={name}
+          hashtag="#iniHashtag"
+          url={url}
+        >
+          <Image
+            src="/assets/icons/fb-blue-squere.svg"
+            alt="Facebook icon"
+            width={44}
+            height={44}
+          />
+        </FacebookShareButton>
+
+        <TwitterShareButton
+          className="karyaContent__share__button"
+          url={url}
+          title={name}
+          // hashtag="#ini #hashtag"
+        >
+          <Image
+            src="/assets/icons/twitter-blue-squere.svg"
+            alt="Twitter Icon"
+            width={44}
+            height={44}
+          />
+        </TwitterShareButton>
+      </div>
+    </div>
+  );
+};
 
 const breakpoint = {
   tablet: 768,
@@ -373,19 +399,20 @@ const Karya = () => {
                   isLiked={isLiked}
                   onClick={handleLike}
                   likeCount={likeRemain}
-                />
-                <Share url={BASE_URL} name={project.name} /> */}
+                /> */}
+                <Share name={project.data?.name ?? ""} />
               </div>
               <div className="karyaContent_right">
                 <Desc desc={project.data?.description ?? ""} />
-                <Info
-                  category={project.data?.Category.name ?? ""}
-                  createdDate={project.data?.created_at ?? new Date()}
-                  demoLink={project.data?.demoLink ?? ""}
-                  videoLink={project.data?.videoLink ?? ""}
-                  subjects={project.data?.Team.TeamSubjects}
-                  // lecturers={project.data?}
-                />
+                {project.data && (
+                  <Info
+                    category={project.data?.Category.name ?? ""}
+                    createdDate={project.data?.created_at ?? new Date()}
+                    demoLink={project.data?.demoLink ?? ""}
+                    videoLink={project.data?.videoLink ?? ""}
+                    subjects={project.data?.Team.TeamSubjects}
+                  />
+                )}
                 <Team members={project.data?.Team.Members ?? []} />
               </div>
             </>
@@ -403,14 +430,15 @@ const Karya = () => {
               />
               <Share url={BASE_URL} name={project.name} /> */}
                 <Desc desc={project.data?.description ?? ""} />
-                {/* <Info
-                  category={project.category.name}
-                  createdDate={project.created_at}
-                  demoLink={project.demoLink}
-                  videoLink={project.videoLink}
-                  subjects={project.team.team_subjects}
-                  lecturers={project.team.team_subjects}
-                /> */}
+                {project.data && (
+                  <Info
+                    category={project.data?.Category.name ?? ""}
+                    createdDate={project.data?.created_at ?? new Date()}
+                    demoLink={project.data?.demoLink ?? ""}
+                    videoLink={project.data?.videoLink ?? ""}
+                    subjects={project.data?.Team.TeamSubjects}
+                  />
+                )}
                 <Team members={project.data?.Team.Members ?? []} />
               </>
             )
