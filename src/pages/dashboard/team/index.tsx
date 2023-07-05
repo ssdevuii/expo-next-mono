@@ -48,7 +48,7 @@ const TeamForm = () => {
     void createTeamMutation
       .mutateAsync({ name: teamName, subjectAndLecturer })
       .then(({ id }) => {
-        return void router.push(`/dashboard/karya?teamId=${id}`);
+        return void router.push(`/dashboard/project?teamId=${id}`);
       })
       .catch((err) => {
         console.error(err);

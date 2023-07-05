@@ -77,4 +77,25 @@ export const teamRouter = createTRPCRouter({
         include: { User: true },
       });
     }),
+
+  sendInvitation: protectedProcedure
+    .input(z.object({ teamId: z.number(), email: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findFirstOrThrow({
+        where: { email: input.email },
+        select: { id: true },
+      });
+
+      return ctx.prisma.members.create({
+        data: { teamId: input.teamId, userId: user.id, status: "Invited" },
+      });
+    }),
+
+  cancleInvitation: protectedProcedure
+    .input(z.number())
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.members.delete({
+        where: { id: input },
+      });
+    }),
 });
