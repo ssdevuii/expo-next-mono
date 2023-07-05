@@ -82,9 +82,9 @@ const Standings = () => {
         </section>
 
         <article className="page_article">
-          <h2 className="page_article_title standing__article__title">
+          {/* <h2 className="page_article_title standing__article__title">
             {t("standings.semester", { semester, tahun })}
-          </h2>
+          </h2> */}
 
           {klasemen.isLoading ? (
             <Loading />

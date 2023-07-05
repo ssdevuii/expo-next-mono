@@ -76,19 +76,25 @@ export const projectRouter = createTRPCRouter({
       });
     }),
 
-  create: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
-    return ctx.prisma.projects.create({
-      data: {
-        demoLink: "",
-        gdriveLink: "",
-        name: "",
-        categoryId: input,
-        teamId: 0,
-        description: "",
-        expoDateId: 0,
-        poster: "",
-        videoLink: "",
-      },
-    });
-  }),
+  create: protectedProcedure
+    .input(
+      z.object({
+        demoLink: z.string(),
+        gdriveLink: z.string(),
+        name: z.string(),
+        categoryId: z.number(),
+        teamId: z.number(),
+        description: z.string(),
+        expoDateId: z.number(),
+        poster: z.string(),
+        videoLink: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.projects.create({
+        data: {
+          ...input,
+        },
+      });
+    }),
 });

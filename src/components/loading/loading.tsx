@@ -4,7 +4,7 @@ import s from "./style.module.scss";
 
 import Image from "next/image";
 
-const Loading: React.FC<{ text: string | null; className: string }> = ({
+const Loading: React.FC<{ text?: string | null; className?: string }> = ({
   text = null,
   className = "",
 }) => {
