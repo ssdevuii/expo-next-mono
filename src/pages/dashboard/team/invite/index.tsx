@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "next-i18next";
 
 import { useRouter } from "next/router";
@@ -52,18 +52,24 @@ const Invite = () => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    sendInvitation
-      .mutateAsync({
-        teamId: Number(teamId),
-        email: email,
-      })
-      .then(() => {
-        alert("Invitation sent!");
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("Invitation error! please check console.");
-      });
+
+    if (invitations.isSuccess) {
+      sendInvitation
+        .mutateAsync({
+          teamId: Number(teamId),
+          email: email,
+        })
+        .then(() => {
+          alert("Invitation sent!");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Invitation error! please check console.");
+        });
+    } else {
+      console.error("LOL INVITATION ERROR, don't invite other team");
+      alert("Invitation error! please check console.");
+    }
   };
 
   const showAlert = useCallback(
@@ -73,7 +79,7 @@ const Invite = () => {
       id: number
     ) => {
       e.preventDefault();
-      console.log('file: index.tsx:75 ~ Invite ~ id:', id)
+      console.log("file: index.tsx:75 ~ Invite ~ id:", id);
       setCancelId(id);
       setInvitedName(` ${to}`);
       setIsAlertDisplayed(true);

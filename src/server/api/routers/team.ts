@@ -71,11 +71,23 @@ export const teamRouter = createTRPCRouter({
 
   getInvitedMemberByTeamId: protectedProcedure
     .input(z.number())
-    .query(({ ctx, input }) => {
-      return ctx.prisma.members.findMany({
-        where: { teamId: input },
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findFirstOrThrow({
+        where: { id: Number(ctx.session.user.id) },
+      });
+
+      const invitations = await ctx.prisma.members.findMany({
+        where: {
+          teamId: input,
+        },
         include: { User: true },
       });
+
+      if (invitations.find((invitation) => invitation.userId == user.id)) {
+        return invitations;
+      }
+
+      throw new Error("You are not a member of this team");
     }),
 
   sendInvitation: protectedProcedure
