@@ -55,4 +55,26 @@ export const teamRouter = createTRPCRouter({
         include: { Members: true, Projects: true, TeamSubjects: true },
       });
     }),
+
+  getInvitation: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.members.findMany({
+      where: { userId: Number(ctx.session.user.id), status: "Invited" },
+      include: { Team: true },
+    });
+  }),
+
+  getInvitationCount: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.members.count({
+      where: { userId: Number(ctx.session.user.id), status: "Invited" },
+    });
+  }),
+
+  getInvitedMemberByTeamId: protectedProcedure
+    .input(z.number())
+    .query(({ ctx, input }) => {
+      return ctx.prisma.members.findMany({
+        where: { teamId: input },
+        include: { User: true },
+      });
+    }),
 });

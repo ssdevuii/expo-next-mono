@@ -1,0 +1,121 @@
+@use '../../styles/index' as *;
+
+.container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.507);
+
+  &.isDisplayed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.alert {
+  display: grid;
+  grid-template-areas:
+    '. . . close'
+    'body body body body'
+    'action action action action';
+  min-width: 300px;
+  width: 400px;
+  grid-template-rows: auto 1fr auto;
+  grid-auto-columns: 1fr;
+  justify-content: center;
+  align-content: center;
+  padding: 1em;
+  border-radius: 0.5em;
+  background-color: #ffffff;
+
+  &__close {
+    grid-area: close;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-bottom: 1em;
+    min-height: 44px;
+    width: fit-content;
+    justify-self: end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+      $size: 24px;
+      width: $size;
+      height: $size;
+    }
+  }
+
+  &__body {
+    grid-area: body;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5em;
+
+    &__text {
+      display: inline-block;
+      font-size: 1.1em;
+      font-weight: normal;
+      // color:;
+      // text-shadow: 2px 2px rgba(0, 0, 0, 0.158);
+      text-align: center;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: 0.4s ease-in-out color;
+      margin: 0 0 0.25em;
+      @include max-line-overflow(2);
+
+      @include media('>mobile_l') {
+        font-size: 1.2em;
+      }
+
+      &__bold {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__action {
+    grid-area: action;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 0.5em;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    outline: none;
+    border: none;
+    color: white;
+    padding: 0.5em 0.5em;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    border-radius: 0.4em;
+    cursor: pointer;
+    transition: 0.2s ease-in-out transform;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &__accept {
+      background-color: #16c79a;
+    }
+    &__reject {
+      background-color: $red-salmon;
+    }
+  }
+}

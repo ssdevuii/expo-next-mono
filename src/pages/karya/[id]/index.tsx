@@ -3,8 +3,6 @@ import { useTranslation } from "next-i18next";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 
 // * assets
-// import fbIcon from "../../assets/icons/fb-blue-squere.svg";
-// import twitterIcon from "../../assets/icons/twitter-blue-squere.svg";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import Head from "next/head";

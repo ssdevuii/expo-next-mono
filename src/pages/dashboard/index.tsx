@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import Head from "next/head";
@@ -19,7 +19,9 @@ const Dashboard = () => {
     enabled: status === "authenticated",
   });
 
-  const [invitationCount, setInvitationCount] = useState(0);
+  const invitationCount = api.team.getInvitationCount.useQuery(undefined, {
+    enabled: status === "authenticated",
+  });
 
   return (
     <MainLayout>
@@ -52,8 +54,7 @@ const Dashboard = () => {
               className="dashboard__header__button blue"
             >
               {t("dashboard.button_invitation")}
-              {/* TODO: dynamic number */}
-              <span className="invitaiton__count">{invitationCount}</span>
+              <span className="invitaiton__count">{invitationCount.data}</span>
             </Link>
           </div>
 
@@ -113,7 +114,7 @@ const Dashboard = () => {
 
                   {team.Projects && team.Members.length <= 4 && (
                     <Link
-                      href={`/dashboard/tim/${team.id}/undang`}
+                      href={`/dashboard/team/invite?teamId=${team.id}`}
                       className="dashboard__card__members__invite"
                       title={t("dashboard.card_buttonCompleteTheKarya")}
                     >
