@@ -22,6 +22,7 @@ import { useSession } from "next-auth/react";
 import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainLayout from "~/layouts/main";
+import { useS3Upload } from "next-s3-upload";
 
 const TeamForm = () => {
   const { status } = useSession({ required: true });
@@ -29,6 +30,18 @@ const TeamForm = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const { teamId, id } = router.query;
+
+  const [file, setFile] = useState<File>();
+  const { uploadToS3 } = useS3Upload();
+  const [karyaName, setKaryaName] = useState("");
+  const [description, setDescription] = useState<EditorState>(() =>
+    EditorState.createEmpty()
+  );
+  const [category, setCategory] = useState(1);
+
+  const [demoURL, setDemoURL] = useState("");
+  const [videoURL, setVideoURL] = useState("");
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   const user = api.user.getOwnProfile.useQuery(undefined, {
     enabled: status === "authenticated",
@@ -42,18 +55,6 @@ const TeamForm = () => {
   const expoDate = api.expoDate.getActive.useQuery();
   const categories = api.category.getAll.useQuery();
 
-  const [karyaName, setKaryaName] = useState("");
-  const [description, setDescription] = useState<EditorState>(() =>
-    EditorState.createEmpty()
-  );
-  const [category, setCategory] = useState(1);
-
-  const [demoURL, setDemoURL] = useState("");
-  const [videoURL, setVideoURL] = useState("");
-  const [poster, setPoster] = useState<string | ArrayBuffer | null>(null);
-
-  const [isSubmiting, setIsSubmiting] = useState(false);
-
   const [{ karyaNameError, posterError }, setErrorMessage] = useState<{
     karyaNameError?: string;
     posterError?: string;
@@ -61,6 +62,10 @@ const TeamForm = () => {
     karyaNameError: undefined,
     posterError: undefined,
   });
+
+  const handleFileChange = (file: File) => {
+    setFile(file);
+  };
 
   const descStateHandler = useCallback((e: EditorState) => {
     setDescription(e);
@@ -101,52 +106,39 @@ const TeamForm = () => {
     []
   );
 
-  const posterStateHandler = useCallback((e: string | ArrayBuffer | null) => {
-    setPoster(() => {
-      setErrorMessage((s) => ({
-        ...s,
-        posterError: undefined,
-      }));
+  const handleCreate = async () => {
+    try {
+      if (expoDate?.data?.id && teamId && file) {
+        const { url } = await uploadToS3(file);
+        await createProjectMutation.mutateAsync({
+          teamId: Number(teamId),
+          name: karyaName,
+          categoryId: category,
+          poster: file.name,
+          gdriveLink: url,
+          expoDateId: expoDate?.data?.id,
+          description: JSON.stringify(
+            convertToRaw(description?.getCurrentContent())
+          ),
+          demoLink: demoURL,
+          videoLink: videoURL,
+        });
 
-      return e;
-    });
-  }, []);
+        void router.push(`/dashboard/team/invite?teamId=${String(teamId)}`);
+      }
+    } catch (error) {
+      alert("Submit error, see console for detail.");
+      setIsSubmiting(false);
+      console.dir(error);
+    }
+  };
 
   // * submit
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    setErrorMessage((s) => ({
-      ...s,
-      posterError:
-        poster === null ? t("karyaForm.form_poster_error") : undefined,
-    }));
-
     setIsSubmiting(true);
-
-    try {
-      if (expoDate?.data?.id && teamId) {
-        // createProjectMutation.mutateAsync({
-        //   teamId: Number(teamId),
-        //   name: karyaName,
-        //   categoryId: category,
-        //   poster: "",
-        //   gdriveLink: "",
-        //   expoDateId: expoDate?.data?.id,
-        //   description: JSON.stringify(
-        //     convertToRaw(description?.getCurrentContent())
-        //   ),
-        //   demoLink: demoURL,
-        //   videoLink: videoURL,
-        // });
-
-        // router.push(`/dashboard/team/invite?teamId=${teamId}`);
-      }
-    } catch (error) {
-      alert("Submit error, check your internet connection.");
-      setIsSubmiting(false);
-      console.dir(error);
-    }
+    void handleCreate();
   };
 
   return (
@@ -264,15 +256,26 @@ const TeamForm = () => {
             <ImgFile
               label={t("karyaForm.form_poster")}
               fileButton={
-                poster
+                file
                   ? t("karyaForm.form_changeButton")
                   : t("karyaForm.form_selectButton")
               }
-              onChange={posterStateHandler}
+              onChange={handleFileChange}
               required={true}
               removeBurronLabel={t("karyaForm.form_deleteButton")}
               error={posterError}
             />
+
+            {/* <div>
+              <FileInput
+                onChange={handleFileChange}
+                accept=".png, .jpg, .jpeg"
+              />
+
+              <button onClick={openFileDialog}>Upload file</button>
+
+              {imageUrl && <img src={imageUrl} />}
+            </div> */}
 
             {/* TODO: accessibility */}
             <Submit disabled={isSubmiting}>{t("karyaForm.form_submit")}</Submit>

@@ -18,7 +18,7 @@ export const env = createEnv({
       // Since NextAuth.js automatically uses the VERCEL_URL if present.
       (str) => process.env.VERCEL_URL ?? str,
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-      process.env.VERCEL ? z.string().min(1) : z.string().url(),
+      process.env.VERCEL ? z.string().min(1) : z.string().url()
     ),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     GOOGLE_CLIENT_ID: z.string(),
@@ -27,6 +27,11 @@ export const env = createEnv({
     DB_DATABASE: z.string(),
     DB_USERNAME: z.string(),
     DB_PASSWORD: z.string(),
+
+    S3_UPLOAD_KEY: z.string(),
+    S3_UPLOAD_SECRET: z.string(),
+    S3_UPLOAD_BUCKET: z.string(),
+    S3_UPLOAD_REGION: z.string(),
   },
 
   /**
@@ -49,9 +54,15 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+
     DB_DATABASE: process.env.DB_DATABASE,
     DB_USERNAME: process.env.DB_USERNAME,
     DB_PASSWORD: process.env.DB_PASSWORD,
+
+    S3_UPLOAD_KEY: process.env.S3_UPLOAD_KEY,
+    S3_UPLOAD_SECRET: process.env.S3_UPLOAD_SECRET,
+    S3_UPLOAD_BUCKET: process.env.S3_UPLOAD_BUCKET,
+    S3_UPLOAD_REGION: process.env.S3_UPLOAD_REGION,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

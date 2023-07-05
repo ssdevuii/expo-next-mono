@@ -168,7 +168,7 @@ const TextArea: React.FC<{
 const ImgFile: React.FC<{
   required?: boolean;
   value?: string | number;
-  onChange?: (e: string | ArrayBuffer | null) => void;
+  onChange?: (e: File) => void;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
   error?: string;
@@ -206,13 +206,13 @@ const ImgFile: React.FC<{
 
       reader.readAsDataURL(e.target.files[0]);
       setImg({ src: String(reader.result), alt: e.target.files[0].name });
-      onChange && onChange(reader.result);
+      onChange && onChange(e.target.files[0]);
     }
 
     reader.onloadend = () => {
       if (e.target.files && e.target.files[0]) {
         setImg({ src: String(reader.result), alt: e.target.files[0].name });
-        onChange && onChange(reader.result);
+        onChange && onChange(e.target.files[0]);
       }
     };
   };
@@ -251,7 +251,7 @@ const ImgFile: React.FC<{
           id="imgFile"
           type="file"
           name={name}
-          required={false}
+          required={required}
           accept=".png, .jpg, .jpeg"
           className={s.fileImg}
           onChange={handleChange}

@@ -12,9 +12,11 @@ const CustomEditor: React.FC<{
   );
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const docState = convertFromRaw(JSON.parse(state));
-    setEditorState(EditorState.createWithContent(docState));
+    if (state) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const docState = convertFromRaw(JSON.parse(state));
+      setEditorState(EditorState.createWithContent(docState));
+    }
   }, [state]);
 
   return (
