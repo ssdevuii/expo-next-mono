@@ -63,7 +63,7 @@ const Dashboard = () => {
               <div
                 key={team.id}
                 className={`dashboard__card ${
-                  team.Projects == null ? "noKarya" : ""
+                  team.Projects.length == 0 ? "noKarya" : ""
                 }`}
               >
                 <div className="dashboard__card__header">
@@ -123,10 +123,9 @@ const Dashboard = () => {
                 </div>
 
                 <div className="dashboard__card__action">
-                  {!team.Projects ? (
+                  {team.Projects.length == 0 ? (
                     <Link
-                      // href={`/dashboard/tim/${team.id}/karya`}
-                      href="#"
+                      href={`/dashboard/project?teamId=${team.id}`}
                       className="action__button"
                       title={t("dashboard.card_buttonCompleteTheKarya")}
                     >

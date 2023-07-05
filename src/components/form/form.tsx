@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useRef, useState } from "react";
 import s from "./style.module.scss";
 // import { Editor } from "react-draft-wysiwyg";
@@ -10,6 +11,7 @@ const Editor = dynamic(
 );
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState } from "draft-js";
 
 const Label: React.FC<{
   children: React.ReactNode;
@@ -120,12 +122,12 @@ const Option: React.FC<{
   </option>
 );
 
-const TextArea = ({
-  editorState,
-  onEditorStateChange,
-  required,
-  label = "textArea",
-}) => (
+const TextArea: React.FC<{
+  editorState: EditorState;
+  onEditorStateChange: (editorState: EditorState) => void;
+  required: boolean;
+  label: string;
+}> = ({ editorState, onEditorStateChange, required, label = "textArea" }) => (
   <Label label={label} required={required}>
     <Editor
       toolbar={{
@@ -163,10 +165,24 @@ const TextArea = ({
   </Label>
 );
 
-const ImgFile = ({
+const ImgFile: React.FC<{
+  children: React.ReactNode;
+  required?: boolean;
+  value?: string | number;
+  onChange?: (e: string | ArrayBuffer | null) => void;
+  type?: React.HTMLInputTypeAttribute;
+  placeholder?: string;
+  error?: string;
+  name?: string;
+  label?: string;
+  disabled?: boolean;
+  fileButton?: string;
+  removeBurronLabel?: string;
+  maxSize: number;
+}> = ({
   label = "file",
   required = true,
-  onChange = () => {},
+  onChange,
   fileButton = "Ubah",
   name = "imgFile",
   removeBurronLabel = "",
@@ -174,39 +190,46 @@ const ImgFile = ({
   maxSize = 2000000,
   ...rest
 }) => {
-  const inputRef = useRef(null);
-  const [{ src, alt }, setImg] = useState({ src: "", alt: "" });
-  const [errorText, setErrorText] = useState(error);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [{ src, alt }, setImg] = useState<{
+    src: string;
+    alt: string;
+  }>({ src: "", alt: "" });
+  const [errorText, setErrorText] = useState<string | null | undefined>(error);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
 
-    if (e.target.files[0]) {
+    if (e.target.files && e.target.files[0]) {
       if (e.target.files[0].size > maxSize) {
-        setErrorText("image size above limit.");
+        setErrorText("Image size above limit.");
       }
 
       reader.readAsDataURL(e.target.files[0]);
-      setImg({ src: reader.result, alt: e.target.files[0].name });
-      onChange(reader.result);
+      setImg({ src: String(reader.result), alt: e.target.files[0].name });
+      onChange && onChange(reader.result);
     }
 
     reader.onloadend = () => {
-      setImg({ src: reader.result, alt: e.target.files[0].name });
-      onChange(reader.result);
+      if (e.target.files && e.target.files[0]) {
+        setImg({ src: String(reader.result), alt: e.target.files[0].name });
+        onChange && onChange(reader.result);
+      }
     };
   };
 
-  const selectHandler = (e) => {
+  const selectHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    inputRef.current.click();
+    inputRef.current?.click();
   };
 
-  const resetHandler = (e) => {
+  const resetHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setErrorText(null);
-    inputRef.current.value = "";
-    setImg({ src: "", alt: "" });
+    if (inputRef.current) {
+      setErrorText(null);
+      inputRef.current.value = "";
+      setImg({ src: "", alt: "" });
+    }
   };
 
   return (
@@ -264,11 +287,16 @@ const ImgFile = ({
   );
 };
 
-const Submit: React.FC<{ children: React.ReactNode; className?: string }> = ({
-  children,
-  className,
-  ...rest
-}) => (
+interface SubmitProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Submit: React.FC<SubmitProps> = ({ children, className, ...rest }) => (
   <button
     type="submit"
     title="Submit"

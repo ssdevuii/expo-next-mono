@@ -222,21 +222,21 @@ const Team: React.FC<{
   );
 };
 
-const Support = () => {
+const Support = ({ id }: { id: number }) => {
   const { t } = useTranslation();
   const { status } = useSession();
 
   const likeRemain = api.user.likeRemain.useQuery(undefined, {
     enabled: status === "authenticated",
   });
-  const isLiked = api.project.isProjectLiked.useQuery(527, {
+  const isLiked = api.project.isProjectLiked.useQuery(id, {
     enabled: status === "authenticated",
   });
 
   const likeProjectMutation = api.project.likeProjectById.useMutation();
 
   const handleLike = () => {
-    likeProjectMutation.mutateAsync(527).finally(() => {
+    likeProjectMutation.mutateAsync(id).finally(() => {
       void likeRemain.refetch();
       void isLiked.refetch();
     });
@@ -406,7 +406,7 @@ const Karya = () => {
                   src={project.data?.gdriveLink ?? ""}
                   alt={project.data?.name ?? ""}
                 />
-                <Support />
+                <Support id={Number(id)} />
                 <Share name={project.data?.name ?? ""} />
               </div>
               <div className="karyaContent_right">
@@ -430,12 +430,8 @@ const Karya = () => {
                   src={project.data?.gdriveLink ?? ""}
                   alt={project.data?.name ?? ""}
                 />
-                {/* <Support
-                isLiked={isLiked}
-                onClick={handleLike}
-                likeCount={likeRemain}
-              />
-              <Share url={BASE_URL} name={project.name} /> */}
+                <Support id={Number(id)} />
+                <Share name={project.data?.name ?? ""} />
                 <Desc desc={project.data?.description ?? ""} />
                 {project.data && (
                   <Info

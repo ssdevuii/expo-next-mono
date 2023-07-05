@@ -10,6 +10,19 @@ export const teamRouter = createTRPCRouter({
         Members: { include: { User: true } },
         TeamSubjects: { include: { Subject: true } },
       },
+      orderBy: { id: "desc" },
+    });
+  }),
+
+  getById: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
+    return ctx.prisma.teams.findFirst({
+      where: { id: input },
+      include: {
+        Projects: { include: { Category: true } },
+        Members: { include: { User: true } },
+        TeamSubjects: { include: { Subject: true } },
+      },
+      orderBy: { id: "desc" },
     });
   }),
 
