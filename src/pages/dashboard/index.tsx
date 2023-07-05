@@ -8,6 +8,7 @@ import { api } from "~/utils/api";
 import MainLayout from "~/layouts/main";
 import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Image from "next/image";
 
 const Dashboard = () => {
   const { status } = useSession({ required: true });
@@ -22,6 +23,22 @@ const Dashboard = () => {
   const invitationCount = api.team.getInvitationCount.useQuery(undefined, {
     enabled: status === "authenticated",
   });
+
+  const deleteTeam = api.team.deleteTeam.useMutation();
+
+  const handleDeleteTeam = (teamId: number) => {
+    if (confirm("Delete Team?")) {
+      deleteTeam
+        .mutateAsync(teamId)
+        .then(() => {
+          alert("Delete Team Success");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Delete Team Failed");
+        });
+    }
+  };
 
   return (
     <MainLayout>
@@ -152,6 +169,19 @@ const Dashboard = () => {
                   >
                     {t("dashboard.card_buttonEditTeam")}
                   </Link>
+
+                  <button
+                    className="relative flex h-10 w-10 rounded-md bg-slate-500 p-2"
+                    onClick={() => handleDeleteTeam(team.id)}
+                  >
+                    <Image
+                      src={"/assets/icons/trash-icon.svg"}
+                      alt="remove file"
+                      className="block h-6 w-6"
+                      width={24}
+                      height={24}
+                    />
+                  </button>
                 </div>
               </div>
             ))}

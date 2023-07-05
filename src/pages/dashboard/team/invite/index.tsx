@@ -138,7 +138,7 @@ const Invite = () => {
 
         <Breadcrumb>
           <Item to="/dashboard">Dashboard</Item>
-          <Item to={`/dashboard/team/${String(teamId)}/invite`}>
+          <Item to={`/dashboard/team/invite?teamId=${String(teamId)}`}>
             {t("invite.head_title")}
           </Item>
         </Breadcrumb>
