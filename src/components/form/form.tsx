@@ -166,7 +166,6 @@ const TextArea: React.FC<{
 );
 
 const ImgFile: React.FC<{
-  children: React.ReactNode;
   required?: boolean;
   value?: string | number;
   onChange?: (e: string | ArrayBuffer | null) => void;
@@ -178,7 +177,7 @@ const ImgFile: React.FC<{
   disabled?: boolean;
   fileButton?: string;
   removeBurronLabel?: string;
-  maxSize: number;
+  maxSize?: number;
 }> = ({
   label = "file",
   required = true,

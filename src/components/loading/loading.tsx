@@ -4,7 +4,10 @@ import s from "./style.module.scss";
 
 import Image from "next/image";
 
-const Loading = ({ text = null, className = "" }) => {
+const Loading: React.FC<{ text: string | null; className: string }> = ({
+  text = null,
+  className = "",
+}) => {
   const { t } = useTranslation();
   return (
     <div className={`${s.container as string} ${className}`}>

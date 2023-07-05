@@ -19,7 +19,7 @@ import Loading from "~/components/loading/loading";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import { GetStaticProps } from "next";
+import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const TeamForm = () => {
@@ -41,7 +41,7 @@ const TeamForm = () => {
   const categories = api.category.getAll.useQuery();
 
   const [karyaName, setKaryaName] = useState("");
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState<EditorState>();
   const [category, setCategory] = useState(1);
 
   const [demoURL, setDemoURL] = useState("");
@@ -51,8 +51,8 @@ const TeamForm = () => {
   const [isSubmiting, setIsSubmiting] = useState(false);
 
   const [{ karyaNameError, posterError }, setErrorMessage] = useState({
-    karyaNameError: null,
-    posterError: null,
+    karyaNameError: undefined,
+    posterError: undefined,
   });
 
   const descStateHandler = useCallback((e) => {
@@ -111,100 +111,38 @@ const TeamForm = () => {
       // TODO loading
       setIsSubmiting(true);
 
-      if (id) {
+      try {
         const data = {
-          name: karyaName,
-          categoryId: category,
-          description: JSON.stringify(
-            convertToRaw(description.getCurrentContent())
-          ),
-          demoLink: demoURL,
-          videoLink: videoURL,
-        };
-
-        if (poster) {
-          data.poster = poster;
-        }
-
-        const updateProject = async () => {
-          try {
-            await axios.put(API_ENDPOINT.project.id(id), data, {
-              headers: {
-                "content-type": "application/json",
-                accept: "*/*",
-                authToken: user.authToken,
-              },
-            });
-            history.push(`/dashboard/`);
-          } catch (error) {
-            // TODO: error alert here.
-            alert("Submit error, check your internet connection.");
-            setIsSubmiting(false);
-            console.dir(error);
-          }
-        };
-        updateProject();
-      } else if (team_id) {
-        const data = {
-          teamId: team_id,
+          teamId: teamId,
           name: karyaName,
           categoryId: category,
           poster,
-          expoDateId: expoDate?.id,
+          expoDateId: expoDate?.data?.id,
           description: JSON.stringify(
-            convertToRaw(description.getCurrentContent())
+            convertToRaw(description?.getCurrentContent())
           ),
           demoLink: demoURL,
           videoLink: videoURL,
         };
-
-        const createProject = async () => {
-          try {
-            const res = await axios.post(API_ENDPOINT.project._, data, {
-              headers: {
-                "content-type": "application/json",
-                accept: "*/*",
-                authToken: user.authToken,
-              },
-            });
-
-            const {
-              data: { teamId },
-            } = res;
-            history.push(`/dashboard/tim/${teamId}/undang`);
-          } catch (error) {
-            // TODO: error alert here.
-            alert("Submit error, check your internet connection.");
-            setIsSubmiting(false);
-            console.dir(error);
-          }
-        };
-        createProject();
+        router.push(`/dashboard/team/${teamId}/undang`);
+      } catch (error) {
+        alert("Submit error, check your internet connection.");
+        setIsSubmiting(false);
+        console.dir(error);
       }
     },
-    [
-      category,
-      demoURL,
-      description,
-      expoDate?.id,
-      id,
-      karyaName,
-      poster,
-      t,
-      user.authToken,
-      videoURL,
-    ]
+    [poster, t, teamId, karyaName, category, expoDate?.data?.id, description, demoURL, videoURL, router]
   );
 
   useEffect(() => {
     setDescription((d) => d || EditorState.createEmpty());
-  }, [id]);
+  }, []);
 
   return (
     <main className="App">
       <Head>
         <title>
-          {t("karyaForm.create_head_title")} - {t("app_title")}
+          {t("karyaForm.create_head_title")} - {t("translation.app_title")}
         </title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
@@ -285,12 +223,14 @@ const TeamForm = () => {
             </MultipleInputWrapper>
           )}
 
-          <TextArea
-            editorState={description}
-            onEditorStateChange={descStateHandler}
-            required={true}
-            label={t("karyaForm.form_desc")}
-          />
+          {description && (
+            <TextArea
+              editorState={description}
+              onEditorStateChange={descStateHandler}
+              required={true}
+              label={t("karyaForm.form_desc")}
+            />
+          )}
 
           <Input
             value={demoURL}
@@ -335,7 +275,6 @@ const TeamForm = () => {
 };
 
 export default TeamForm;
-
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;

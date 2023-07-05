@@ -76,8 +76,19 @@ export const projectRouter = createTRPCRouter({
       });
     }),
 
-  // TODO
   create: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
-    return ctx.prisma.projects.findFirst({ where: { id: input } });
+    return ctx.prisma.projects.create({
+      data: {
+        demoLink: "",
+        gdriveLink: "",
+        name: "",
+        categoryId: input,
+        teamId: 0,
+        description: "",
+        expoDateId: 0,
+        poster: "",
+        videoLink: "",
+      },
+    });
   }),
 });
