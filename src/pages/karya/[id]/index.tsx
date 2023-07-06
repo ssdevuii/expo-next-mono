@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
-
-// * assets
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import Head from "next/head";

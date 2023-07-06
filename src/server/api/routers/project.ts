@@ -6,16 +6,18 @@ import {
 } from "~/server/api/trpc";
 
 export const projectRouter = createTRPCRouter({
-  getLatest: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.projects.findMany({
-      include: {
-        Category: true,
-        Team: { include: { TeamSubjects: { include: { Subject: true } } } },
-      },
-      orderBy: { id: "desc" },
-      take: 10,
-    });
-  }),
+  getLatest: publicProcedure
+    .input(z.number().optional())
+    .query(({ ctx, input }) => {
+      return ctx.prisma.projects.findMany({
+        include: {
+          Category: true,
+          Team: { include: { TeamSubjects: { include: { Subject: true } } } },
+        },
+        orderBy: { id: "desc" },
+        take: input ?? 10,
+      });
+    }),
 
   getPopular: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.projects.findMany({
