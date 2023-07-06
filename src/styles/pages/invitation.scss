@@ -1,0 +1,94 @@
+@use '../index' as *;
+@use '../page' as *;
+
+.page__header__desc {
+  @include max-line-overflow(1);
+}
+.invitation {
+  margin-top: 0;
+  width: 100%;
+
+  tr {
+    border-bottom: 0.3px solid rgba(59, 59, 59, 0.356);
+
+    td:first-child {
+      width: 10%;
+    }
+
+    td:last-child {
+      width: 30%;
+    }
+  }
+
+  &__thead__th {
+    background-color: $blue-green-dark !important;
+  }
+
+  .invitation__table {
+    width: 100%;
+  }
+
+  .invitation__table__span {
+    text-align: center;
+    display: block;
+    margin-top: 0.2em;
+    margin: 1em 0;
+    font-weight: bold;
+    font-size: 1.1em;
+    @include max-line-overflow(3);
+
+    @include media('>mobile_l') {
+      @include max-line-overflow(1);
+    }
+  }
+
+  .invitation__table__action {
+    height: 100%;
+    width: fit-content;
+    margin: auto;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    column-gap: 0.7em;
+    row-gap: 0.5em;
+    padding-bottom: 0.5em;
+
+    @include media('>mobile_l') {
+      grid-template-rows: 1em;
+      grid-template-columns: auto auto;
+    }
+
+    .invitation__table__action__button {
+      min-width: 44px;
+      min-height: 44px;
+      width: fit-content;
+      outline: none;
+      border: none;
+      color: white;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 0.4em;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      transition: .2s ease-in-out background-color;
+
+      &.accept {
+        background-color: #16c79a;
+
+        &:focus, &:hover {
+          background-color: lighten(#16c79a, 20%);
+        }
+      }
+
+      &.decline {
+        background-color: $red-salmon;
+
+        &:focus, &:hover {
+          background-color: lighten($red-salmon, 20%);
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,14 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 export const teamRouter = createTRPCRouter({
   getOwnTeam: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.teams.findMany({
-      where: { Members: { some: { userId: Number(ctx.session.user.id) } } },
+      where: {
+        Members: {
+          some: {
+            userId: Number(ctx.session.user.id),
+            status: { not: "Invited" },
+          },
+        },
+      },
       include: {
         Projects: { include: { Category: true } },
         Members: { include: { User: true } },
@@ -99,7 +106,7 @@ export const teamRouter = createTRPCRouter({
   getInvitation: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.members.findMany({
       where: { userId: Number(ctx.session.user.id), status: "Invited" },
-      include: { Team: true },
+      include: { Team: { include: { Projects: true } } },
     });
   }),
 
@@ -147,6 +154,23 @@ export const teamRouter = createTRPCRouter({
     .input(z.number())
     .mutation(({ ctx, input }) => {
       return ctx.prisma.members.delete({
+        where: { id: input },
+      });
+    }),
+
+  acceptInvitation: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.members.findFirstOrThrow({
+        where: {
+          id: input,
+          userId: Number(ctx.session.user.id),
+          status: "Invited",
+        },
+      });
+
+      return ctx.prisma.members.update({
+        data: { status: "Member" },
         where: { id: input },
       });
     }),

@@ -260,6 +260,7 @@ const TeamForm = () => {
                   ? t("karyaForm.form_changeButton")
                   : t("karyaForm.form_selectButton")
               }
+              maxSize={20000000}
               onChange={handleFileChange}
               required={true}
               removeBurronLabel={t("karyaForm.form_deleteButton")}
