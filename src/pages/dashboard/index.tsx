@@ -162,8 +162,7 @@ const Dashboard = () => {
 
                   {/* <button className="action__button--disabeled">{t('dashboard.card_buttonEditTeam')}</button> */}
                   <Link
-                    href="#"
-                    // href={`/dashboard/tim/${team.id}`}
+                    href={`/dashboard/team/${team.id}`}
                     className="action__button"
                     title={t("dashboard.card_buttonEditTeam")}
                   >

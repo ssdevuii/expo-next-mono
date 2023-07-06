@@ -47,13 +47,45 @@ export const teamRouter = createTRPCRouter({
       });
     }),
 
+  editTeam: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        name: z.string(),
+        subjectAndLecturer: z.array(
+          z.object({ lecturerId: z.number(), subjectId: z.number() })
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (input.subjectAndLecturer.length > 0) {
+        await ctx.prisma.teamSubjects.deleteMany({
+          where: { teamId: input.id },
+        });
+        return await ctx.prisma.teams.update({
+          where: { id: input.id },
+          data: {
+            name: input.name,
+            TeamSubjects: { createMany: { data: input.subjectAndLecturer } },
+          },
+        });
+      }else {
+        return await ctx.prisma.teams.update({
+          where: { id: input.id },
+          data: {
+            name: input.name
+          },
+        });
+      }
+    }),
+
   deleteTeam: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       const project = await ctx.prisma.projects.findFirstOrThrow({
         where: { teamId: input },
       });
-      
+
       await ctx.prisma.likes.deleteMany({ where: { projectId: project.id } });
       await ctx.prisma.members.deleteMany({ where: { teamId: input } });
       await ctx.prisma.teamSubjects.deleteMany({ where: { teamId: input } });
