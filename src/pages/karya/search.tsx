@@ -8,10 +8,23 @@ import MainLayout from "~/layouts/main";
 import { type GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { api } from "~/utils/api";
+import { useRouter } from "next/router";
 
-const ListKarya = () => {
+const SearchKarya = () => {
   const { t } = useTranslation();
-  const projects = api.project.getLatest.useQuery(100);
+  const router = useRouter();
+  const { name, year, subject } = router.query;
+  console.log(
+    "file: search.tsx:17 ~ SearchKarya ~ name, year, subject:",
+    name,
+    year,
+    subject
+  );
+  const projects = api.project.search.useQuery({
+    name: name ? String(name) : undefined,
+    year: year ? Number(year) : undefined,
+    subjectId: subject ? Number(subject) : undefined,
+  });
 
   return (
     <MainLayout>
@@ -54,11 +67,10 @@ const ListKarya = () => {
   );
 };
 
-export default ListKarya;
+export default SearchKarya;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
-
   return {
     props: {
       ...(await serverSideTranslations(locale as string)),

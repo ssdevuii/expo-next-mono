@@ -33,6 +33,53 @@ export const projectRouter = createTRPCRouter({
     });
   }),
 
+  search: publicProcedure
+    .input(
+      z.object({
+        name: z.string().optional(),
+        year: z.number().optional(),
+        subjectId: z.number().optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      const where: {
+        name?: {
+          contains: string | undefined;
+        };
+        Team?: {
+          TeamSubjects: {
+            some: {
+              subjectId: number | undefined;
+            };
+          };
+        };
+        ExpoDate?: {
+          year: number | undefined;
+        };
+      } = {
+        name: { contains: input.name },
+        Team: {
+          TeamSubjects: { some: { subjectId: input.subjectId } },
+        },
+        ExpoDate: { year: input.year },
+      };
+
+      if (!input.name) delete where.name;
+      if (!input.subjectId) delete where.Team;
+      if (!input.year) delete where.ExpoDate;
+
+      return ctx.prisma.projects.findMany({
+        where,
+
+        include: {
+          Category: true,
+          Team: { include: { TeamSubjects: { include: { Subject: true } } } },
+        },
+        take: 100,
+        orderBy: { id: "desc" },
+      });
+    }),
+
   getById: publicProcedure.input(z.number()).query(({ ctx, input }) => {
     return ctx.prisma.projects.findFirst({
       where: { id: input },

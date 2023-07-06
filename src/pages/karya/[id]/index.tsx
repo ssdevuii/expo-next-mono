@@ -198,7 +198,6 @@ const Team: React.FC<{
                     src={User.image ?? ""}
                     className="team__member__avatar"
                     loading="lazy"
-                    unoptimized
                     fill
                   />
                 </div>
@@ -206,7 +205,7 @@ const Team: React.FC<{
                   <span className="team__member__info__name">{User.name}</span>
                   <span className="team__member__info__desc">
                     {User.identityNumber} -{" "}
-                    {User.roleId ? t("karya.leader") : t("karya.member")}
+                    {/* {User.roleId ? t("karya.leader") : t("karya.member")} */}
                   </span>
                 </div>
               </div>

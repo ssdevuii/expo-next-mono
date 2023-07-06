@@ -1,27 +1,28 @@
-import React, { FormEventHandler } from "react";
+import React, { type FormEventHandler } from "react";
 import { useTranslation } from "next-i18next";
 import s from "./style.module.scss";
 
 // * Components
-import Select from "react-select";
+import Select, { type SingleValue } from "react-select";
 import classNames from "classnames";
 import Image from "next/image";
 
-export const MatkulSelect: React.FC<{
-  children: string[];
-  value: string;
-  onChange: (val: string) => void;
-}> = ({ children, value, onChange }) => {
-  const { t } = useTranslation();
+interface option_type {
+  value: string | number;
+  label: string | number;
+}
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
+export const MatkulSelect: React.FC<{
+  value: option_type;
+  options: option_type[];
+  onChange: (val: SingleValue<option_type>) => void;
+}> = ({ value, onChange, options }) => {
+  const { t } = useTranslation();
 
   return (
     <Select
+      value={value}
+      onChange={(val) => onChange(val)}
       placeholder={t("translation.search_matkul")}
       classNames={{
         container(props) {
@@ -37,16 +38,11 @@ export const MatkulSelect: React.FC<{
 };
 
 export const YearSelect: React.FC<{
-  children: string[];
-  value: string;
-  onChange: (val: string) => void;
-}> = ({ children, value, onChange }) => {
+  value: option_type;
+  options: option_type[];
+  onChange: (val: SingleValue<option_type>) => void;
+}> = ({ options, value, onChange }) => {
   const { t } = useTranslation();
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
 
   return (
     <Select
@@ -60,6 +56,7 @@ export const YearSelect: React.FC<{
         },
         placeholder: () => ``,
       }}
+      onChange={(val) => onChange(val)}
       options={options}
     />
   );

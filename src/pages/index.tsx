@@ -1,5 +1,4 @@
 import { type GetStaticProps } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
@@ -7,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
-import { type FormEventHandler, useCallback, useEffect, useState } from "react";
+import { type FormEventHandler, useCallback, useState, useMemo } from "react";
 
 // * Components
 import LanguageSwitcher from "~/components/languageSwitcher/languageSwitcher";
@@ -25,44 +24,78 @@ import {
   YearSelect,
 } from "~/components/searchForm/searchForm";
 import MainLayout from "~/layouts/main";
+import { type SingleValue } from "react-select";
 
 export default function Home() {
+  const router = useRouter();
   const { t } = useTranslation();
+
+  const [valueMatkul, setValueMatkul] = useState<{
+    label: string | number;
+    value: string | number;
+  }>({ label: "Mata kuliah", value: "Mata kuliah" });
+  const [valueTahun, setValueTahun] = useState<{
+    label: string | number;
+    value: string | number;
+  }>({ label: "", value: "" });
+  const [valueNama, setValueNama] = useState("");
+
   const latestProjects = api.project.getLatest.useQuery();
   const popularProject = api.project.getPopular.useQuery();
+  const years = api.expoDate.getAll.useQuery();
+  const subjects = api.subject.getAll.useQuery();
 
-  const [popularKarya, setPopularKarya] = useState([]);
-  const [latestKarya, setLatestKarya] = useState([]);
-  const [valueMatkul, setValueMatkul] = useState("");
-  const [valueTahun, setValueTahun] = useState("");
-  const [valueNama, setValueNama] = useState("");
-  const [subects, setSubects] = useState(["Mata kuliah"]);
+  const yearMemoOptions = useMemo(() => {
+    if (years.data) {
+      return years.data.map((v) => ({
+        label: v.year,
+        value: v.year,
+      }));
+    }
 
-  const onMatkulChange = useCallback((e: string) => {
-    setValueMatkul(e);
+    return [];
+  }, [years.data]);
+
+  const subjectMemoOptions = useMemo(() => {
+    if (subjects.data) {
+      return subjects.data.map((v) => ({
+        label: v.name,
+        value: v.id,
+      }));
+    }
+
+    return [];
+  }, [subjects.data]);
+
+  const onMatkulChange = useCallback((e: SingleValue<typeof valueMatkul>) => {
+    setValueMatkul({ label: e?.label ?? "", value: e?.value ?? "" });
   }, []);
-  const onTahunChange = useCallback((e: string) => {
-    setValueTahun(e);
+  const onTahunChange = useCallback((e: SingleValue<typeof valueTahun>) => {
+    setValueTahun({ label: e?.label ?? "", value: e?.value ?? "" });
   }, []);
-  const onNamaChange = useCallback((e: any) => {
-    // setValueNama(e.target.value as string);
-  }, []);
-
-  const onSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
-    e.preventDefault();
-
-    // history.push(`/pencarian/${valueMatkul || 'matkul'}/${valueTahun || 'tahun'}/${valueNama || ''}`)
+  const onNamaChange = useCallback((e: string) => {
+    setValueNama(e);
   }, []);
 
-  useEffect(() => {
-    const fetchSearch = async () => {
-      // TODO: impement this
-    };
+  const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+    (e) => {
+      e.preventDefault();
+      const searchParams = new URLSearchParams();
 
-    const fetchProject = async () => {
-      // TODO: impement this
-    };
-  }, []);
+      if (valueMatkul.value !== "Mata kuliah") {
+        searchParams.append("subject", valueMatkul.value.toString());
+      }
+      if (valueTahun.value !== "") {
+        searchParams.append("year", valueTahun.value.toString());
+      }
+      if (valueNama !== "") {
+        searchParams.append("name", valueNama);
+      }
+
+      void router.push(`/karya/search?${searchParams.toString()}`);
+    },
+    [router, valueMatkul, valueNama, valueTahun]
+  );
 
   return (
     <MainLayout>
@@ -90,13 +123,17 @@ export default function Home() {
             className="relative bottom-0 -mb-9 translate-y-1/3"
             onSubmit={onSubmit}
           >
-            <MatkulSelect onChange={onMatkulChange} value={valueMatkul}>
-              {subects}
-            </MatkulSelect>
+            <MatkulSelect
+              options={subjectMemoOptions}
+              onChange={onMatkulChange}
+              value={valueMatkul}
+            />
 
-            <YearSelect onChange={onTahunChange} value={valueTahun}>
-              {["2022", "2021", "2020", "2019"]}
-            </YearSelect>
+            <YearSelect
+              options={yearMemoOptions}
+              onChange={onTahunChange}
+              value={valueTahun}
+            />
 
             <NameInput onChange={onNamaChange} value={valueNama} />
             <SearchButton />
