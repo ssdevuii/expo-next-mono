@@ -148,44 +148,53 @@ export const projectRouter = createTRPCRouter({
     }),
 
   update: protectedProcedure
-  .input(
-    z.object({
-      id: z.number(),
-      demoLink: z.string(),
-      gdriveLink: z.string(),
-      name: z.string(),
-      categoryId: z.number(),
-      description: z.string(),
-      poster: z.string(),
-      videoLink: z.string(),
-    })
-  ).mutation(({ ctx, input }) => {
+    .input(
+      z.object({
+        id: z.number(),
+        demoLink: z.string(),
+        gdriveLink: z.string(),
+        name: z.string(),
+        categoryId: z.number(),
+        description: z.string(),
+        poster: z.string(),
+        videoLink: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      if (input.poster === "" && input.gdriveLink === "") {
+        return ctx.prisma.projects.update({
+          where: { id: input.id },
+          data: {
+            name: input.name,
+            categoryId: input.categoryId,
+            description: input.description,
+            demoLink: input.demoLink,
+            videoLink: input.videoLink,
+          },
+        });
+      } else {
+        return ctx.prisma.projects.update({
+          where: { id: input.id },
+          data: {
+            name: input.name,
+            categoryId: input.categoryId,
+            description: input.description,
+            gdriveLink: input.gdriveLink,
+            demoLink: input.demoLink,
+            poster: input.poster,
+            videoLink: input.videoLink,
+          },
+        });
+      }
+    }),
 
-    if(input.poster === "" && input.gdriveLink ===""){
-      return ctx.prisma.projects.update({
-        where: { id: input.id },
-        data: {
-          name: input.name,
-          categoryId: input.categoryId,
-          description: input.description,
-          demoLink: input.demoLink,
-          videoLink: input.videoLink
-        }
-      })
-    }else {
-      return ctx.prisma.projects.update({
-        where: { id: input.id },
-        data: {
-          name: input.name,
-          categoryId: input.categoryId,
-          description: input.description,
-          gdriveLink: input.gdriveLink,
-          demoLink: input.demoLink,
-          poster: input.poster,
-          videoLink: input.videoLink
-        }
-      })
-    }
-    
+  getBySDGId: publicProcedure.input(z.number()).query(({ ctx, input }) => {
+    return ctx.prisma.projects.findMany({
+      include: {
+        Category: true,
+        Team: { include: { TeamSubjects: { include: { Subject: true } } } },
+      },
+      where: { categoryId: input ?? undefined },
+    });
   }),
 });

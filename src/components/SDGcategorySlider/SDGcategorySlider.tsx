@@ -17,7 +17,7 @@ const SDGcategorySlider = () => {
           <Link
             key={id}
             className={`${s.card as string}`}
-            href={`/kategori/${id}`}
+            href={`/karya/SDG?id=${id}`}
             draggable="false"
           >
             <div className=" relative h-56">
