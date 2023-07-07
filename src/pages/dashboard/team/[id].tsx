@@ -51,27 +51,6 @@ const TeamEditForm = () => {
     setTeamName(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    void editTeamMutation
-      .mutateAsync({ id: Number(id), name: teamName, subjectAndLecturer })
-      .then(() => {
-        return void router.push(`/dashboard`);
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("gagal edit tim, cek cosole untuk detailnya");
-      });
-  };
-
-  const subjectOptionMemo = useMemo(() => {
-    if (subjects.data == null || subjectAndLecturer == null) return [];
-    return subjects.data;
-  }, [subjectAndLecturer, subjects.data]);
-
-  const handleTeamName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTeamName(e.target.value);
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
