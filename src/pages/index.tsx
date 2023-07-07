@@ -48,7 +48,7 @@ export default function Home() {
   const yearMemoOptions = useMemo(() => {
     if (years.data) {
       return years.data.map((v) => ({
-        label: v.year,
+        label: v.name,
         value: v.year,
       }));
     }
