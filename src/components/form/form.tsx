@@ -167,7 +167,7 @@ const TextArea: React.FC<{
 
 const ImgFile: React.FC<{
   required?: boolean;
-  value?: string | number;
+  value?: string;
   onChange?: (e: File) => void;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
@@ -186,6 +186,7 @@ const ImgFile: React.FC<{
   name = "imgFile",
   removeBurronLabel = "",
   error,
+  value="",
   maxSize = 2000000,
   ...rest
 }) => {
@@ -257,6 +258,8 @@ const ImgFile: React.FC<{
           onChange={handleChange}
           ref={inputRef}
         />
+
+        { value && <img src={value} alt={alt}/> }
 
         <img src={src} alt={alt} className={s.fileImg__preview} />
 

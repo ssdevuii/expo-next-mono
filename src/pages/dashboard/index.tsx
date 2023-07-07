@@ -151,8 +151,7 @@ const Dashboard = () => {
                     </Link>
                   ) : (
                     <Link
-                      // href={`/dashboard/karya/${team.Projects.id}`}
-                      href="#"
+                      href={`/dashboard/project/${team.Projects[0]?.id ?? 1}`}
                       className="action__button"
                       title={t("dashboard.card_buttonEditKarya")}
                     >
