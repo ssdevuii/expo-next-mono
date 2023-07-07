@@ -11,7 +11,7 @@ const Editor = dynamic(
 );
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState } from "draft-js";
+import { type EditorState } from "draft-js";
 
 const Label: React.FC<{
   children: React.ReactNode;

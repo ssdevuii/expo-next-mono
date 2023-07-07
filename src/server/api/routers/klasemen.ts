@@ -10,16 +10,23 @@ export const klasemenRouter = createTRPCRouter({
     .input(
       z
         .object({
-          year: z.number().optional(),
-          semester: z.number().optional(),
+          id: z.number().optional(),
         })
         .optional()
     )
     .query(async ({ ctx, input }) => {
+      let id = input?.id;
+
+      if (id == undefined) {
+        const expo = await ctx.prisma.expoDate.findFirst({
+          where: { isActive: 1 },
+        });
+        id = expo?.id;
+      }
+
       const expoDate = await ctx.prisma.expoDate.findFirst({
         where: {
-          id: input?.year ?? undefined,
-          semester: input?.semester ?? undefined,
+          id,
         },
       });
 

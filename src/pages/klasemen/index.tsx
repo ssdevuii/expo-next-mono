@@ -1,13 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 
 // * components
 import { Table, TdSpan, Thead, Th, Tr, Tbody } from "~/components/table/table";
-// import {
-//   StandingShorter,
-//   SemesterSelect,
-//   YearSelect,
-// } from "~/components/standingShorter/standingShorter";
 import Loading from "~/components/loading/loading";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -16,47 +11,28 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { api } from "~/utils/api";
 import Link from "next/link";
 import MainLayout from "~/layouts/main";
-
-const getYearsFrom = (yearStart = 2010) => {
-  const timeNow = new Date().getFullYear();
-  const listYear: string[] = [];
-  for (let i = yearStart; i <= timeNow; i++) {
-    listYear.push(i.toString());
-  }
-  return listYear;
-};
+import Select from "react-select";
 
 const Standings = () => {
   const { t } = useTranslation();
   const router = useRouter();
-  const { tahun, semester } = router.query;
-  const klasemen = api.klasemen.getBestTen.useQuery({ semester: 5, year: 4 });
+  const { expoId } = router.query;
+  const expoDate = api.expoDate.getAll.useQuery();
+  const klasemen = api.klasemen.getBestTen.useQuery({
+    id: expoId ? Number(expoId) : undefined,
+  });
 
-  const semesterOptions = [
-    t("standing_shorter_semester"),
-    // t('standing_shorter_semester_odd'),
-    t("standing_shorter_semester_even"),
-  ];
-  const yearOptions = ["Tahun", ...getYearsFrom(2021).reverse()];
+  const expoDateoprionMemo = useMemo(() => {
+    if (!expoDate.data) return [];
+    return expoDate.data.map((expo) => ({
+      label: expo.name,
+      value: expo.id,
+    }));
+  }, [expoDate.data]);
 
-  const [standings, setStandings] = useState([]);
-  const [semesterValue, setSemesterValue] = useState(semester);
-  const [yearValue, setYearValue] = useState(tahun);
-
-  const onSemesterChange = useCallback((e) => {
-    setSemesterValue(e);
-  }, []);
-
-  const onYearChange = useCallback((e) => {
-    setYearValue(e);
-  }, []);
-
-  const onSubmit = useCallback(() => {
-    // e.preventDefault();
-    void router.push(
-      `/klasemen?year${String(yearValue)}&semester=${String(semesterValue)}`
-    );
-  }, [router, semesterValue, yearValue]);
+  const onExpodateChange = (val: string) => {
+    void router.push(`/klasemen?expoId=${val}`, undefined, { shallow: true });
+  };
 
   return (
     <MainLayout>
@@ -67,21 +43,21 @@ const Standings = () => {
           </title>
         </Head>
 
-        <section className="page_header" id="maincontent">
+        <section className="page_header mb-2" id="maincontent">
           <h1 className="page_header_title">{t("standings.header_title")}</h1>
           <span className="page_header_desc">{t("standings.header_desc")}</span>
 
-          {/* <StandingShorter onSubmit={onSubmit}>
-          <SemesterSelect value={semesterValue} onChange={onSemesterChange}>
-            {semesterOptions}
-          </SemesterSelect>
-          <YearSelect value={yearValue} onChange={onYearChange}>
-            {yearOptions}
-          </YearSelect>
-        </StandingShorter> */}
+          <div className="mx-auto w-fit">
+            <Select
+              className="w-60"
+              options={expoDateoprionMemo}
+              onChange={(val) => onExpodateChange(String(val?.value))}
+              placeholder="Expo Period"
+            ></Select>
+          </div>
         </section>
 
-        <article className="page_article">
+        <article className="page_article mt-2">
           {/* <h2 className="page_article_title standing__article__title">
             {t("standings.semester", { semester, tahun })}
           </h2> */}
