@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { Breadcrumb, Item } from "~/components/breadcrumb/breadcrumb";
@@ -16,7 +16,6 @@ import {
   Select,
   Submit,
 } from "~/components/form/form";
-
 const TeamEditForm = () => {
   const router = useRouter();
   const { t } = useTranslation();
@@ -32,10 +31,38 @@ const TeamEditForm = () => {
     enabled: status === "authenticated" && id != null,
   });
 
-  const [teamName, setTeamName] = useState(team.data?.name || "");
+  const [teamName, setTeamName] = useState("");
   const [subjectAndLecturer, setSubjectAndLecturer] = useState<
     { lecturerId: number; subjectId: number }[]
   >([]);
+
+  useEffect(()=> {
+    if(team.isSuccess){
+      setTeamName(team.data?.name ?? "")
+    }
+  },[team.data?.name, team.isSuccess])
+
+  const subjectOptionMemo = useMemo(() => {
+    if (subjects.data == null || subjectAndLecturer == null) return [];
+    return subjects.data;
+  }, [subjectAndLecturer, subjects.data]);
+
+  const handleTeamName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTeamName(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void editTeamMutation
+      .mutateAsync({ id: Number(id), name: teamName, subjectAndLecturer })
+      .then(() => {
+        return void router.push(`/dashboard`);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("gagal edit tim, cek cosole untuk detailnya");
+      });
+  };
 
   const subjectOptionMemo = useMemo(() => {
     if (subjects.data == null || subjectAndLecturer == null) return [];
@@ -114,14 +141,14 @@ const TeamEditForm = () => {
               value={user.data?.name ?? ""}
               label={t("teamForm.form_leader")}
             />
-
-            <Input
-              value={teamName}
-              onChange={handleTeamName}
-              label={t("teamForm.form_teamName")}
-              // error={teamNameError}
-              name="teamName"
-            />
+            {team.isSuccess && (
+              <Input
+                value={teamName}
+                onChange={handleTeamName}
+                label={t("teamForm.form_teamName")}
+                name="teamName"
+              />
+            )}
 
             {subjectAndLecturer.map(({ lecturerId, subjectId }, i) => (
               <MultipleInputWrapper key={i} className="double_select_container">
