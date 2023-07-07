@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
 
         if (isFirstSignIn) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          const isStudent = profile.email.includes("@students.");
+          const isStudent = profile.email.includes("@students.uii.ac.id");
           roleId = isStudent ? 1 : 3;
         }
 
