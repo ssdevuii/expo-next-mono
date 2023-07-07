@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
@@ -37,6 +39,23 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
+    // async signIn({ user, account, profile }) {
+    //   const { email } = user;
+
+    //   // Check if it's the user's first sign-in
+    //   const isFirstSignIn =
+    //     (await prisma.user.count({ where: { email } })) === 0;
+
+    //   if (isFirstSignIn && email) {
+    //     // Add the role to the user
+    //     await prisma.user.update({
+    //       where: { email },
+    //       data: { roleId: 1 },
+    //     });
+    //   }
+
+    //   return true;
+    // },
     session: ({ session, user }) => ({
       ...session,
       user: {
@@ -51,6 +70,27 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
       allowDangerousEmailAccountLinking: true,
+      async profile(profile) {
+        // FIXME: Possible error!
+        let roleId = 3;
+        const isFirstSignIn =
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          (await prisma.user.count({ where: { email: profile.email } })) == 0;
+
+        if (isFirstSignIn) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          const isStudent = profile.email.includes("@students.uii.ac.id");
+          roleId = isStudent ? 1 : 3;
+        }
+
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          roleId,
+        };
+      },
     }),
     /**
      * ...add more providers here.
@@ -75,3 +115,5 @@ export const getServerAuthSession = (ctx: {
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
 };
+
+// how to add role on first signup in next auth with google provider?

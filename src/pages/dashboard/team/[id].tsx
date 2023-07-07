@@ -36,11 +36,11 @@ const TeamEditForm = () => {
     { lecturerId: number; subjectId: number }[]
   >([]);
 
-  useEffect(()=> {
-    if(team.isSuccess){
-      setTeamName(team.data?.name ?? "")
+  useEffect(() => {
+    if (team.isSuccess) {
+      setTeamName(team.data?.name ?? "");
     }
-  },[team.data?.name, team.isSuccess])
+  }, [team.data?.name, team.isSuccess]);
 
   const subjectOptionMemo = useMemo(() => {
     if (subjects.data == null || subjectAndLecturer == null) return [];
@@ -50,7 +50,6 @@ const TeamEditForm = () => {
   const handleTeamName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTeamName(e.target.value);
   };
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
