@@ -30,7 +30,12 @@ const KaryaCard: React.FC<{
 
   return (
     <div className={s.card}>
-      <div className="relative min-w-[190px] max-w-[200px]">
+      <div
+        className={classNames(
+          s.image_wraper,
+          "relative min-w-[190px] max-w-[200px]"
+        )}
+      >
         <Image
           unoptimized
           className={classNames(s.img, s.before_loaded)}
@@ -41,6 +46,7 @@ const KaryaCard: React.FC<{
           fill
         />
       </div>
+
       <div className={classNames(s.description, descClassName)}>
         <ul>
           <li>
