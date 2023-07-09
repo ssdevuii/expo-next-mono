@@ -76,11 +76,11 @@ export const teamRouter = createTRPCRouter({
             TeamSubjects: { createMany: { data: input.subjectAndLecturer } },
           },
         });
-      }else {
+      } else {
         return await ctx.prisma.teams.update({
           where: { id: input.id },
           data: {
-            name: input.name
+            name: input.name,
           },
         });
       }
@@ -89,14 +89,16 @@ export const teamRouter = createTRPCRouter({
   deleteTeam: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
-      const project = await ctx.prisma.projects.findFirstOrThrow({
+      const project = await ctx.prisma.projects.findFirst({
         where: { teamId: input },
       });
 
-      await ctx.prisma.likes.deleteMany({ where: { projectId: project.id } });
+      if (project) {
+        await ctx.prisma.likes.deleteMany({ where: { projectId: project.id } });
+        await ctx.prisma.projects.delete({ where: { id: project.id } });
+      }
       await ctx.prisma.members.deleteMany({ where: { teamId: input } });
       await ctx.prisma.teamSubjects.deleteMany({ where: { teamId: input } });
-      await ctx.prisma.projects.delete({ where: { id: project.id } });
 
       return ctx.prisma.teams.delete({
         where: { id: input },

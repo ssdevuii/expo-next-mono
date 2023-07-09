@@ -45,6 +45,11 @@ const TeamForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (subjectAndLecturer.length < 1) {
+      return alert("mata kuliah dan Dosen tidak boleh kosong");
+    }
+
     void createTeamMutation
       .mutateAsync({ name: teamName, subjectAndLecturer })
       .then(({ id }) => {
