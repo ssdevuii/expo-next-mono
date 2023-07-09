@@ -10,6 +10,9 @@ export const projectRouter = createTRPCRouter({
     .input(z.number().optional())
     .query(({ ctx, input }) => {
       return ctx.prisma.projects.findMany({
+        where: {
+          Team: { NOT: { TeamSubjects: { none: {} } } },
+        },
         include: {
           Category: true,
           Team: { include: { TeamSubjects: { include: { Subject: true } } } },
