@@ -193,12 +193,14 @@ const TeamForm = () => {
               onChange={nameStateHandler}
               label={t("karyaForm.form_karyaName")}
               name="karyaName"
+              required
             />
 
             <Select
               value={category}
               onChange={categoryStateHandler}
               label={t("karyaForm.form_category")}
+              required
             >
               {categories.data?.map(({ name, id }) => (
                 <Option key={id} value={id}>
@@ -240,7 +242,7 @@ const TeamForm = () => {
               value={demoURL}
               type="url"
               onChange={demoStateHandler}
-              required={false}
+              required
               label={t("karyaForm.form_demoURL")}
             />
 
@@ -248,7 +250,7 @@ const TeamForm = () => {
               value={videoURL}
               type="url"
               onChange={videoStateHandler}
-              required={false}
+              required
               label={t("karyaForm.form_videoUrl")}
             />
 
