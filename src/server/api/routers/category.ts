@@ -7,6 +7,10 @@ import {
 
 export const categoryRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.categories.findMany();
+    return ctx.prisma.categories.findMany({
+      select: {
+        projects: true,
+      }
+    });
   }),
 });
