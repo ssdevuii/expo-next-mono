@@ -382,11 +382,18 @@ const Karya = () => {
                   fill
                 />
               </div>
+
+              
+
               <span
                 className={classNames("karyaHeader__like__number", "relative")}
               >
                 {project.data?._count.Likes}
               </span>
+
+              <div className="relative">
+                <a href="http://aaaa">Halo</a>
+              </div>
             </div>
           </section>
         )}
