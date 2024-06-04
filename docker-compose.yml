@@ -1,20 +1,21 @@
 version: "3.7"
 services:
   db:
+    platform: linux/x86_64
     image: mysql:5.7
     container_name: expo-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      # MYSQL_PASSWORD: ${DB_PASSWORD}
+      # MYSQL_USER: ${DB_USERNAME}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql-expo
     ports:
-      - "3306:3306"
-    volumes:
-      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+      - "3307:3306"
+    # volumes:
+    #   - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
       - expo
 

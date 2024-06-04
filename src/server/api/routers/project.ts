@@ -91,7 +91,8 @@ export const projectRouter = createTRPCRouter({
         _count: { select: { Likes: true } },
         Team: {
           include: {
-            Members: { include: { User: true } },
+            // Members: { include: { User: true } },
+            Members: {include: { User: true }},
             TeamSubjects: {
               include: {
                 Subject: true,
