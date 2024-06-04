@@ -217,6 +217,7 @@ const Team: React.FC<{
   );
 };
 
+// perbaikan like disini
 const Support = ({ id }: { id: number }) => {
   const { t } = useTranslation();
   const { status } = useSession();
@@ -371,29 +372,38 @@ const Karya = () => {
               {t("karya.by")} {project.data?.Team.name}
             </span>
 
+{/* penambahan lihat siapa yang like */}
+{/* Buat percabangan untuk heaer like, jadi ketika database expoDate id kurang dari expoDate id yang sekarang maka tampilkan yang dulu */}
             <div
-              className={classNames("karyaHeader__like", "relative flex gap-2")}
+              className={classNames("karyaHeader__like", "relative flex flex-col")}
             >
-              <div className="relative h-6 w-6">
-                <Image
-                  src={"/assets/icons/heart-solid.svg"}
-                  alt="heart icon"
-                  className="karyaHeader__like__icon"
-                  fill
-                />
+              <div className = "flex items-center">
+                <div className="relative h-6 w-6">
+                  <Image
+                    src={"/assets/icons/heart-solid.svg"}
+                    alt="heart icon"
+                    className="karyaHeader__like__icon"
+                    fill
+                  />
+                </div>
+                <span
+                  className={classNames("karyaHeader__like__number", "relative")}
+                >
+                  {project.data?._count.Likes}
+                </span>
               </div>
-
-              
-
-              <span
-                className={classNames("karyaHeader__like__number", "relative")}
+              <a
+                href="#"
+                className="karyaHeader_viewLikes"
+                onClick={(e) => {
+                  e.preventDefault();
+                    // Toggle popup visibility
+                    // const popup = document.getElementById("likes-popup");
+                    // popup.classList.toggle("hidden");
+                }}
               >
-                {project.data?._count.Likes}
-              </span>
-
-              <div className="relative">
-                <a href="http://aaaa">Halo</a>
-              </div>
+                Lihat Likes
+              </a>
             </div>
           </section>
         )}
