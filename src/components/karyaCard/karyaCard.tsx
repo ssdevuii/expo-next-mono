@@ -1,4 +1,4 @@
-import React from "react";
+  import React from "react";
 import s from "./style.module.scss";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";

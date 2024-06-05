@@ -10,9 +10,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 import classNames from "classnames";
 import MainLayout from "~/layouts/main";
-
-//Add LikeModal 
 import LikeModal from "~/components/likeModal/likeModal";
+import "~/components/likeModal/style.module.scss";
 import {
   type User,
   type lecturers,
@@ -224,7 +223,7 @@ const Team: React.FC<{
 const Support = ({ id }: { id: number }) => {
   const { t } = useTranslation();
   const { status } = useSession();
-  const [isModalOpen , setIsModalOpen] = useState(false);
+  // const [isModalOpen , setIsModalOpen] = useState(false);
 
   const likeRemain = api.user.likeRemain.useQuery(undefined, {
     enabled: status === "authenticated",
@@ -270,10 +269,10 @@ const Support = ({ id }: { id: number }) => {
           <span className="karya__support__count">
             {t("karya.support_count", { count: likeRemain?.data })}
           </span>
-          <button onClick={() => setIsModalOpen(true)} className="see-likes-button">
+          {/* <button onClick={() => setIsModalOpen(true)} className="see-likes-button">
             Lihat siapa yang like
-          </button>
-          <LikeModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} projectId={id} />
+          </button>  */}
+          {/* <LikeModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} projectId={id} /> */}
 
         </div>
       ) : (
@@ -337,16 +336,21 @@ const breakpoint = {
   tablet: 768,
 };
 // * Main
-const Karya = () => {
+const Karya = ({ id: propId }: { id: number} ) => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id: queryId } = router.query;
   const { t } = useTranslation();
 
-  const project = api.project.getById.useQuery(Number(id), {
-    enabled: id != null,
-  });
+  const [isModalOpen , setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const [windowWidth, setWindowWidth] = useState<number>(0);
+
+  const projectId = queryId ? Number(queryId) : propId;
+  const project = api.project.getById.useQuery(projectId, {
+    enabled: projectId != null,
+  });
 
   const handleResize = () => {
     if (window != undefined) {
@@ -401,19 +405,25 @@ const Karya = () => {
                   {project.data?._count.Likes}
                 </span>
               </div>
-              <a
-                href="#"
-                className="karyaHeader_viewLikes"
-                onClick={(e) => {
-                  e.preventDefault();
-                    // Toggle popup visibility
-                    // const popup = document.getElementById("likes-popup");
-                    // popup.classList.toggle("hidden");
-                }}
-              >
-                Lihat Likes
-              </a>
-            </div>
+              <div>
+                <a
+                  href="#"
+                  className="karyaHeader_viewLikes"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // setIsModalOpen(true);
+                    openModal();
+                  }}
+                >
+                  Lihat Likes
+                </a>
+                
+                {isModalOpen && (
+                  <LikeModal isOpen={isModalOpen} onRequestClose={closeModal} projectId={projectId} />
+                )}
+                
+              </div>
+            </div> 
           </section>
         )}
 
@@ -427,7 +437,7 @@ const Karya = () => {
                   src={project.data?.gdriveLink ?? ""}
                   alt={project.data?.name ?? ""}
                 />
-                <Support id={Number(id)} />
+                <Support id={Number(queryId)} />
                 <Share name={project.data?.name ?? ""} />
               </div>
               <div className="karyaContent_right">
@@ -451,7 +461,7 @@ const Karya = () => {
                   src={project.data?.gdriveLink ?? ""}
                   alt={project.data?.name ?? ""}
                 />
-                <Support id={Number(id)} />
+                <Support id={Number(queryId)} />
                 <Share name={project.data?.name ?? ""} />
                 <Desc desc={project.data?.description ?? ""} />
                 {project.data && (

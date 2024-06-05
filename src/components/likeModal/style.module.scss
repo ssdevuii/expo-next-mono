@@ -1,47 +1,97 @@
 @use '../../styles/index' as *;
 
-.modal-overlay {
+.modal {
+  background-color: $blue-dark;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5em;
+  border-radius: 1.25em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+
+  @include media('>tablet') {
+    padding: 2em;
+    width: 400px;
+  }
+
+  @include media('>desktop') {
+    padding: 2em;
+    width: 500px;
+  }
+
+  @include media('>=desktop_l') {
+    padding: 3.1em;
+    width: 600px;
+  }
+
+  .modal__closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: red;
+    cursor: pointer;
+
+    &:hover {
+      color: darkred;
+    }
+  }
+
+  .modal__viewLikes {
+    text-align: center;
+    margin-top: 2em;
+
+    .modal__viewLikes__title {
+      margin-bottom: 20px;
+      color: $white;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .modal__likeList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 60vh;
+      overflow-y: auto;
+
+      .modal__likeList__item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0;
+
+        .modal__likeList__avatar {
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        span {
+          color: $white;
+          font-size: 1.25em;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.like-list {
-  list-style: none;
-  padding: 0;
-}
-
-.like-list-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.like-list-avatar {
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.close-button {
-  margin-top: 20px;
-  background: #0070f3;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  z-index: 9999; 
 }
