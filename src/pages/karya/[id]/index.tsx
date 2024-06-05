@@ -217,6 +217,7 @@ const Team: React.FC<{
   );
 };
 
+// perbaikan like disini
 const Support = ({ id }: { id: number }) => {
   const { t } = useTranslation();
   const { status } = useSession();
@@ -371,8 +372,10 @@ const Karya = () => {
               {t("karya.by")} {project.data?.Team.name}
             </span>
 
+{/* penambahan lihat siapa yang like */}
+{/* Buat percabangan untuk heaer like, jadi ketika database expoDate id kurang dari expoDate id yang sekarang maka tampilkan yang dulu */}
             <div
-              className={classNames("karyaHeader__like", "relative flex gap-2")}
+              className={classNames("karyaHeader__like", "relative flex flex-col")}
             >
               <div className="relative h-6 w-6">
                 <Image
@@ -382,18 +385,11 @@ const Karya = () => {
                   fill
                 />
               </div>
-
-              
-
               <span
                 className={classNames("karyaHeader__like__number", "relative")}
               >
                 {project.data?._count.Likes}
               </span>
-
-              <div className="relative">
-                <a href="http://aaaa">Halo</a>
-              </div>
             </div>
           </section>
         )}
