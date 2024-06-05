@@ -10,6 +10,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 import classNames from "classnames";
 import MainLayout from "~/layouts/main";
+
+//Add LikeModal 
+import LikeModal from "~/components/likeModal/likeModal";
 import {
   type User,
   type lecturers,
@@ -221,6 +224,7 @@ const Team: React.FC<{
 const Support = ({ id }: { id: number }) => {
   const { t } = useTranslation();
   const { status } = useSession();
+  const [isModalOpen , setIsModalOpen] = useState(false);
 
   const likeRemain = api.user.likeRemain.useQuery(undefined, {
     enabled: status === "authenticated",
@@ -266,6 +270,11 @@ const Support = ({ id }: { id: number }) => {
           <span className="karya__support__count">
             {t("karya.support_count", { count: likeRemain?.data })}
           </span>
+          <button onClick={() => setIsModalOpen(true)} className="see-likes-button">
+            Lihat siapa yang like
+          </button>
+          <LikeModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} projectId={id} />
+
         </div>
       ) : (
         <div>
