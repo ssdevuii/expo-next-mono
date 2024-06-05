@@ -22,11 +22,15 @@
     font-weight: 500;
     color: #337ab7;
     text-decoration: none;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out; 
 
     &:hover {
       color: #23527c;
     }  
+  }
+
+  .karyaHeader_modal {
+    z-index: 2000;
   }
   
   @include media(">mobile_l") {
