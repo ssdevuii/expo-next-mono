@@ -15,11 +15,14 @@ Modal.setAppElement("#__next");
 const LikeModal: React.FC<{ isOpen : boolean; onRequestClose: () => void; projectId: number }> = ({ isOpen, onRequestClose, projectId }) => {
   const { t } = useTranslation();
   const likedBy = api.project.getLikedBy.useQuery(projectId);
-//const likedBy = api.project.likeProjectById;
 
   if (!isOpen) {
     return null;
   }
+
+  const uniqueUsers = likedBy.data ? Array.from(new Set(likedBy.data.map(user => user.User.id)))
+    .map(id => likedBy.data.find(user => user.User.id === id)) : [];
+
   const modalContent=(
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className={s.modal} overlayClassName={s.modalOverlay}>
       <button onClick={onRequestClose} className={s.modal__closeButton}>×</button>
@@ -31,10 +34,10 @@ const LikeModal: React.FC<{ isOpen : boolean; onRequestClose: () => void; projec
           <p>Error loading data</p>
         ) : (
           <ul className={s.modal__likeList}>
-            {likedBy.data?.map((user) => (
-              <li key={user.id} className={s.modal__likeList__item}>
-                <Image src={user.User.image ?? ""} alt={user.User.name ?? ""} width={50} height={50} className={s.modal__likeList__avatar} />
-                <span>{user.User.name}</span>
+            {uniqueUsers.map((user) => (
+              <li key={user?.User.id} className={s.modal__likeList__item}>
+                <Image src={user?.User.image ?? ""} alt={user?.User.name ?? ""} width={50} height={50} className={s.modal__likeList__avatar} />
+                <span>{user?.User.name}</span>
               </li>
             ))}
           </ul>
