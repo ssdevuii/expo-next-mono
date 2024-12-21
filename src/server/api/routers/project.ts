@@ -91,7 +91,8 @@ export const projectRouter = createTRPCRouter({
         _count: { select: { Likes: true } },
         Team: {
           include: {
-            Members: { include: { User: true } },
+            // Members: { include: { User: true } },
+            Members: {include: { User: true }},
             TeamSubjects: {
               include: {
                 Subject: true,
@@ -199,5 +200,26 @@ export const projectRouter = createTRPCRouter({
       },
       where: { categoryId: input ?? undefined },
     });
+  }),
+  getLikedBy: publicProcedure
+  .input(z.number())
+  .query(async ({ ctx, input }) => {
+    const likes = await ctx.prisma.likes.findMany({
+      where: { projectId: input },
+    });
+
+    const validLikes = [];
+
+    for (const like of likes) {
+      const user = await ctx.prisma.user.findUnique({
+        where: { id: like.userId },
+      });
+
+      if (user) {
+        validLikes.push({ ...like, User: user });
+      }
+    }
+
+    return validLikes;
   }),
 });

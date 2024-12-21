@@ -16,6 +16,23 @@
   grid-template-rows: repeat(3, auto);
   grid-template-columns: 1fr;
 
+  .karyaHeader_viewLikes {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out; 
+
+    &:hover {
+      color: #F6D105;
+    }  
+  }
+
+  .karyaHeader_modal {
+    z-index: 2000;
+  }
+  
   @include media(">mobile_l") {
     margin-bottom: 3em;
     padding: 2em 2em;
@@ -45,6 +62,8 @@
     @include media(">tablet") {
       font-size: 1.8em;
     }
+
+
   }
 
   &__team {
