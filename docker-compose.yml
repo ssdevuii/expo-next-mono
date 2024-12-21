@@ -30,14 +30,14 @@ services:
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      # MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql-expo
     ports:
       - "3306:3306"
-    # volumes:
-    #   - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
       - expo
 
@@ -50,7 +50,7 @@ services:
       - "5555:80"
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: "saya"
       UPLOAD_LIMIT: 300M
     networks:
       - expo

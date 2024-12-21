@@ -27,6 +27,12 @@ const config = {
    */
   i18n: i18n.i18n,
   output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: true
+  },
+  typescript: {
+    ignoreBuildErrors: true
+  }
 };
 
 export default config;

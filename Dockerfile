@@ -27,6 +27,9 @@ ARG DB_USERNAME
 ARG DB_PASSWORD
 ARG NEXT_PUBLIC_CLIENTVAR
 
+RUN echo ${DB_USERNAME}
+RUN echo ${DB_PASSWORD}
+
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 
